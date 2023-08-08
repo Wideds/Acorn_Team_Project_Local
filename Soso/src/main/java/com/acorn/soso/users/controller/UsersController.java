@@ -2,7 +2,6 @@ package com.acorn.soso.users.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLEncoder;
@@ -20,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -40,13 +40,27 @@ public class UsersController {
 		
 		return "users/signup_form";
 	}
+
+	@PostMapping("/users/idCheck")
+	@ResponseBody
+	public boolean idCheck(@RequestParam String id) {
+	    return service.isExist(id);
+	}
+
 	
-	//회원 가입 요청처리
+	// 회원 가입 요청 처리
 	@PostMapping("/users/signup")
 	public String signup(UsersDto dto) {
-		//서비스를 이용해서 DB에 저장
-		service.addUser(dto);
-		return "users/signup";
+	    // 아이디 중복 체크
+	    boolean isExist = service.isExist(dto.getId());
+	    if (isExist) {
+	        // 중복된 아이디가 존재하면 회원 가입 페이지로 다시 이동
+	        return "redirect:/users/signup_form";
+	    }
+
+	    // 서비스를 이용해서 DB에 저장
+	    service.addUser(dto);
+	    return "users/signup";
 	}
 	
 	//로그인 폼 요청처리

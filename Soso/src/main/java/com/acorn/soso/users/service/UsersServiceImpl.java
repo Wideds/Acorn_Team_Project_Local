@@ -43,9 +43,9 @@ public class UsersServiceImpl implements UsersService{
 	
 	//아이디 중복체크
 	@Override
-	public boolean isExist(String id) {
-		return dao.isExist(id) != 0;
-	}
+    public boolean isExist(String id) {
+        return dao.isExist(id) != 0;
+    }
 	
 	//비밀번호 확인
 	@Override

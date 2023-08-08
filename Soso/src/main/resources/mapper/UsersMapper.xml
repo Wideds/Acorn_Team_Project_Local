@@ -5,6 +5,11 @@
 
 <mapper namespace="users">
 
+	<!-- 아이디 중복체크 -->
+    <select id="isExist" parameterType="string" resultType="int">
+        SELECT COUNT(*) FROM users WHERE id = #{id}
+    </select>
+
 	<insert id="insert" parameterType="usersDto">
 		INSERT INTO users
 		(id, pwd, email, regdate, userName, birth, gender)
