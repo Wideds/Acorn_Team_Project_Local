@@ -24,11 +24,10 @@ public class GroupDaoImpl implements GroupDao{
 		return session.selectList("group.getRanking", dto);
 	}
 
-
+	//소모임 개설하기
 	@Override
 	public void insert(GroupDto dto) {
 		session.insert("group.insert", dto);
-		
 	}
 
 	@Override

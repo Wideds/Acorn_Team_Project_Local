@@ -57,9 +57,13 @@
    </select>
    
    <insert id="insert" parameterType="groupDto">
-      INSERT INTO board_group
-      (num, writer, title, caption, imagePath, regdate)
-      VALUES(board_group_seq.NEXTVAL, #{writer}, #{title}, #{caption}, #{imagePath}, SYSDATE)
+      INSERT INTO group_tb
+      (num, name, caption, img_path, created_dt, ended_dt, deadline_dt, start_dt, 
+      manager_id, max_people, meeting_loc, meeting_time, genre, on_off, manager_comment)
+      VALUES(board_group_seq.NEXTVAL, 
+      #{name}, #{caption}, #{img_path}, SYSDATE, #{ended_dt}, #{deadline_dt}, #{start_dt},
+      #{manager_id}, #{max_people}, #{meeting_loc}, #{meeting_time}, #{genre}, #{on_off},
+      #{manager_comment})
    </insert>
    
    <select id="getData" parameterType="int" resultType="groupDto">

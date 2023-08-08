@@ -11,7 +11,7 @@ public interface GroupDao {
 	public List<GroupDto> getRanking(GroupDto dto);	
 	//모든 Row의 갯수
 	public int getCount(GroupDto dto);
-	//갤러리의 사진 저장하기
+	//소모임 개설하기
 	public void insert(GroupDto dto);
 	//pk를 이용해 게시글 하나의 data 가져오기
 	public GroupDto getData(int num);

@@ -14,20 +14,48 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Alias("groupDto")
 public class GroupDto {
-	//영화에 관련한 필드값을 담아두기 위한 DTO이다.
+	//소모임 그룹과 관련된 필드값을 담아두기 위한 DTO이다.
 	
-	//영화 번호
+	//소모임 번호
 	private int num;
-	//작성자
-	private String writer;
-	//영화 타이틀
-	private String title;
-	//영화에 대한 설명
+	//소모임 타이틀
+	private String name;
+	//소모임 설명
 	private String caption;
-	//영화 포스터 이미지 패스
-	private String imagePath;
-	//게시글 올린 날짜
-	private String regdate;
+	//소모임 대표 이미지 경로
+	private String img_path;
+	//소모임 생성 날짜
+	private String created_dt;
+	//소모임 종료 날짜
+	private String ended_dt;
+	//소모임 모집 마감 날짜
+	private String deadline_dt;
+	//소모임 활동 시작 날짜
+	private String start_dt;
+	//소모임 관리자 아이디(생성자 아이디)
+	private String manager_id;
+	//소모임 최대 가입 가능 회원수
+	private int max_people;
+	//소모임 현재 가입 회원수
+	private int now_people;
+	//소모임 평균 별점
+	private double avrg_rate;
+	//오프라인 소모임 장소
+	private String meeting_loc;
+	//오프라인 소모임 시간
+	private String meeting_time;
+	//소모임 장르
+	private int genre;
+	//소모임 활동 성격 (온, 오프라인)
+	private int on_off;
+	//소모임 생성자의 한마디
+	private String manager_comment;
+	//소모임 조회수
+	private int viewCount;
+	
+	//이미지 처리를 위한 필드
+	private MultipartFile image;
+	
 	//추천수
 	private int thumsup;
 	//비추수
@@ -37,7 +65,6 @@ public class GroupDto {
 	private int endRowNum;
 	private int prevNum;
 	private int nextNum;
-	private MultipartFile image; //이미지 처리를 위한 필드
-	
+	 
 	private double rate;
 }

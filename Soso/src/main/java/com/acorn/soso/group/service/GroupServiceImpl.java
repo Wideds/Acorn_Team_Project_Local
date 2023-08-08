@@ -82,12 +82,12 @@ public class GroupServiceImpl implements GroupService{
 		    if(!keyword.equals("")) {
 		    	//검색 조건이 무엇인가에 따라 분기
 		    	if(condition.equals("title_caption")) {//w제목+내용 검색인 경우
-		    		dto.setTitle(keyword);
+		    		dto.setName(keyword);
 		    		dto.setCaption(keyword);
 		    	}else if(condition.equals("title")) {
-		    		dto.setTitle(keyword);
+		    		dto.setName(keyword);
 		    	}else if(condition.equals("writer")) {
-		    		dto.setWriter(keyword);
+		    		dto.setManager_id(keyword);
 		    	}
 		    }
 	      
@@ -129,11 +129,11 @@ public class GroupServiceImpl implements GroupService{
 		//getNum이 아직 부여되지 않아서 없음ㅇㅇ
 		//getData를 하나 더 만들어야겠다
 		//resultDto가 null이면 500발생한다(신규추가가 안됨)
-		 GroupDto resultDto = dao.getData(dto.getTitle());
+		 GroupDto resultDto = dao.getData(dto.getName());
 		 if(resultDto != null) {
-			 String title = resultDto.getTitle();
-			 if(title.equals(dto.getTitle())) {
-			 throw new DonEqualException("같은 영화가 이미 존재합니다.");
+			 String title = resultDto.getName();
+			 if(title.equals(dto.getName())) {
+			 throw new DonEqualException("같은 소모임이 이미 존재합니다.");
 		 }
 		 }
 		
@@ -170,10 +170,10 @@ public class GroupServiceImpl implements GroupService{
 	      //-> 추가할 것 : writer(id), imagePath 만 추가로 담아주면 된다.
 	      //-> num, regdate : db 에 추가하면서 자동으로 들어감
 	      String id = (String)request.getSession().getAttribute("id");
-	      dto.setWriter(id);
+	      dto.setManager_id(id);
 	      //Movie 는 사진 다운 기능이 없다. -> orgFileName, saveFileName, fileSize 저장할 필요X
 	      //imagePath 만 저장해주면 됨
-	      dto.setImagePath("/resources/upload/" + saveFileName);
+	      dto.setImg_path("/resources/upload/" + saveFileName);
 	      
 	      //MovieDao 를 이용해서 DB 에 저장하기
 	      dao.insert(dto);		
@@ -205,7 +205,7 @@ public class GroupServiceImpl implements GroupService{
 		
 		if(totalRow>0) {
 			// dto의 title을 매개로 평균 평점을 구한다.
-			Double avgRate = reviewdao.getAvg(dto.getTitle());
+			Double avgRate = reviewdao.getAvg(dto.getName());
 			if (avgRate != null) {
 			    // 평균 평점을 담는다.
 			    mView.addObject("avgRate", avgRate);
@@ -218,13 +218,48 @@ public class GroupServiceImpl implements GroupService{
 		mView.addObject("totalPageCount", totalPageCount);
 		
 	}
+	
+	@Override
+	public void insert(GroupDto dto, HttpServletRequest request) {
+		//업로드된 파일의 정보를 가지고 있는 MultipartFile 객체의 참조값을 얻어오기
+		MultipartFile image = dto.getImage();
+		//원본 파일명 -> 저장할 파일 이름 만들기위해서 사용됨
+		String orgFileName = image.getOriginalFilename();
+		// webapp/upload 폴더 까지의 실제 경로(서버의 파일 시스템 상에서의 경로)
+		String realPath = request.getServletContext().getRealPath("/resources/upload");
+		//db 에 저장할 저장할 파일의 상세 경로
+		String filePath = realPath + File.separator;
+		//디렉토리를 만들 파일 객체 생성
+		File upload = new File(filePath);
+		if(!upload.exists()) {
+			//만약 디렉토리가 존재하지X
+			upload.mkdir();//폴더 생성
+		}
+		//저장할 파일의 이름을 구성한다. -> 우리가 직접 구성해줘야한다.
+		String saveFileName = System.currentTimeMillis() + orgFileName;
+	      
+		try {
+			//기존 파일이 존재하면 삭제
+			File existingFile = new File(filePath + saveFileName);
+			if(existingFile.exists()) {
+				existingFile.delete();
+			}
+			//upload 폴더에 파일을 저장한다.
+			image.transferTo(new File(filePath + saveFileName));
+			System.out.println();   //임시 출력
+		}catch(Exception e) {
+	         e.printStackTrace();
+		}
+		dto.setImg_path("/resources/upload/" + saveFileName);
+		dao.insert(dto);
+	}
 
 	@Override
 	public void update(GroupDto dto, HttpServletRequest request) {
 		 GroupDto resultDto = dao.getData(dto.getNum());
 		 if(resultDto != null) {
-			 String title = resultDto.getTitle();
-			 if(title.equals(dto.getTitle())) {
+			 String title = resultDto.getName();
+			 if(title.equals(dto.getName())) {
 			 throw new DonEqualException("같은 소모임이 이미 존재합니다.");
 			 }
 		 }
@@ -264,7 +299,7 @@ public class GroupServiceImpl implements GroupService{
 	      //-> 추가할 것 : imagePath 만 추가로 담아주면 된다.
 	      //-> num, title, caption : db 에 추가하면서 자동으로 들어감
 	      //imagePath 만 저장해주면 됨
-	     dto.setImagePath("/resources/upload/" + saveFileName);
+	     dto.setImg_path("/resources/upload/" + saveFileName);
 		dao.update(dto);
 	}
 

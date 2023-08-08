@@ -43,11 +43,11 @@
 	}
 	.comment-form textarea{
 		width: 84%;
-		height: 100px;
+		height: 60px;
 	}
 	.comment-form button{
 		width: 14%;
-		height: 100px;
+		height: 60px;
 	}
 	/* 댓글에 댓글을 다는 폼과 수정폼은 일단 숨긴다. */
 	.comments .comment-form{
@@ -100,16 +100,21 @@
 </head>
 </head>
 <body>
-	<div class="container">
-		
+	<div class="container" >
+	<br />
+		<div style="float: right;">
 		<%-- 만일 이전글(더 옛날글)의 글번호가 0 가 아니라면(이전글이 존재 한다면) --%>
 		<c:if test="${dto.prevNum ne 0}">
-			<a href="detail?num=${dto.prevNum }&condition=${condition}&keyword=${encodedK}">이전글</a>
+			<a href="detail?num=${dto.prevNum }&condition=${condition}&keyword=${encodedK}" class="btn btn-outline-dark"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
+ 			<path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
+			</svg>이전글</a>
 		</c:if>
 		
 		<%-- 만일 다음글(더 최신글)의 글번호가 0 가 아니라면(다음글이 존재 한다면) --%>
 		<c:if test="${dto.nextNum ne 0 }">
-			<a href="detail?num=${dto.nextNum }&condition=${condition}&keyword=${encodedK}">다음글</a>
+			<a href="detail?num=${dto.nextNum }&condition=${condition}&keyword=${encodedK}" class="btn btn-outline-dark">다음글<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+  			<path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+			</svg></a>
 		</c:if>
 		
 		<%-- 만일 검색 키워드가 있다면 --%>
@@ -119,20 +124,23 @@
 				<strong>${keyword }</strong> 검색어로 검색된 내용 자세히 보기
 			</p>
 		</c:if>
-		<h3>글 상세 보기</h3>
-		<table class="table table-bordered animate__animated animate__bounceInDown">
+		</div>
+		<br>
+		<h3 style="font-weight: bold;">${dto.title }</h3>
+		<table class="table table-bordered ">
 			<tr>
 				<th>글번호</th>
 				<td>${dto.num }</td>
 			</tr>
 			<tr>
+				<th>탭</th>
+				<td></td>
+			</tr>
+			<tr>
 				<th>작성자</th>
 				<td>${dto.writer }</td>
 			</tr>
-			<tr>
-				<th>제목</th>
-				<td>${dto.title }</td>
-			</tr>
+			
 			<tr>
 				<th>조회수</th>
 				<td>${dto.viewCount }</td>	
@@ -161,7 +169,7 @@
 			</script>
 		</c:if>
 		
-		<h4>댓글을 입력해 주세요</h4>
+		<h6 style="font-weight: bold;">댓글 쓰기</h6>
 		<!-- 원글에 댓글을 작성할 폼 -->
 		<form class="comment-form insert-form" action="comment_insert" method="post">
 			<!-- 원글의 글번호가 댓글의 ref_group 번호가 된다. -->
@@ -169,8 +177,8 @@
 			<!-- 원글의 작성자가 댓글의 대상자가 된다. -->
 			<input type="hidden" name="target_id" value="${dto.writer }"/>
 	
-			<textarea name="content">${empty id ? '댓글 작성을 위해 로그인이 필요 합니다.' : '' }</textarea>
-			<button type="submit">등록</button>
+			<textarea name="content" style="font-size: small;">${empty id ? '댓글 작성을 위해 로그인이 필요 합니다.' : '' }</textarea>
+			<button type="submit">쓰 기</button>
 		</form>
 		
 		<!-- 댓글 목록 -->

@@ -12,12 +12,12 @@
 
 	<insert id="insert" parameterType="usersDto">
 		INSERT INTO users
-		(id, pwd, email, regdate, userName, birth, gender)
-		VALUES(#{id}, #{pwd}, #{email}, SYSDATE, #{userName}, #{birth}, #{gender})
+		(id, pwd, email, regdate, Name, birth, gender, SVC_USE_PCY_AGMT_YN, PS_INFO_PROC_AGMT_YN, MKT_INFO_RECV_AGMT_YN)
+		VALUES(#{id}, #{pwd}, #{email}, SYSDATE, #{userName}, #{birth}, #{gender}, 0, 0, 0)
 	</insert>
 	
 	<select id="getData" parameterType="string" resultType="usersDto">
-		SELECT id, pwd, profile, email, regdate, userName, birth, gender
+		SELECT id, pwd, profile, email, regdate, Name, birth, gender, SVC_USE_PCY_AGMT_YN, PS_INFO_PROC_AGMT_YN, MKT_INFO_RECV_AGMT_YN
 		FROM users
 		WHERE id = #{id}
 	</select>
@@ -42,6 +42,6 @@
 	<select id="getId" parameterType="string" resultType="usersDto">
 		SELECT id, email
 		FROM users
-		WHERE userName=#{userName}
+		WHERE Name=#{Name}
 	</select>
 </mapper>

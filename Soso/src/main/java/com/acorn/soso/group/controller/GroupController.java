@@ -97,6 +97,13 @@ public class GroupController {
 		return "redirect:/group/detail?num="+ref_group;
 	}
 	
+	//소모임 추가하기
+	@PostMapping("/group/insert")
+	public String insert(GroupDto dto, HttpServletRequest request) {
+		service.insert(dto, request);
+		return "group/insert";
+	}
+	
 	//delete
 	@RequestMapping("/group/delete")
 	public String delete(int num) {

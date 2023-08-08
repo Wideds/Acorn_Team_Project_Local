@@ -16,13 +16,14 @@
 		<br>	
 		<h2 style="text-align: center">소모임 게시판</h2>
 		<div style="width:100%; text-align:right;">
-		<a href="${pageContext.request.contextPath }/cafe/insertform" class="btn btn-outline-dark" tabindex="-1" role="button" aria-disabled="true">글 쓰기</a>
+		<a href="${pageContext.request.contextPath }/cafe/insertform" class="btn btn-outline-dark" tabindex="-1" role="small-button" aria-disabled="true" >글 쓰기</a>
 		</div>
 		<br>
-		<table class="table ">
-			<thead class="table-group-divider" style="border-bottom: 2px dotted;">
+		<table class="table">
+			<thead class="table-group-divider" style="border-bottom: 1px;">
 				<tr>	
 					<th>번호</th>
+					<th>탭</th>
 					<th>작성자</th>
 					<th>제목</th>
 					<th style="text-align: center">조회수</th>
@@ -33,9 +34,10 @@
 				<c:forEach var="tmp" items="${list }">
 					<tr>
 						<td>${tmp.num }</td>
+						<td></td>
 						<td>${tmp.writer }</td>
 						<td>
-							<a style="color: black;"  class="text-decoration-none" href="detail?num=${tmp.num }&condition=${condition}&keyword=${encodedK}">${tmp.title }</a>
+							<a style="color: black;" class="text-decoration-none"  href="detail?num=${tmp.num }&condition=${condition}&keyword=${encodedK}">${tmp.title }</a>
 						</td>
 						<td style="text-align: center">${tmp.viewCount }</td>
 						<td style="text-align: center">${tmp.regdate }</td>
@@ -43,6 +45,7 @@
 				</c:forEach>
 			</tbody>
 		</table>
+		<br />
 				<ul class="pagination" style="justify-content: center;">
 					<%--
 						startPageNum 이 1 이 아닌 경우에만 Prev 링크를 제공한다. 
@@ -68,6 +71,7 @@
 					</c:if>				
 				</ul>
 		</nav>
+		<br />	
 		<script>
 			document.querySelectorAll(".pagination a").forEach(function(item){
 				//item 은 a 의 참조값이다 모든 a 요소에 mouseover 이벤트가 발생했을때 실행할 함수 등록
@@ -85,14 +89,16 @@
 	<div>
 		<!-- 검색 폼 -->
 		<form action="list" method="get">
-			<label for="condition">검색조건</label>	
+			<label for="condition"></label>	
 			<select name="condition" id="condition">
 				<option value="title_content" ${condition eq 'title_content' ? 'selected' : '' }>제목 + 내용</option>
 				<option value="title" ${condition eq 'title' ? 'selected' : '' }>제목</option>
 				<option value="writer" ${condition eq 'writer' ? 'selected' : '' }>작성자</option>
 			</select>
 			<input type="text" name="keyword" placeholder="검색어..." value="${keyword }"/>
-			<button type="submit">검색</button>
+			<button type="submit" class="btn btn-outline-dark"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+  			<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
+			</svg></button>
 		</form>
 		<c:if test="${not empty condition }">
 			<p>

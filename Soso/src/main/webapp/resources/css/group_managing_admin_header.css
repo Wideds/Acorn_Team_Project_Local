@@ -1,0 +1,65 @@
+@charset "UTF-8";
+
+/* body -> container  */
+.container{
+    margin: 0 auto;
+    width: 992px;
+}
+
+/* 페이지 내 모든 링크 */
+a{
+    text-decoration: none;
+    color: black;
+}
+
+/* 상단 메뉴바 위 '내 소모임 관리하기', '개설하기' 를 포함하는 박스 */
+#header{
+    border-bottom: 2px solid black;
+}
+
+#header .title{
+    font-size: 30px;
+    margin-top: 40px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+#header .linkBox {
+    display: flex;
+    justify-content: end;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+#header .link{
+    text-decoration: underline;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+/* header 바로 아래에 링크들 */ 
+#menus{
+    width: 200px;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 15px;
+    margin-bottom: 30px;
+}
+
+#menus div{
+    font-size: 20px;
+}
+
+#menus div:nth-child(1) a{
+    font-size: 20px;
+    font-weight: 600;
+    color: rgb(65, 75, 178);
+}
+
+/* 소모임 리스트 그리드 처리 */
+.wrapper{
+	display: grid;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 45px;
+}

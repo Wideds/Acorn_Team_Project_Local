@@ -15,10 +15,10 @@
 <body>
 	<h3 class="text-center fw-bold mt-5 pt-5 mb-3">소모임 개설 신청</h3>
 	<div class="container pt-5">
-		<form action="${pageContext.request.contextPath}/group_managing/group_insert" method="post" id="myForm">
+		<form action="${pageContext.request.contextPath}/group/insert" method="post" id="myForm">
 			<div class="mb-2">
 				<label class="control-label fw-bold" for="groupName">TITLE</label>
-				<input class="form-control" type="text" name="groupName" id="groupName" placeholder="Add text..."/>		
+				<input class="form-control" type="text" name="name" id="groupName" placeholder="Add text..."/>		
 			</div>
 			<div class="d-flex mb-3">
 				<select name="genre" id="genre" class="form-select col me-4">
