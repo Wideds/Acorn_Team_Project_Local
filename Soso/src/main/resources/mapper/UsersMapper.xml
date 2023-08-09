@@ -5,6 +5,11 @@
 
 <mapper namespace="users">
 
+	<insert id="insertUser" parameterType="usersDto">
+        INSERT INTO users (id, SVC_USE_PCY_AGMT_YN, PS_INFO_PROC_AGMT_YN, MKT_INFO_RECV_AGMT_YN)
+        VALUES (#{id}, #{svcUsePolicyAgreement}, #{psInfoProcessAgreement}, #{mktInfoReceiveAgreement})
+    </insert>
+
 	<!-- 아이디 중복체크 -->
     <select id="isExist" parameterType="string" resultType="int">
         SELECT COUNT(*) FROM users WHERE id = #{id}

@@ -17,7 +17,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.acorn.soso.users.dao.UsersDao;
-import com.acorn.soso.users.dto.UserAgreementDto;
 import com.acorn.soso.users.dto.UsersDto;
 
 @Service
@@ -31,9 +30,9 @@ public class UsersServiceImpl implements UsersService{
 	private String fileLocation;
 	
 	@Override
-    public void signUp(UserAgreementDto agreement) {
-        if (agreement.getSvcUsePolicyAgreement() == 1 && agreement.getPsInfoProcessAgreement() == 1) {
-        	dao.insertUserAgreement(agreement);
+    public void signUp(UsersDto dto) {
+        if (dto.getSvcUsePolicyAgreement() == 1 && dto.getPsInfoProcessAgreement() == 1) {
+        	dao.insertUserAgreement(dto);
             // 회원 가입 로직 추가
         }
     }

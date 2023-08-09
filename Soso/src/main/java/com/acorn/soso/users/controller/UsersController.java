@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.acorn.soso.users.dto.UserAgreementDto;
 import com.acorn.soso.users.dto.UsersDto;
 import com.acorn.soso.users.service.UsersService;
 
@@ -43,8 +42,8 @@ public class UsersController {
 	}
 
 	@PostMapping("/signup")
-	public String signUp(UserAgreementDto agreement, Model model) {
-	    service.signUp(agreement);
+	public String signUp(UsersDto dto, Model model) {
+	    service.signUp(dto);
 	    model.addAttribute("message", "회원가입 성공"); // 데이터 전달
 	    return "signup_success"; // 회원가입 성공 페이지로 이동
 	}

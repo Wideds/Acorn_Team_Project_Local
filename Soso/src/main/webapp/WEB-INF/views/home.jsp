@@ -500,7 +500,7 @@
         scrollBtn.addEventListener("click", scrollWindow);
         };
         scrollTop();
-     </script>
+     </script>u
       
 </body>
 </html>
