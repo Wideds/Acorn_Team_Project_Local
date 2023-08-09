@@ -1,0 +1,32 @@
+@charset "UTF-8";
+
+/* card img */
+.img-wrapper{
+   height: 250px;
+   transition: transform 0.3s ease-out;
+}
+
+@media(max-width: 575px){
+   .img-wrapper{
+      height: 400px;
+   }
+}
+
+.img-wrapper:hover{
+   transform: scale(1.1);
+}
+
+.img-wrapper img{
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+}
+
+/* card */
+.card .card-text{
+   display: block;
+   white-space: nowrap;
+   text-overflow: ellipsis;
+   overflow: hidden;
+}
+   

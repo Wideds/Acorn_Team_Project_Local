@@ -257,7 +257,7 @@ public class UsersServiceImpl implements UsersService{
 	@Override
 	public void findUserId(UsersDto dto, Model model) {
 		//입력받은 email의 정보를 resultDto에 담는다
-		String userName = dto.getUserName();
+		String userName = dto.getName();
 		UsersDto resultDto = dao.getId(userName);
 		
 		boolean isValid = false;

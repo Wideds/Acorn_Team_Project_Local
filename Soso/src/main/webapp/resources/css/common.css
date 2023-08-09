@@ -60,7 +60,7 @@ header .inner-wrap { height: 100%; display: flex; justify-content: space-between
     text-align: center;
 }
 
-.member{ float: right; width: 15%; height: 100%;  }
+.member{ float: right; width: 15%; height: 100%; display:contents;  }
 .member .memberWrap{ float: right; height: 100%;  }
 .member .memberWrap a{ float: left; height: 100%; margin-right: 1.875rem; color:#fff;}
 

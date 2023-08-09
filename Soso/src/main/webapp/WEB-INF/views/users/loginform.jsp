@@ -10,11 +10,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/floating-labels/">
     <link href="${pageContext.request.contextPath}/resources/css/floating-labels.css" rel="stylesheet">
-    <script src="${path }/resources/js/nav.js"></script>
 </head>
 
 <body>
-    <jsp:include page="/WEB-INF/views/include/navbar.jsp">
+    <jsp:include page="/WEB-INF/views/include/navbar_c.jsp">
         <jsp:param value="login" name="current"/>
     </jsp:include>
     

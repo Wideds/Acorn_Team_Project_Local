@@ -17,6 +17,26 @@ public class SupportController {
 		
 		return "support/support_faq";
 	}
+	@GetMapping("/support/support_faq2")
+	public String support_faq2() {
+		
+		return "support/support_faq2";
+	}
+	@GetMapping("/support/support_faq3")
+	public String support_faq3() {
+		
+		return "support/support_faq3";
+	}
+	@GetMapping("/support/support_faq4")
+	public String support_faq4() {
+		
+		return "support/support_faq4";
+	}
+	@GetMapping("/support/support_faq5")
+	public String support_faq5() {
+		
+		return "support/support_faq5";
+	}
 	
 	@GetMapping("/support/support_notice")
 	public String support_notice() {

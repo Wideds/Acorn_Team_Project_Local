@@ -21,7 +21,7 @@
 	</style>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/include/navbar.jsp">
+	<jsp:include page="/WEB-INF/views/include/navbar_c.jsp">
 		<jsp:param value="info" name="current" />
 	</jsp:include>
 	
@@ -42,7 +42,7 @@
 				<table class="table table-borderless">
 					<tr>
 						<th>이름</th>
-						<td>${dto.userName }</td>
+						<td>${dto.name }</td>
 					</tr>
 					<tr>
 						<th>아이디</th>

@@ -72,7 +72,7 @@
 	}
 	
 	.head{
-		background-image:url("https://static.onoffmix.com/images/pc/default/notice_bg.png");
+		background-image:url("https://static.onoffmix.com/images/pc/default/cs_bg.png");
 		height:360px;
 		background-size:cover;
 		overflow:hidden;
@@ -91,6 +91,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </head>
 <body>
+
 	<div class="head">
 		<h2>고객센터</h2>
 		<p class="sub_text">서비스 이용 중 불편 했던 점이나 궁금한 점을 빠르고 친절하게 안내해 드리겠습니다.</p>

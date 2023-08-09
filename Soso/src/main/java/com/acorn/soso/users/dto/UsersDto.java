@@ -20,7 +20,7 @@ public class UsersDto {
 	private String regdate;
 	private String newPwd;
   
-	private String userName;
+	private String name;
 	private String birth;
 	private String gender;
 

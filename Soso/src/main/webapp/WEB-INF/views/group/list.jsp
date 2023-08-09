@@ -60,22 +60,25 @@
             </div>
         </div>
         <div class="inner-wrap">
-            <div class="mate_content_list">
-                <div class="mate_contents">
-                    <a href="#">
-                        <div class="mate_content_img">
-                            <img src="${path }/resources/images/main/001.jpg" alt="테스트이미지1">
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="mate_content_text">
-                            <p class="mate_content_title">마음 살롱 - 심리학자와 함께하는 독서 모임</p>
-                            <p>모임장 농담곰</p>
-                            <p class="mate_content_date">8월 11일ㆍ금요일ㆍ강남</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
+        	<c:forEach var="tmp" items="${list}">
+        		<div class="mate_content_list">
+	               <div class="mate_contents">
+	                   <a href="#">
+	                       <div class="mate_content_img">
+	                           <img src="${path }/resources/images/main/001.jpg" alt="테스트이미지1">
+	                       </div>
+	                   </a>
+	                   <a href="#">
+	                       <div class="mate_content_text">
+	                           <p class="mate_content_title">${tmp.name}</p>
+	                           <p>모임장 ${tmp.manager_id}</p>
+	                           <p class="mate_content_date">${tmp.meeting_time}ㆍ금요일ㆍ${tmp.meeting_loc }</p>
+	                       </div>
+	                   </a>
+	               </div>
+	           </div>
+        	</c:forEach>
+            
             <div class="mate_content_list">
                 <div class="mate_contents">
                     <a href="#">

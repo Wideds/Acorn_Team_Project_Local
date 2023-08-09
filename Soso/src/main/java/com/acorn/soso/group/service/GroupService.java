@@ -20,7 +20,7 @@ public interface GroupService {
 	//detail 페이지에 필요한 data를 ModelAndView에 저장
 	public void getDetail(ModelAndView mView, int num);
 	//모임 개설하기
-	public void insert(GroupDto dto, HttpServletRequest request);
+	public void insert(GroupDto dto, HttpServletRequest request, HttpSession session);
 	//모임 업데이트(request로 수정사항을 받아서 dto에 저장한 다음에 전송)
 	public void update(GroupDto dto, HttpServletRequest request);
 	//모임 삭제-> 번호를 매개로 해서 삭제
@@ -43,9 +43,13 @@ public interface GroupService {
 	//소모임 가입에 관련한 기능
 	public void joinGroup(HttpServletRequest request);
 	
-	//찜하기 및 찜 취소하기
-	public void jjim(HttpServletRequest request);
+	//ajax처리로 찜하기&찜취소 기능 구현
+	public boolean jjim(HttpServletRequest request);
 	//찜 여부 확인
 	public void knowjjim(HttpServletRequest request);
+	//찜 총 카운트
+	public int jjimCount(HttpServletRequest request);
+	//찜 리스트 출력
+	public void getJjimList(HttpServletRequest request);
 	
 }

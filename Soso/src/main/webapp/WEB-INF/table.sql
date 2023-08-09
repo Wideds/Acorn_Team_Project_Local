@@ -92,7 +92,7 @@ CREATE SEQUENCE review_seq;
 CREATE TABLE board_join_group( -- 테이블 이름
 memNum NUMBER PRIMARY KEY,--소모임 멤버 넘버
 groupNum NUMBER, -- group테이블의 pk
-memId VARCHAR2(40) UNIQUE, -- 가입자의 아이디를 unique로 줘서 중복가입 불가하게 함
+memId VARCHAR2(40),
 memNick VARCHAR2(20), -- 가입자의 닉네임
 intro VARCHAR2(500),-- 자기소개
 isjoin NUMBER NOT NULL, -- 0:승인, 1:대기, 2:거부 및 탈퇴

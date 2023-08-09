@@ -8,16 +8,33 @@
 		(groupNum, memId)
 		VALUES (#{groupNum}, #{memId})
 	</insert>
+	
 	<!-- 그룹넘버와 아이디를 조회하여 둘 다 조건이 맞는 곳 삭제(둘 중 하나만 맞으면 삭제되지 않음) -->
 	<delete id="delete" parameterType="jjimDto">
 		DELETE FROM board_jjim
 		WHERE groupNum = #{groupNum} AND memId = #{memId} 
 	</delete>
+	
 	<!-- dto로부터 값을 가져와서 값이 있는지 null인지 확인한다. -->
 	<select id="getData" parameterType="jjimDto" resultType="jjimDto">
 		SELECT groupNum, memId
 		FROM board_jjim
 		WHERE groupNum = #{groupNum} AND memId = #{memId} 
 	</select>
+	
+ 	<select id="getCount" parameterType="int" resultType="int">
+	    SELECT COUNT(*) AS rowCount
+	    FROM board_jjim
+	    WHERE groupNum = #{groupNum}
+	</select>
+	
+	<!--찜의 목록을 불러오기 위한 sql문.-->
+	<select id="getList" parameterType="string" resultType="groupDto">
+	    SELECT num, manager_id, name, caption, img_Path, regdate
+	    FROM group_tb
+	    INNER JOIN board_jjim ON group_tb.num = board_jjim.groupNum
+	    WHERE board_jjim.memId = #{memId}
+	</select>
+	
 </mapper>
 

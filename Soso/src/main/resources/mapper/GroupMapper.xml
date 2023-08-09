@@ -19,17 +19,11 @@
 
 	<!-- 리스트  -->
 	<select id="getList" parameterType="groupDto" resultType="groupDto">
-		SELECT *
-		FROM   
-		   (SELECT result1.*, ROWNUM as rnum
-		   FROM
-		      (SELECT num, writer, title, caption, imagePath, regdate
-		      FROM board_group
-		      <include refid="searchCondition"/>
-		      ORDER BY num DESC) result1)
-      <![CDATA[ 
-	  WHERE rnum >= #{startRowNum} AND rnum <= #{endRowNum}
-	  ]]>
+		SELECT num, name, caption, img_path, regdate, ended_dt, deadline_dt, start_dt,
+			manager_id, max_people, now_people, avrg_rate, meeting_loc, meeting_time,
+			genre, on_off, manager_comment, viewcount
+      	FROM group_tb
+      	ORDER BY num DESC
    </select>
    
    <select id="getRanking" parameterType="groupDto" resultType="groupDto">
@@ -58,9 +52,9 @@
    
    <insert id="insert" parameterType="groupDto">
       INSERT INTO group_tb
-      (num, name, caption, img_path, created_dt, ended_dt, deadline_dt, start_dt, 
+      (num, name, caption, img_path, regdate, ended_dt, deadline_dt, start_dt, 
       manager_id, max_people, meeting_loc, meeting_time, genre, on_off, manager_comment)
-      VALUES(board_group_seq.NEXTVAL, 
+      VALUES(group_seq.NEXTVAL, 
       #{name}, #{caption}, #{img_path}, SYSDATE, #{ended_dt}, #{deadline_dt}, #{start_dt},
       #{manager_id}, #{max_people}, #{meeting_loc}, #{meeting_time}, #{genre}, #{on_off},
       #{manager_comment})
@@ -96,4 +90,5 @@
    		DELETE FROM board_group
    		WHERE num=#{num}
    </delete>
+   
 </mapper>

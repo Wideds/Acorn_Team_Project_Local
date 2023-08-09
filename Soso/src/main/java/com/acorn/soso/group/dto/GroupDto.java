@@ -25,7 +25,7 @@ public class GroupDto {
 	//소모임 대표 이미지 경로
 	private String img_path;
 	//소모임 생성 날짜
-	private String created_dt;
+	private String regdate;
 	//소모임 종료 날짜
 	private String ended_dt;
 	//소모임 모집 마감 날짜

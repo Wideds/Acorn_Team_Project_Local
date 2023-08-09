@@ -2,6 +2,33 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="groupManaging">
+	<select id="getGroupList" parameterType="String" resultType="groupDto">
+		SELECT num, name, caption, img_path, regdate, ended_dt, deadline_dt, start_dt,
+			manager_id, max_people, now_people, avrg_rate, meeting_loc, meeting_time,
+			genre, on_off, manager_comment, viewcount
+      	FROM group_tb
+      	WHERE manager_id = #{manager_id}
+      	ORDER BY num DESC
+   	</select>
+   	<select id="getGroupData" parameterType="int" resultType="groupDto">
+		SELECT num, name, caption, img_path, regdate, ended_dt, deadline_dt, start_dt,
+			manager_id, max_people, now_people, avrg_rate, meeting_loc, meeting_time,
+			genre, on_off, manager_comment, viewcount
+      	FROM group_tb
+      	WHERE num = #{num}
+   	</select>
+   	<update id="updateGroupData" parameterType="groupDto">
+   		UPDATE group_tb
+   		SET name = #{name}, caption = #{caption}, img_path = #{img_path}, ended_dt = #{ended_dt},
+   			deadline_dt = #{deadline_dt}, start_dt = #{start_dt}, max_people = #{max_people},
+   			meeting_loc = #{meeting_loc}, meeting_time = #{meeting_time}, genre = #{genre},
+   			on_off = #{on_off}, manager_comment = #{manager_comment}
+   		WHERE num = #{num}
+   	</update>
+   	<delete id="deleteGroupData" parameterType="int">
+   		DELETE FROM group_tb
+   		WHERE num = #{num}
+   </delete>
 	<select id="getMemberList" parameterType="groupManagingDto" resultType="groupManagingDto">
 		SELECT *
 		FROM   

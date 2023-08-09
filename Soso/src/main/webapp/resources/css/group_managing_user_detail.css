@@ -1,0 +1,26 @@
+@charset "UTF-8";
+
+/* main_container */
+.main_container{
+	display: flex;
+	justify-content: space-between;
+    align-items: center;
+}
+.card{
+	width: 600px;
+	text-align: center;
+}
+
+/* 사진첩 */
+.photo_container{
+	display: flex;
+	justify-content: center; 
+}
+
+.img-wrapper {
+    margin: 5px;
+}
+
+
+
+

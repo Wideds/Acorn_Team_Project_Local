@@ -104,7 +104,7 @@
 		margin-top:20px;
 	}
 	.head{
-		background-image:url("https://static.onoffmix.com/images/pc/default/notice_bg.png");
+		background-image:url("https://static.onoffmix.com/images/pc/default/faq_bg.png");
 		height:360px;
 		background-size:cover;
 		overflow:hidden;
@@ -206,19 +206,19 @@
 			<section class="tab_section">
 			<ul class="tab_menu">
 				<li class="active">
-					<a href="">자주하는 질문 전체(10)</a>
+					<a href="${pageContext.request.contextPath }/support/support_faq">자주하는 질문 전체(10)</a>
 				</li>
 				<li class="">
-					<a href="">회원(3)</a>
+					<a href="${pageContext.request.contextPath }/support/support_faq2">회원(3)</a>
 				</li>
 				<li class="">
-					<a href="">모임신청(4)</a>
+					<a href="${pageContext.request.contextPath }/support/support_faq3">모임신청(4)</a>
 				</li>
 				<li class="">
-					<a href="">모임개설(5)</a>
+					<a href="${pageContext.request.contextPath }/support/support_faq4">모임개설(5)</a>
 				</li>
 				<li class="">
-					<a href="">기타(3)</a>
+					<a href="${pageContext.request.contextPath }/support/support_faq5">기타(3)</a>
 				</li>
 			</ul>
 			</section>

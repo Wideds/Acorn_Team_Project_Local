@@ -40,6 +40,8 @@ public class WebConfig implements WebMvcConfigurer{
 						"/users/personalinfo");
 		registry.addInterceptor(pwdAuthInter)
 				.addPathPatterns("/users/updateform", "/users/pwd_updateform");
+		registry.addInterceptor(loginInter)
+				.addPathPatterns("/group_managing/*");
 	}
 	
 	@Override

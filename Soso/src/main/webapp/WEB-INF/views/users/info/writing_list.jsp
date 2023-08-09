@@ -16,26 +16,15 @@
 			</tr>
 		</thead>
 		<tbody>
-			<!-- 임시 데이터 -->
-			<tr>
-				<td>책 나눔 모임</td>
-				<td>
-					<a href="">글 제목 / 클릭시 해당 글로 이동</a>
-				</td>
-				<td>2023.08.02 16:15:30</td>
-			</tr>
-			
-			<%-- <c:forEach var="tmp" items="${list }">
+			<c:forEach var="tmp" items="${list }">
 				<tr>
-					<td>${tmp.num }</td>
-					<td>${tmp.writer }</td>
+					<td>${tmp.group_num}</td>
 					<td>
-						<a href="detail?num=${tmp.num }&condition=${condition}&keyword=${encodedK}">${tmp.title }</a>
+						<a href="${pageContext.request.contextPath}/cafe/detail?num=${tmp.num}">${tmp.title }</a>
 					</td>
-					<td>${tmp.viewCount }</td>
 					<td>${tmp.regdate }</td>
 				</tr>
-			</c:forEach> --%>
+			</c:forEach>
 		</tbody>
 	</table>
 	<nav>

@@ -224,21 +224,4 @@ public class UsersController {
 		return "users/pwd_auth";
 	}
 	
-	//작성 글 보기
-	@GetMapping("/users/info/writing_list")
-	public String WritingList() {
-		return "users/info/writing_list";
-	}
-	
-	//작성 댓글 보기
-	@GetMapping("/users/info/comment_list")
-	public String CommentList() {
-		return "users/info/comment_list";
-	}
-	
-	//작성 문의 보기
-	@GetMapping("/users/info/support_list")
-	public String SupportList() {
-		return "users/info/support_list";
-	}
 }

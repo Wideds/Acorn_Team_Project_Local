@@ -3,9 +3,9 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="join">
 	<insert id="insert" parameterType="joinDto">
-		INSERT INTO board_join_group
-		(memNum, groupNum, memId, memNick, intro, isjoin, regdate)
-		VALUES (join_seq.NEXTVAL, #{groupNum}, #{memId}, #{memNick}, #{intro}, 1, SYSDATE)
+		INSERT INTO group_join_tb
+		(num, group_Num, user_Id, intro, isjoin, request_dt)
+		VALUES (join_seq.NEXTVAL, #{group_Num}, #{user_Id}, #{intro}, 1, SYSDATE)
 	</insert>
 </mapper>
 

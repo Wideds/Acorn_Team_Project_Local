@@ -1,5 +1,6 @@
 package com.acorn.soso.group.controller;
 
+import java.net.http.HttpRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,6 +22,7 @@ import com.acorn.soso.group.dto.GroupDto;
 import com.acorn.soso.group.dto.GroupReviewDto;
 import com.acorn.soso.group.dto.JjimDto;
 import com.acorn.soso.group.service.GroupService;
+import com.acorn.soso.group_managing.service.GroupManagingService;
 
 @Controller
 public class GroupController {
@@ -28,12 +30,31 @@ public class GroupController {
 	@Autowired
 	private GroupService service;
 	
-	//찜하기 기능 구현(ajax없이)
-	@PostMapping("/group/jjim")
-	//id값과 num값을 받아오기 위해 request만들기
-	public String jjim(HttpServletRequest request) {
-		service.jjim(request);
-		return "redirect:/group/test?num=1";
+	@Autowired
+	private GroupManagingService managingService;
+	
+	//찜기능 목록 불러오기 위한 컨트롤러
+	@GetMapping("/group/jjim_list")
+	public String jjimList(HttpServletRequest request) {
+		//찜 목록을 불러오기 위한 서비스
+		service.getJjimList(request);
+		//찜 리스트로 간다
+		return "group/jjim_list";
+	}
+	
+	
+	//찜기능을 위한 컨트롤러
+	//ajax를 위해 responseBody를 해준다.
+	@ResponseBody
+	@GetMapping("/group/jjim")
+	public Map<String, Object> jjim(HttpServletRequest request) {
+		boolean isSuccess = service.jjim(request); // 서비스 메서드의 리턴 값을 받아옴
+		int jjimCount = service.jjimCount(request);//서비스 메소드의 리턴 값을 받아옴
+		//responseBody가 애초에 json문자열을 돌려주겠다는 거니 그걸 통보해야한다.
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("isSuccess", isSuccess);
+		map.put("jjimCount", jjimCount);
+		return map;
 	}
 		
 	//리뷰 수정 요청 처리(json)
@@ -59,14 +80,19 @@ public class GroupController {
 	//test페이지 불러오면서 후기글 불러오기 위한 service 호출
 	@GetMapping("/group/test")
 	public String test(HttpServletRequest request, Model model) {
+		//request영역의 값으로 groupNum 가져오기 
+		int num = Integer.parseInt(request.getParameter("num"));
+		//groupManaging Service에서 정보 가져오기
+		managingService.getGroupData(num, request);
 		service.reviewList(request, model);
 		service.knowjjim(request);
+		model.addAttribute("jjimCount", service.jjimCount(request));
 		return "group/test";
 	}
 	
 	@GetMapping("/group/group_in")
-	public String groupIn() {
-		
+	public String groupIn(HttpServletRequest request, int num) {
+		request.setAttribute("num", num);
 		return "group/group_in";
 	}
 	
@@ -99,9 +125,9 @@ public class GroupController {
 	
 	//소모임 추가하기
 	@PostMapping("/group/insert")
-	public String insert(GroupDto dto, HttpServletRequest request) {
-		service.insert(dto, request);
-		return "group/insert";
+	public String insert(GroupDto dto, HttpServletRequest request, HttpSession session) {
+		service.insert(dto, request, session);
+		return "redirect:/group_managing/admin_main";
 	}
 	
 	//delete
