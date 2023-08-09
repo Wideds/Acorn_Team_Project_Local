@@ -1,5 +1,6 @@
 package com.acorn.soso.users.dao;
 
+import com.acorn.soso.users.dto.UserAgreementDto;
 import com.acorn.soso.users.dto.UsersDto;
 
 public interface UsersDao {
@@ -17,4 +18,6 @@ public interface UsersDao {
 	public void delete(String id);
 	//인자로 전달하는 이름에 해당하는 정보를 리턴하는 메소드
 	public UsersDto getId(String userName);
+	
+	public void insertUserAgreement(UserAgreementDto agreement);
 }

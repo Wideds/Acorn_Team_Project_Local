@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="users">
+
+    <insert id="insertUser" parameterType="UserAgreementDto">
+        INSERT INTO users (USER_ID, SVC_USE_PCY_AGMT_YN, PS_INFO_PROC_AGMT_YN, MKT_INFO_RECV_AGMT_YN)
+        VALUES (#{userId}, #{svcUsePolicyAgreement}, #{psInfoProcessAgreement}, #{mktInfoReceiveAgreement})
+    </insert>
+
+</mapper>

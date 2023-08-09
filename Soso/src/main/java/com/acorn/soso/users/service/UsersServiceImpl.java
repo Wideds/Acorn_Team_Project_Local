@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.acorn.soso.users.dao.UsersDao;
+import com.acorn.soso.users.dto.UserAgreementDto;
 import com.acorn.soso.users.dto.UsersDto;
 
 @Service
@@ -28,6 +29,14 @@ public class UsersServiceImpl implements UsersService{
 	// application.properties 문서에 있는 파일의 저장위치 설정정보 읽어오기
 	@Value("${file.location}")
 	private String fileLocation;
+	
+	@Override
+    public void signUp(UserAgreementDto agreement) {
+        if (agreement.getSvcUsePolicyAgreement() == 1 && agreement.getPsInfoProcessAgreement() == 1) {
+        	dao.insertUserAgreement(agreement);
+            // 회원 가입 로직 추가
+        }
+    }
 	
 	@Override
 	public void addUser(UsersDto dto) {

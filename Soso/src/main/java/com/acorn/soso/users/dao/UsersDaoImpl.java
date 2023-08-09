@@ -4,6 +4,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.acorn.soso.users.dto.UserAgreementDto;
 import com.acorn.soso.users.dto.UsersDto;
 
 @Repository
@@ -52,4 +53,9 @@ public class UsersDaoImpl implements UsersDao{
 	public UsersDto getId(String userName) {
 		return session.selectOne("users.getId", userName);
 	}
+
+	@Override
+    public void insertUserAgreement(UserAgreementDto agreement) {
+        session.insert("user.insertUserAgreement", agreement);
+    }
 }

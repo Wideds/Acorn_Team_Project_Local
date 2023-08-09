@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.acorn.soso.users.dto.UserAgreementDto;
 import com.acorn.soso.users.dto.UsersDto;
 
 public interface UsersService {
@@ -23,4 +24,5 @@ public interface UsersService {
 	public void findUserPwd(UsersDto dto, Model model);
 	public void findUserId(UsersDto dto, Model model); // id찾기
 	public void pwdAuth(UsersDto dto, HttpSession session, Model model);
+	public void signUp(UserAgreementDto agreement);
 }

@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.acorn.soso.users.dto.UserAgreementDto;
 import com.acorn.soso.users.dto.UsersDto;
 import com.acorn.soso.users.service.UsersService;
 
@@ -35,6 +36,20 @@ public class UsersController {
 	@Value("${file.location}")
 	private String fileLocation;
 	
+	
+	@GetMapping("/users/personalinfo")
+	public String personalPage() {
+	    return "users/personalinfo"; // 개인정보 동의 페이지로 이동
+	}
+
+	@PostMapping("/signup")
+	public String signUp(UserAgreementDto agreement, Model model) {
+	    service.signUp(agreement);
+	    model.addAttribute("message", "회원가입 성공"); // 데이터 전달
+	    return "signup_success"; // 회원가입 성공 페이지로 이동
+	}
+
+	
 	@GetMapping("/users/signup_form")
 	public String signupForm() {
 		
@@ -46,7 +61,6 @@ public class UsersController {
 	public boolean idCheck(@RequestParam String id) {
 	    return service.isExist(id);
 	}
-
 	
 	// 회원 가입 요청 처리
 	@PostMapping("/users/signup")
