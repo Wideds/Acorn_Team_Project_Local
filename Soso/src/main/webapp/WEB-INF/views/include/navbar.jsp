@@ -83,7 +83,7 @@
             		<c:when test="${empty sessionScope.id }">
             			 <div class="memberWrap">
 		                    <a href="${pageContext.request.contextPath}/users/loginform" >로그인</a>
-		                    <a href="${pageContext.request.contextPath}/users/signup_form" >회원가입</a>
+		                    <a href="${pageContext.request.contextPath}/users/personalinfo" >회원가입</a>
 		                </div>
             		</c:when>
             		<c:otherwise>

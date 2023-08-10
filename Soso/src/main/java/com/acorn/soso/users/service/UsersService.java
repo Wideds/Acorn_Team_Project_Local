@@ -23,4 +23,5 @@ public interface UsersService {
 	public void findUserPwd(UsersDto dto, Model model);
 	public void findUserId(UsersDto dto, Model model); // id찾기
 	public void pwdAuth(UsersDto dto, HttpSession session, Model model);
+	public void signUp(UsersDto dto);
 }

@@ -20,6 +20,9 @@
    <div class="container">
       <h1>회원 가입</h1>
       <form action="${pageContext.request.contextPath}/users/signup" method="post" id="myForm">
+         <input type="hidden" name="agreement1" value="${sessionScope.agreement1}" />
+	     <input type="hidden" name="agreement2" value="${sessionScope.agreement2}" />
+	     <input type="hidden" name="agreement3" value="${sessionScope.agreement3}" />
          <div>
             <label class="control-label" for="userName">이름(닉네임)</label>
             <input class="form-control" type="text" name="userName" id="userName"/>  

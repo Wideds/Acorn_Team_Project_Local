@@ -5,6 +5,11 @@
 
 <mapper namespace="users">
 
+	<insert id="insertUser" parameterType="usersDto">
+        INSERT INTO users (id, SVC_USE_PCY_AGMT_YN, PS_INFO_PROC_AGMT_YN, MKT_INFO_RECV_AGMT_YN)
+        VALUES (#{id}, #{svcUsePolicyAgreement}, #{psInfoProcessAgreement}, #{mktInfoReceiveAgreement})
+    </insert>
+
 	<insert id="insert" parameterType="usersDto">
 		INSERT INTO users
 		(id, pwd, email, regdate, Name, birth, gender, SVC_USE_PCY_AGMT_YN, PS_INFO_PROC_AGMT_YN, MKT_INFO_RECV_AGMT_YN)

@@ -24,4 +24,7 @@ public class UsersDto {
 	private String birth;
 	private String gender;
 
+	private Integer svcUsePolicyAgreement;
+	private Integer psInfoProcessAgreement;
+    private Integer mktInfoReceiveAgreement;
 }

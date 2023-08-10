@@ -30,6 +30,13 @@ public class UsersServiceImpl implements UsersService{
 	private String fileLocation;
 	
 	@Override
+	public void signUp(UsersDto dto) {
+        if (dto.getSvcUsePolicyAgreement() == 1 && dto.getPsInfoProcessAgreement() == 1) {
+        	dao.insertUserAgreement(dto);
+        }
+	}
+	
+	@Override
 	public void addUser(UsersDto dto) {
 		//비밀번호를 암호화해줄 객체를 생성
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();

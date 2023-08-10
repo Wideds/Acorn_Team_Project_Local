@@ -52,4 +52,9 @@ public class UsersDaoImpl implements UsersDao{
 	public UsersDto getId(String userName) {
 		return session.selectOne("users.getId", userName);
 	}
+	
+	@Override
+    public void insertUserAgreement(UsersDto dto) {
+        session.insert("users.insertUserAgreement", dto);
+    }
 }
