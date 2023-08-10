@@ -20,10 +20,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.acorn.soso.users.dto.UsersDto;
+
 import com.acorn.soso.users.service.UsersService;
 
 @Controller
@@ -35,37 +37,20 @@ public class UsersController {
 	@Value("${file.location}")
 	private String fileLocation;
 	
+	@PostMapping("/users/idCheck")
+	@ResponseBody
+	public boolean idCheck(@RequestParam String id) {
+	    return service.isExist(id);
+	}
+	
 	@GetMapping("/users/signup_form")
 	public String signupForm() {
-		
 		return "users/signup_form";
 	}
 	
-	@GetMapping("/users/personalinfo")
-	public String personalPage(HttpServletRequest request) {
-	    // 개인정보 동의 페이지에서 체크한 내용을 request.getParameter()로 읽어와서 세션에 저장
-	    String agreement1 = request.getParameter("agreement1");
-	    String agreement2 = request.getParameter("agreement2");
-	    String agreement3 = request.getParameter("agreement3");
-
-	    HttpSession session = request.getSession();
-	    session.setAttribute("agreement1", agreement1);
-	    session.setAttribute("agreement2", agreement2);
-	    session.setAttribute("agreement3", agreement3);
-
-	    return "users/personalinfo"; // 개인정보 동의 페이지로 이동
-	}
-
-
-	
 	//회원 가입 요청처리
 	@PostMapping("/users/signup")
-	public String signup(UsersDto dto, HttpServletRequest request) {
-	    // 개인정보 동의 내용 가져오기
-	    String agreement1 = request.getParameter("agreement1");
-	    String agreement2 = request.getParameter("agreement2");
-	    String agreement3 = request.getParameter("agreement3");
-	    
+	public String signup(UsersDto dto, HttpServletRequest request) {    
 		//서비스를 이용해서 DB에 저장
 		service.addUser(dto);
 		return "users/signup";

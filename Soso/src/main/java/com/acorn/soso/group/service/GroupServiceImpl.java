@@ -600,10 +600,10 @@ public class GroupServiceImpl implements GroupService{
 		joindao.cancleJoin(dto);		
 		return true;
 	}
-// 	public void getData(HttpServletRequest request) {
-// 		int num =Integer.parseInt(request.getParameter("num"));
-// 		GroupDto dto=dao.getData(num);
-// 		request.setAttribute("dto", dto);
+ 	public void getData(HttpServletRequest request) {
+ 		int num =Integer.parseInt(request.getParameter("num"));
+ 		GroupDto dto=dao.getData(num);
+ 		request.setAttribute("dto", dto);
 		
 	}
 }

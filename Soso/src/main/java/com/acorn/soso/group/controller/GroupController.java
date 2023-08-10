@@ -94,7 +94,7 @@ public class GroupController {
 		//groupManaging Service에서 정보 가져오기
 		managingService.getGroupData(num, request);
 		//소모임의 후기 글을 가져온다.
-		service.reviewList(request, model);
+		//service.reviewList(request, model);
 		
 		//로그인 여부를 토대로 서비스 실행 여부를 정한다.
 		String id =(String)request.getSession().getAttribute("id");
