@@ -17,8 +17,7 @@ button { cursor: pointer; }
 
 
 .inner-wrap{ 
-    width: 1400px; 
-    max-width: 100%;
+    width: 80%; 
     margin: 0 auto; 
 }
 

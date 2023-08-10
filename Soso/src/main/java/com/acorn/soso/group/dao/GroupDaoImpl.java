@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.acorn.soso.group.dto.GroupDto;
+import com.acorn.soso.group.dto.GroupJoinDto;
 
 @Repository
 public class GroupDaoImpl implements GroupDao{

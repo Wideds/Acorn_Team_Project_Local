@@ -43,7 +43,7 @@ public class UsersInfoServiceImpl implements UsersInfoService {
 		
 		List<UsersInfoDto> list = infoDao.getWritingList(dto);
 		
-		int totalRow = infoDao.getCount(dto);
+		int totalRow = infoDao.getWCount(dto);
         int startPageNum = 1 + ((pageNum - 1) / PAGE_DISPLAY_COUNT) * PAGE_DISPLAY_COUNT;
         int endPageNum = startPageNum + PAGE_DISPLAY_COUNT - 1;
 
@@ -62,14 +62,87 @@ public class UsersInfoServiceImpl implements UsersInfoService {
 
 	@Override
 	public void getCommentList(Model model) {
-		// TODO Auto-generated method stub
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+		final int PAGE_ROW_COUNT = 5;
+		final int PAGE_DISPLAY_COUNT = 5;
+		
+		String id = request.getSession().getAttribute("id").toString();
+		
+		int pageNum = 1;
+		
+		String strPageNum = request.getParameter("pageNum");
+		if(strPageNum != null) {
+			pageNum = Integer.parseInt(strPageNum);
+		}
+		
+		int startRowNum = 1 + (pageNum-1) * PAGE_ROW_COUNT;
+		int endRowNum = pageNum * PAGE_ROW_COUNT;
+		
+		UsersInfoDto dto = new UsersInfoDto();
+		dto.setStartRowNum(startRowNum);
+		dto.setEndRowNum(endRowNum);
+		dto.setWriter(id);
+		
+		List<UsersInfoDto> list = infoDao.getCommentList(dto);
+		
+		int totalRow = infoDao.getCCount(dto);
+        int startPageNum = 1 + ((pageNum - 1) / PAGE_DISPLAY_COUNT) * PAGE_DISPLAY_COUNT;
+        int endPageNum = startPageNum + PAGE_DISPLAY_COUNT - 1;
+
+        int totalPageCount = (int) Math.ceil(totalRow / (double) PAGE_ROW_COUNT);
+        if (endPageNum > totalPageCount) {
+            endPageNum = totalPageCount;
+        }
+		
+		model.addAttribute("list", list);
+        model.addAttribute("pageNum", pageNum);
+        model.addAttribute("startPageNum", startPageNum);
+        model.addAttribute("endPageNum", endPageNum);
+        model.addAttribute("totalPageCount", totalPageCount);
+        model.addAttribute("totalRow", totalRow);
 		
 	}
 
 	@Override
 	public void getSupportList(Model model) {
-		// TODO Auto-generated method stub
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+		final int PAGE_ROW_COUNT = 5;
+		final int PAGE_DISPLAY_COUNT = 5;
 		
+		String id = request.getSession().getAttribute("id").toString();
+		
+		int pageNum = 1;
+		
+		String strPageNum = request.getParameter("pageNum");
+		if(strPageNum != null) {
+			pageNum = Integer.parseInt(strPageNum);
+		}
+		
+		int startRowNum = 1 + (pageNum-1) * PAGE_ROW_COUNT;
+		int endRowNum = pageNum * PAGE_ROW_COUNT;
+		
+		UsersInfoDto dto = new UsersInfoDto();
+		dto.setStartRowNum(startRowNum);
+		dto.setEndRowNum(endRowNum);
+		dto.setWriter(id);
+		
+		List<UsersInfoDto> list = infoDao.getSupportList(dto);
+		
+		int totalRow = infoDao.getSCount(dto);
+        int startPageNum = 1 + ((pageNum - 1) / PAGE_DISPLAY_COUNT) * PAGE_DISPLAY_COUNT;
+        int endPageNum = startPageNum + PAGE_DISPLAY_COUNT - 1;
+
+        int totalPageCount = (int) Math.ceil(totalRow / (double) PAGE_ROW_COUNT);
+        if (endPageNum > totalPageCount) {
+            endPageNum = totalPageCount;
+        }
+		
+		model.addAttribute("list", list);
+        model.addAttribute("pageNum", pageNum);
+        model.addAttribute("startPageNum", startPageNum);
+        model.addAttribute("endPageNum", endPageNum);
+        model.addAttribute("totalPageCount", totalPageCount);
+        model.addAttribute("totalRow", totalRow);
 	}
 
 	@Override

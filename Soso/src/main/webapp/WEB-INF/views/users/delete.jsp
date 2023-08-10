@@ -6,10 +6,12 @@
 <head>
 <meta charset="UTF-8">
 <title>/views/users/delete.jsp</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/user.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/reset.css" type="text/css">
 </head>
 <body>
 	<div class="container">
-		<h1>알림</h1>
 		<p>
 			<strong>${requestScope.id }</strong> 님 탈퇴 처리 되었습니다.
 			<a href="${pageContext.request.contextPath}/">인덱스로 가기</a>

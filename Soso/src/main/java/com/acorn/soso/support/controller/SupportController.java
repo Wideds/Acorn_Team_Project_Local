@@ -32,10 +32,10 @@ public class SupportController {
 		
 		return "support/support_faq_open";
 	}
-	@GetMapping("/support/support_faq_ect")
-	public String support_faq_ect() {
+	@GetMapping("/support/support_faq_etc")
+	public String support_faq_etc() {
 		
-		return "support/support_faq_ect";
+		return "support/support_faq_etc";
 	}
 	
 	@GetMapping("/support/support_notice")

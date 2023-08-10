@@ -6,14 +6,16 @@
 <meta charset="UTF-8">
 <title>${pageContext.request.contextPath}</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/user.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/reset.css" type="text/css">
 </head>
-<body class="bg-light">
-    <jsp:include page="/WEB-INF/views/include/navbar.jsp">
+<body>
+    <jsp:include page="/WEB-INF/views/include/navbar_c.jsp">
         <jsp:param value="pwd_find" name="current"/>
     </jsp:include>
     <div class="container">
         <div class="py-5 text-center">
-	       <h2>비밀번호 찾기</h2>
+	       <p class="title">비밀번호 찾기</p>
         </div>
         
 	    <form action="${pageContext.request.contextPath}/users/pwd_find" class="card p-2 needs-validation" method="post">
@@ -31,5 +33,8 @@
 	        <button class="btn btn-primary" type="submit">찾기</button>
 	    </form>
     </div>
+    
+    <jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
+    
 </body>
 </html>

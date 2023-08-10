@@ -6,90 +6,16 @@
 <head>
 <meta charset="UTF-8">
 <title>/support_notice</title>
-<style>
-	.main_content{
-		margin: 100px auto 90px;
-		box-sizing: border-box;
-		width: 100%;
-		min-height: 260px;
-	}
-	.area_faq ul{
-		padding: 37px 40px 13px;
-		box-sizing: border-box;
-		border-top: 2px solid #3d4652;
-		border-bottom: 1px solid #3d4642;
-	}
-	.area_faq ul li{
-		margin-bottom: 27px;
-		box-sizing: border-box;
-		display: inline-block;
-		width: 49%;
-		font-size: 14px;
-	}
-	.area_faq ul li .faq_category{
-		margin-right: 40px;
-		width: 100px;
-		color: #666;
-		display: inline-block;
-	}
-	.area_faq ul li p{
-		width: 440px;
-		display: inline-block;
-	}
-	.notice{
-		width:630px;
-		height:290px;
-		display: inline-block;
-	}
-	.notice .view_more{
-		float: right;
-		margin-right: 50px;
-		display: inline-block;
-		font-size: 14px;
-	}
-	.notice h3.title{
-		padding-bottom: 16px;
-		display: inline-block;
-	}
-	.area_contact{
-		width: 630px;
-		height: 290px;
-		padding: 51px;
-		float: right;
-		display: inline-block;
-		box-sizing: border-box;
-		border: 1px solid gray;
-		
-	}
-	.area_faq .faq_more{
-		float: right;
-		margin-right: 50px;
-		display: inline-block;
-		font-size: 14px;
-	}
-	.faq{
-		display: inline-block;
-	}
-	.head{
-		background-image:url("https://static.onoffmix.com/images/pc/default/notice_bg.png");
-		height:360px;
-		background-size:cover;
-		overflow:hidden;
-	}
-	.head h2{
-		text-align:center;
-		margin:116px auto 20px;
-	}
-	.head p{
-		text-align:center;
-		font-size:20px;
-	}
-</style>
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/support/support_notice.css" />
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/include/navbar_c.jsp">
+        <jsp:param value="login" name="current"/>
+    </jsp:include>
 	<div class="head">
 		<h2>공지사항</h2>
 		<p class="sub_text">BookMate에서 알려드립니다.</p>

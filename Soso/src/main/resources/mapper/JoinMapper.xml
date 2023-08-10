@@ -7,5 +7,14 @@
 		(num, group_Num, user_Id, intro, isjoin, request_dt)
 		VALUES (join_seq.NEXTVAL, #{group_Num}, #{user_Id}, #{intro}, 1, SYSDATE)
 	</insert>
+<select id="getIsJoin" parameterType="joinDto" resultType="int">
+    SELECT COALESCE(isjoin, -1) AS isjoin
+    FROM GROUP_JOIN_TB
+    WHERE group_num = #{group_Num} AND USER_ID = #{user_Id}
+</select>
+<delete id="cancleJoin" parameterType="joinDto">
+	DELETE group_join_tb
+	WHERE group_num = #{group_Num} AND USER_ID = #{user_Id}
+</delete>
 </mapper>
 

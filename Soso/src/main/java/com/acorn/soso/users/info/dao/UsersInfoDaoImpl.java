@@ -19,8 +19,28 @@ public class UsersInfoDaoImpl implements UsersInfoDao {
 	}
 	
 	@Override
-	public int getCount(UsersInfoDto dto) {
-		return session.selectOne("info.getCount", dto);
+	public List<UsersInfoDto> getCommentList(UsersInfoDto dto) {
+		return session.selectList("info.getCommentList", dto);
+	}
+	
+	@Override
+	public List<UsersInfoDto> getSupportList(UsersInfoDto dto) {
+		return session.selectList("info.getSupportList", dto);
+	}
+
+	@Override
+	public int getWCount(UsersInfoDto dto) {
+		return session.selectOne("info.getWCount", dto);
+	}
+
+	@Override
+	public int getCCount(UsersInfoDto dto) {
+		return session.selectOne("info.getCCount", dto);
+	}
+
+	@Override
+	public int getSCount(UsersInfoDto dto) {
+		return session.selectOne("info.getSCount", dto);
 	}
 
 }

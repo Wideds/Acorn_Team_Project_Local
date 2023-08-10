@@ -7,27 +7,16 @@
 <title>/views/users/info.jsp</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-	<style>
-		/* 프로필 이미지를 작은 원형으로 만든다 */
-		#profileImage {
-			width: 100px;
-			height: 100px;
-			border: 1px solid #cecece;
-		}
-		
-		.container {
-			width: 768px;
-		}
-	</style>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/user.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/reset.css" type="text/css">
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/include/navbar_c.jsp">
 		<jsp:param value="info" name="current" />
 	</jsp:include>
-	
 	<div class="container">
-		<h3>가입 정보</h3>
-		<div class="row border mb-2">
+		<p class="title">가입 정보</p>
+		<div class="row border mb-5">
 			<div class="col-2">
 				<c:choose>
 					<c:when test="${empty dto.profile }">
@@ -78,8 +67,8 @@
 			</div>
 		</div>
 		
-		<div>
-			<h3>활동 내역</h3>
+		<div class="mb-5">
+			<p class="title">활동 내역</p>
 			<ul class="nav justify-content-end nav-tabs">
 				<li class="nav-item">
 					<a class="nav-link" id="writingList" href="#">작성글</a>
@@ -92,9 +81,12 @@
 				</li>
 			</ul>
 			
-			<div id="Parse_Area"gt;lt;/div>
+			<div id="Parse_Area"gt;lt;></div>
 		</div>
 	</div>
+	
+    <jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
+    
 	<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
 	<script>
 		//작성글 클릭 시 writing_list 페이지 로딩

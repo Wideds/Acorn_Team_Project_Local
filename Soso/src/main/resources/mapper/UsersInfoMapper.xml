@@ -3,7 +3,7 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="info">
 
-<select id="getWritingList" parameterType="usersInfoDto" resultType="usersInfoDto">
+	<select id="getWritingList" parameterType="usersInfoDto" resultType="usersInfoDto">
 		SELECT *
 		FROM
 			(SELECT result1.*, ROWNUM AS rnum
@@ -16,11 +16,51 @@
 		WHERE rnum >= #{startRowNum} AND rnum <= #{endRowNum}
 		]]>
 	</select>
-	
-	<select id="getCount" parameterType="usersInfoDto" resultType="int">
+	<select id="getWCount" parameterType="usersInfoDto" resultType="int">
 		SELECT NVL(MAX(ROWNUM), 0)
 		FROM community_board_tb
 		WHERE writer = #{writer}
 	</select>
+	
+	<select id="getCommentList" parameterType="usersInfoDto" resultType="usersInfoDto">
+		SELECT *
+		FROM
+		    (SELECT result1.*, ROWNUM AS rnum
+		    FROM
+		        (SELECT cc.comu_num,cc.writer, cc.content, cc.regdate, cb.group_num, cb.title
+		        FROM comu_comment_tb cc
+		        INNER JOIN community_board_tb cb
+		        ON cc.comu_num = cb.comu_num
+		        WHERE cc.writer = #{writer}
+		        ORDER BY comment_num DESC) result1)
+		<![CDATA[ 
+		WHERE rnum >= #{startRowNum} AND rnum <= #{endRowNum}
+		]]>
+	</select>
+	<select id="getCCount" parameterType="usersInfoDto" resultType="int">
+		SELECT NVL(MAX(ROWNUM), 0)
+		FROM comu_comment_tb
+		WHERE writer = #{writer}
+	</select>
+	
+	<select id="getSupportList" parameterType="usersInfoDto" resultType="usersInfoDto">
+		SELECT *
+		FROM
+		    (SELECT result1.*, ROWNUM AS rnum
+		    FROM
+		        (SELECT cs_num, writer, regdate, title
+		        FROM cs_tb
+		        ORDER BY cs_num DESC) result1)
+		<![CDATA[ 
+		WHERE rnum >= #{startRowNum} AND rnum <= #{endRowNum}
+		]]>
+	</select>
+	<select id="getSCount" parameterType="usersInfoDto" resultType="int">
+		SELECT NVL(MAX(ROWNUM), 0)
+		FROM cs_tb
+		WHERE writer = #{writer}
+	</select>
+	
+	
 
 </mapper>

@@ -7,18 +7,15 @@
 <meta charset="UTF-8">
 <title>/users/signup_form.jsp</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
-<style>
-   .container{
-      width: 768px;
-   }
-</style>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/user.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/reset.css" type="text/css">
 </head>
 <body>
-   <jsp:include page="/WEB-INF/views/include/navbar.jsp">
+   <jsp:include page="/WEB-INF/views/include/navbar_c.jsp">
       <jsp:param value="signup" name="current"/>
    </jsp:include>
    <div class="container">
-      <h1>회원 가입</h1>
+      <p class="title">회원 가입</p>
       <form action="${pageContext.request.contextPath}/users/signup" method="post" id="myForm">
          <input type="hidden" name="agreement1" value="${sessionScope.agreement1}" />
 	     <input type="hidden" name="agreement2" value="${sessionScope.agreement2}" />
@@ -73,7 +70,9 @@
          <button class="btn btn-primary mt-3" type="submit" disabled>가입</button>
       </form>
    </div>   
+   
     <jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
+    
    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
    <script>
    		let isuserNameValid=false;

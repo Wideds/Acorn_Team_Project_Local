@@ -1,0 +1,30 @@
+@charset "UTF-8";
+
+body {
+	background-color: #f5f6f7;
+}
+
+#profileImage {
+	width: 100px;
+	height: 100px;
+	border: 1px solid #cecece;
+	border-radius: 50%;
+}
+
+.container {
+	margin-top : 130px;
+	width: 768px;
+}
+
+/* 이미지 업로드 폼을 숨긴다 */
+#imageForm{
+	display: none;
+}
+
+.title {
+	color: black;
+	font-size: 2.5rem;
+	margin-bottom: 20px;
+	font-weight: 600;
+	text-align: center;
+}

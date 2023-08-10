@@ -15,15 +15,19 @@ public interface GroupManagingDao {
 	//개설한 소모임 해산하기
 	public void deleteGroupData(int num);
 	//소모임 가입 멤버 목록 불러오기
-	public List<GroupManagingDto> getMemberList(GroupManagingDto dto);
+	public List<GroupManagingDto> getMemberList(int group_num);
 	//소모임 추방 멤버 목록 불러오기
-	public List<GroupManagingDto> getKickedMemberList(GroupManagingDto dto);
+	public List<GroupManagingDto> getKickedMemberList(int group_num);
 	//소모임 가입 신청자 목록 불러오기
-	public List<GroupManagingDto> getApplicantList(GroupManagingDto dto);
+	public List<GroupManagingDto> getApplicantList(int group_num);
 	//소모임 가입 거절 신청자 목록 불러오기
-	public List<GroupManagingDto> getRejectedApplicantList(GroupManagingDto dto);
+	public List<GroupManagingDto> getRejectedApplicantList(int group_num);
 	//소모임 가입 승인하기
 	public void joinApprove(int num);
+	//소모임 가입자 수 증가(갱신)하기
+	public void addMemberCount(int group_num);
+	//소모임 가입자 수 증가(갱신)하기
+	public void minusMemberCount(int group_num);
 	//소모임 가입자 숫자 불러오기
 	public int getMemberCount(int num);
 	//소모임 가입자 추방하기

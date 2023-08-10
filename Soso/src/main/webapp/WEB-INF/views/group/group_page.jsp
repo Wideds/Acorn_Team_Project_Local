@@ -52,7 +52,14 @@
 					</div>
 					<input type="hidden" name="jjimNum" id="jjimNum" value="${dto.num }" hidden />
 					<button id="jjim" hidden>찜하기 버튼 테스트</button>
-					<div class="p-2"><button type="button" class="btn btn-outline-primary"><a href="${pageContext.request.contextPath}/group/group_in?num=${dto.num }">가입하기</a></button></div>
+					<c:choose>
+						<c:when test="${knowJoin == -1 || empty knowJoin}">
+							<button type="button" class="btn btn-outline-primary"><a href="${pageContext.request.contextPath}/group/group_in?num=${dto.num }">가입하기</a></button>
+						</c:when>
+						<c:otherwise>
+							<button type="button" class="btn btn-outline-primary cancle" id="cancleBtn" name="cancleBtn">신청 취소</button>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 		</div>
@@ -172,6 +179,27 @@
 		      }
 		    });
 	  });
+	  
+	  //신청 취소 버튼 누르면 신청 취소가 되게 해주는 ajax
+	  $(".cancle").on("click", function(){
+		  var jjimNum = $("#jjimNum").val();
+		  var $cancleBtn = $(this); // 클릭된 버튼을 참조
+
+		  $.ajax({
+			  url : "${pageContext.request.contextPath}/group/cancleJoin",
+			  method : "get",
+			  data : { "num" : jjimNum },
+			  success: function(data){
+				  // 신청 취소 버튼을 가입하기 버튼으로 변경
+			      $cancleBtn.replaceWith(`
+			        <button type="button" class="btn btn-outline-primary cancleBtn">
+			          <a href="${pageContext.request.contextPath}/group/group_in?num=${dto.num }">가입하기</a>
+			        </button>
+			      `);
+				  alert("가입 신청을 취소하셨습니다.")
+			  }
+		  })
+	  })
 	</script>
 </body>
 </html>

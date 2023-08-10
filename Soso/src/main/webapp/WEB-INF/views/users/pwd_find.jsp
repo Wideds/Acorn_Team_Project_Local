@@ -6,9 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <title>${pageContext.request.contextPath}</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/user.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/reset.css" type="text/css">
 </head>
-<body class="bg-light">
+<body>
     <div class="container">
         <c:choose>
             <c:when test="${isSuccess }">

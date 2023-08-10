@@ -4,7 +4,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.ui.Model;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.acorn.soso.group.dto.GroupDto;
 import com.acorn.soso.group.dto.GroupReviewDto;
@@ -12,13 +11,13 @@ import com.acorn.soso.group.dto.GroupReviewDto;
 
 public interface GroupService {
 	//list가져오기
-	public void getList(HttpServletRequest request);
+	public void getList(HttpServletRequest request, Model model);
 	//ranking list 가져오기
-	public void getRanking(HttpServletRequest request);
+	public void getRanking(HttpServletRequest request, Model model);
 	//사진 upload*DB 저장하기
 	public void saveImage(GroupDto dto, HttpServletRequest request);
 	//detail 페이지에 필요한 data를 ModelAndView에 저장
-	public void getDetail(ModelAndView mView, int num);
+	public void getDetail(HttpServletRequest request, Model model);
 	//모임 개설하기
 	public void insert(GroupDto dto, HttpServletRequest request, HttpSession session);
 	//모임 업데이트(request로 수정사항을 받아서 dto에 저장한 다음에 전송)
@@ -42,6 +41,10 @@ public interface GroupService {
 	
 	//소모임 가입에 관련한 기능
 	public void joinGroup(HttpServletRequest request);
+	//가입 신청 여부를 확인한다.
+	public void knowJoin(HttpServletRequest request);
+	//소모임 가입 신청 취소
+	public boolean cancleJoin(HttpServletRequest request);
 	
 	//ajax처리로 찜하기&찜취소 기능 구현
 	public boolean jjim(HttpServletRequest request);
@@ -51,5 +54,7 @@ public interface GroupService {
 	public int jjimCount(HttpServletRequest request);
 	//찜 리스트 출력
 	public void getJjimList(HttpServletRequest request);
+	
+	public void getData(HttpServletRequest request);
 	
 }

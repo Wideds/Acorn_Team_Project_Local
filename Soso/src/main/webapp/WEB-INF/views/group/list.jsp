@@ -55,8 +55,19 @@
                     <li><a href="#">분류4</a></li>
                 </ul>
             </div>
-            <div>
-                <input class="theme_search" type="text" placeholder="검색">
+        </div>
+        <div class="inner-wrap">
+        	<div class="theme_search">
+            	<form action="list" method="get">
+            	<label for="condition">검색조건</label>
+            	<input type="text" placeholder="type.." value="${keyword}" name="keyword" />
+            		<select name="condition" id="condition">
+            			<option value="name_caption" ${condition eq 'name_caption' ? 'selected' : '' }>모임명 +내용</option>
+            			<option value="name"  ${condition eq 'name' ? 'selected' : '' }>모임명 </option>
+            			<option value="writer"  ${condition eq 'manager_id' ? 'selected' : '' }>모임장</option>
+            		</select>
+            	<button type="submit">검색</button>
+            	</form>
             </div>
         </div>
         <div class="inner-wrap">
@@ -68,7 +79,10 @@
 	                           <img src="${path }/resources/images/main/001.jpg" alt="테스트이미지1">
 	                       </div>
 	                   </a>
+	                   <a href="detail?num=${tmp.num }&condition=${condition}&keyword=${encodedk}">
+                       
 	                   <a href="${pageContext.request.contextPath}/group/group_page?num=${tmp.num }">
+
 	                       <div class="mate_content_text">
 	                           <p class="mate_content_title">${tmp.name}</p>
 	                           <p>모임장 ${tmp.manager_id}</p>
@@ -78,139 +92,49 @@
 	               </div>
 	           </div>
         	</c:forEach>
-            
-            <div class="mate_content_list">
-                <div class="mate_contents">
-                    <a href="#">
-                        <div class="mate_content_img">
-                            <img src="${path }/resources/images/main/002.jpg" alt="테스트이미지1">
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="mate_content_text">
-                            <p class="mate_content_title">마음 살롱 - 심리학자와 함께하는 독서 모임</p>
-                            <p>모임장 농담곰</p>
-                            <p class="mate_content_date">8월 11일ㆍ금요일ㆍ강남</p>
-                        </div>
-                    </a>
-                </div>
-            </div>   
-            <div class="mate_content_list">
-                <div class="mate_contents">
-                    <a href="#">
-                        <div class="mate_content_img">
-                            <img src="${path }/resources/images/main/003.jpg" alt="테스트이미지1">
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="mate_content_text">
-                            <p class="mate_content_title">마음 살롱 - 심리학자와 함께하는 독서 모임</p>
-                            <p>모임장 농담곰</p>
-                            <p class="mate_content_date">8월 11일ㆍ금요일ㆍ강남</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="mate_content_list">
-                <div class="mate_contents">
-                    <a href="#">
-                        <div class="mate_content_img">
-                            <img src="${path }/resources/images/main/004.jpg" alt="테스트이미지1">
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="mate_content_text">
-                            <p class="mate_content_title">마음 살롱 - 심리학자와 함께하는 독서 모임</p>
-                            <p>모임장 농담곰</p>
-                            <p class="mate_content_date">8월 11일ㆍ금요일ㆍ강남</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="mate_content_list">
-                <div class="mate_contents">
-                    <a href="#">
-                        <div class="mate_content_img">
-                            <img src="${path }/resources/images/main/005.jpg" alt="테스트이미지1">
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="mate_content_text">
-                            <p class="mate_content_title">마음 살롱 - 심리학자와 함께하는 독서 모임</p>
-                            <p>모임장 농담곰</p>
-                            <p class="mate_content_date">8월 11일ㆍ금요일ㆍ강남</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="mate_content_list">
-                <div class="mate_contents">
-                    <a href="#">
-                        <div class="mate_content_img">
-                            <img src="${path }/resources/images/main/006.jpg" alt="테스트이미지1">
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="mate_content_text">
-                            <p class="mate_content_title">마음 살롱 - 심리학자와 함께하는 독서 모임</p>
-                            <p>모임장 농담곰</p>
-                            <p class="mate_content_date">8월 11일ㆍ금요일ㆍ강남</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="mate_content_list">
-                <div class="mate_contents">
-                    <a href="#">
-                        <div class="mate_content_img">
-                            <img src="${path }/resources/images/main/007.jpg" alt="테스트이미지1">
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="mate_content_text">
-                            <p class="mate_content_title">마음 살롱 - 심리학자와 함께하는 독서 모임</p>
-                            <p>모임장 농담곰</p>
-                            <p class="mate_content_date">8월 11일ㆍ금요일ㆍ강남</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="mate_content_list">
-                <div class="mate_contents">
-                    <a href="#">
-                        <div class="mate_content_img">
-                            <img src="${path }/resources/images/main/008.jpg" alt="테스트이미지1">
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="mate_content_text">
-                            <p class="mate_content_title">마음 살롱 - 심리학자와 함께하는 독서 모임</p>
-                            <p>모임장 농담곰</p>
-                            <p class="mate_content_date">8월 11일ㆍ금요일ㆍ강남</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="mate_content_list">
-                <div class="mate_contents">
-                    <a href="#">
-                        <div class="mate_content_img">
-                            <img src="${path }/resources/images/main/009.jpg" alt="테스트이미지1">
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="mate_content_text">
-                            <p class="mate_content_title">마음 살롱 - 심리학자와 함께하는 독서 모임</p>
-                            <p>모임장 농담곰</p>
-                            <p class="mate_content_date">8월 11일ㆍ금요일ㆍ강남</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
         </div>
+         <nav>
+         <ul class="pagination">
+            <%--
+               startPageNum 이 1 이 아닌 경우에만 Prev 링크를 제공한다. 
+               &condition=${condition}&keyword=${encodedK}
+             --%>
+            <c:if test="${startPageNum ne 1 }">
+               <li class="page-item">
+                  <a class="page-link animate__animated" href="list?pageNum=${startPageNum-1 }&condition=${condition}&keyword=${encodedK}">Prev</a>
+               </li>
+            </c:if>
+            <c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
+               <li class="page-item ${pageNum eq i ? 'active' : '' }">
+                  <a class="page-link animate__animated" href="list?pageNum=${i }&condition=${condition}&keyword=${encodedK}">${i }</a>
+               </li>
+            </c:forEach>
+            <%--
+               마지막 페이지 번호가 전체 페이지의 갯수보다 작으면 Next 링크를 제공한다. 
+             --%>
+            <c:if test="${endPageNum lt totalPageCount }">
+               <li class="page-item">
+                  <a class="page-link animate__animated" href="list?pageNum=${endPageNum+1 }&condition=${condition}&keyword=${encodedK}">Next</a>
+               </li>
+            </c:if>            
+         </ul>
+      </nav>
+      <script>
+         document.querySelectorAll(".pagination a").forEach(function(item){
+            //item 은 a 의 참조값이다 모든 a 요소에 mouseover 이벤트가 발생했을때 실행할 함수 등록
+            item.addEventListener("mouseover", function(e){
+               //애니메이션 클래스를 추가해서 애니메이션이 동작하도록한다.
+               e.target.classList.add("animate__swing");
+            });
+            //item 은 a 의 참조값이다 모든 a 요소에 animationend 이벤트가 발생했을때 실행할 함수 등록
+            item.addEventListener("animationend", function(e){
+               //애니메이션 클래스를 제거해서 다음번에 추가 되면 다시 애니매이션이 동작 되도록한다.
+               e.target.classList.remove("animate__swing");
+            });
+         });
+      </script>
     </section>
-
-<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
+	
 </body>
 </html>

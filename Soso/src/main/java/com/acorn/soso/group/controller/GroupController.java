@@ -1,6 +1,5 @@
 package com.acorn.soso.group.controller;
 
-import java.net.http.HttpRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.acorn.soso.group.dao.GroupReviewDao;
 import com.acorn.soso.group.dto.GroupDto;
 import com.acorn.soso.group.dto.GroupReviewDto;
 import com.acorn.soso.group.dto.JjimDto;
@@ -31,7 +29,9 @@ public class GroupController {
 	private GroupService service;
 	
 	@Autowired
-	private GroupManagingService managingService;
+	private GroupManagingService managingService;	
+	
+	
 	
 	//찜기능 목록 불러오기 위한 컨트롤러
 	@GetMapping("/group/jjim_list")
@@ -41,7 +41,16 @@ public class GroupController {
 		//찜 리스트로 간다
 		return "group/jjim_list";
 	}
-	
+
+	//가입 신청 취소를 위한 컨트롤러
+	@ResponseBody
+	@GetMapping("/group/cancleJoin")
+	public Map<String, Object> cancleJoin(HttpServletRequest request){
+		boolean isSuccess = service.cancleJoin(request);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("isSuccess", isSuccess);
+		return map;
+	}
 	
 	//찜기능을 위한 컨트롤러
 	//ajax를 위해 responseBody를 해준다.
@@ -84,8 +93,17 @@ public class GroupController {
 		int num = Integer.parseInt(request.getParameter("num"));
 		//groupManaging Service에서 정보 가져오기
 		managingService.getGroupData(num, request);
+		//소모임의 후기 글을 가져온다.
 		service.reviewList(request, model);
-		service.knowjjim(request);
+		
+		//로그인 여부를 토대로 서비스 실행 여부를 정한다.
+		String id =(String)request.getSession().getAttribute("id");
+		if(id != null) {
+			//소모임의 찜 여부를 가져온다.
+			service.knowjjim(request);
+			//소모임의 가입 신청 여부를 가져온다.
+			service.knowJoin(request);		
+		}
 		model.addAttribute("jjimCount", service.jjimCount(request));
 		return "group/group_page";
 	}
@@ -146,18 +164,17 @@ public class GroupController {
 	
 	//updateform 이동
 	@RequestMapping("/group/update_form")
-	public ModelAndView uploadform(ModelAndView mView, int num) {
-		service.getDetail(mView, num);
-		mView.setViewName("group/update_form");
-		return mView;
+	public String uploadform(HttpServletRequest request) {
+		service.getData(request);
+		return "group/update_form";
 	}
 	
 	//detail 페이지
-	@RequestMapping(method =RequestMethod.GET , value = "/group/detail")
-	public ModelAndView detail(ModelAndView mView, int num) {
-		service.getDetail(mView, num);		
-		mView.setViewName("group/detail");
-		return mView;
+	@GetMapping("/group/detail")
+	public String detail(HttpServletRequest request, Model model) {
+		service.getDetail(request, model);		
+		return "group/detail";
+
 	}
 	
 	//사진 업로드 & DB 저장
@@ -169,28 +186,28 @@ public class GroupController {
 	
 	//갤러리 form 페이지 이동
 	@RequestMapping("/group/upload_form")
-	public String upload_form(HttpServletRequest request) {
+	public String upload_form() {
 		return "group/upload_form";
 	}
 	
 	//갤러리 리스트 이동
-	@RequestMapping("/group/list")
-	public String list(HttpServletRequest request) {
-		service.getList(request);
+	@GetMapping("/group/list")
+	public String list(HttpServletRequest request, Model model) {
+		service.getList(request, model);
 		return "group/list";
 	}
 	
 	//랭킹 리스트 이동
 	@RequestMapping("/ranking/list")
-	public String Rankinglist(HttpServletRequest request) {
-		service.getRanking(request);
+	public String Rankinglist(HttpServletRequest request, Model model) {
+		service.getRanking(request, model );
 		return "ranking/list";
 	}
 	
 	//메인 페이지로 이동
 	@RequestMapping("/")
-	public String home(HttpServletRequest request) {
-		service.getRanking(request);
+	public String home(HttpServletRequest request, Model model) {
+		service.getRanking(request, model);
 		return "home";
 	}
 	

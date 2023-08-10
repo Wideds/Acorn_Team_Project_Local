@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
+
 
 import com.acorn.soso.exception.DontEqualException;
 import com.acorn.soso.exception.NotDeleteException;
@@ -40,86 +40,81 @@ public class GroupServiceImpl implements GroupService{
 	private JjimDao jjimdao;
 
 	@Override
-	public void getList(HttpServletRequest request) {
+	public void getList(HttpServletRequest request, Model model) {
 		//한 페이지에 몇개씩 표시할 것인지
-		//final int PAGE_ROW_COUNT=8;
+		final int PAGE_ROW_COUNT=8;
 		//하단 페이지를 몇개씩 표시할 것인지
-		//final int PAGE_DISPLAY_COUNT=5;
+		final int PAGE_DISPLAY_COUNT=5;
 	      
 		//보여줄 페이지의 번호를 일단 1이라고 초기값 지정
-		//int pageNum=1;
+		int pageNum=1;
 		//페이지 번호가 파라미터로 전달되는지 읽어와 본다.
-		//String strPageNum = request.getParameter("pageNum");
+		String strPageNum = request.getParameter("pageNum");
 		//만일 페이지 번호가 파라미터로 넘어 온다면
-		//if(strPageNum != null){
+		if(strPageNum != null){
 			//숫자로 바꿔서 보여줄 페이지 번호로 지정한다.
-			//pageNum=Integer.parseInt(strPageNum);
-		//}
+			pageNum=Integer.parseInt(strPageNum);
+		}
 	      
 		//보여줄 페이지의 시작 ROWNUM
-		//int startRowNum = 1 + (pageNum-1) * PAGE_ROW_COUNT;
+		int startRowNum = 1 + (pageNum-1) * PAGE_ROW_COUNT;
 		//보여줄 페이지의 끝 ROWNUM
-		//int endRowNum = pageNum * PAGE_ROW_COUNT;
+		int endRowNum = pageNum * PAGE_ROW_COUNT;
 	      
-		//검색어 관련
-		//request 영역의 keyword랑 condition(?)을 얻어온다.
-		//String keyword=request.getParameter("keyword");
-		//String condition=request.getParameter("condition");
-		//if(keyword==null) {
-		//	keyword="";
-		//   	condition="";
-		//}
-		    
-		  //한글을 검색창에 띄울 수 없으므로 ENcoder를 이용해서 적절하게 인코딩
-		  //String encodedK=URLEncoder.encode(keyword);
-	      
-	      //startRowNum 과 endRowNum  을 movieDto 객체에 담고
-	      GroupDto dto = new GroupDto();
-	      //dto.setStartRowNum(startRowNum);
-	      //dto.setEndRowNum(endRowNum);
+		
+		String keyword=request.getParameter("keyword");
+		String condition=request.getParameter("condition");
+		if(keyword==null) {
+			keyword="";
+		   	condition="";
+		}
+		String encodedK=URLEncoder.encode(keyword);
+	    GroupDto dto = new GroupDto();
+	    dto.setStartRowNum(startRowNum);
+	    dto.setEndRowNum(endRowNum);
 	      
 	      
-		    //만일 검색 키워드가 넘어온다면
-		    //if(!keyword.equals("")) {
-		    	//검색 조건이 무엇인가에 따라 분기
-		    	//if(condition.equals("title_caption")) {//w제목+내용 검색인 경우
-		    	//	dto.setName(keyword);
-//		    		dto.setCaption(keyword);
-//		    	}else if(condition.equals("title")) {
-//		    		dto.setName(keyword);
-//		    	}else if(condition.equals("writer")) {
-//		    		dto.setManager_id(keyword);
-//		    	}
-//		    }
+
+		if(!keyword.equals("")) {
+			if(condition.equals("name_caption")) {
+		    	dto.setName(keyword);
+		    	dto.setCaption(keyword);
+		    	}else if(condition.equals("name")) {
+		    		dto.setName(keyword);
+		    	}else if(condition.equals("writer")) {
+		    		dto.setManager_id(keyword);
+		    	}
+		    }
 	      
-	      //GroupDao 객체를 이용해서 회원 목록을 얻어온다.
+
 	      List<GroupDto> list = dao.getList(dto);
-	      
-	      //검색 키워드에 부합하는 전체 글의 갯수
-	      //int totalRow = dao.getCount(dto);
-	      
-	      //하단 시작 페이지 번호 
-	      //int startPageNum = 1 + ((pageNum-1)/PAGE_DISPLAY_COUNT) * PAGE_DISPLAY_COUNT;
-	      //하단 끝 페이지 번호
-	      //int endPageNum = startPageNum + PAGE_DISPLAY_COUNT - 1;
-	      
-	      //전체 페이지의 갯수 구하기
-	      //int totalPageCount = (int)Math.ceil(totalRow / (double)PAGE_ROW_COUNT);
-	      //끝 페이지 번호가 이미 전체 페이지 갯수보다 크게 계산되었다면 잘못된 값이다.
-	      //if(endPageNum > totalPageCount){
-	      //   endPageNum = totalPageCount; //보정해 준다. 
-	      //}
+	      	//전체글의 갯수
+			int totalRow=dao.getCount(dto);
+			
+			//하단 시작 페이지 번호 
+			int startPageNum = 1 + ((pageNum-1)/PAGE_DISPLAY_COUNT)*PAGE_DISPLAY_COUNT;
+			//하단 끝 페이지 번호
+			int endPageNum=startPageNum+PAGE_DISPLAY_COUNT-1;
+			
+
+			//전체 페이지의 갯수
+			int totalPageCount=(int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
+			//끝 페이지 번호가 전체 페이지 갯수보다 크다면 잘못된 값이다.
+			if(endPageNum > totalPageCount){
+				endPageNum=totalPageCount; //보정해 준다.
+			}
+
 	      	      
 	      //request 영역에 담아주기
-	      request.setAttribute("list", list);   //소모임 list
-	      //request.setAttribute("startPageNum", startPageNum);   //시작 페이지 번호
-	      //request.setAttribute("endPageNum", endPageNum);   //끝 페이지 번호
-	      //request.setAttribute("pageNum", pageNum);   //현재 페이지 번호
-	      //request.setAttribute("totalPageCount", totalPageCount);   //모든 페이지 count
-		  //request.setAttribute("keyword", keyword);
-		  //request.setAttribute("encodedK", encodedK);
-		  //request.setAttribute("totalRow", totalRow); 
-		  //request.setAttribute("condition", condition);
+	      model.addAttribute("list", list);   //소모임 list
+	      model.addAttribute("keyword", keyword);
+	      model.addAttribute("encodedK", encodedK);
+	      model.addAttribute("condition", condition);
+	      model.addAttribute("pageNum", pageNum);
+	      model.addAttribute("startPageNum", startPageNum);
+	      model.addAttribute("endPageNum", endPageNum);
+	      model.addAttribute("totalPageCount", totalPageCount);
+	      model.addAttribute("totalRow", totalRow);
 		
 	}
 
@@ -182,41 +177,83 @@ public class GroupServiceImpl implements GroupService{
 	}
 
 	@Override
-	public void getDetail(ModelAndView mView, int num) {
-		//dao로 해당 게시글 num에 해당하는 데이터(dto)를 가져온다.
-		GroupDto dto = dao.getData(num);
-		//ModelAndView에 가져온 MovieDto를 담는다.
+	public void getDetail(HttpServletRequest request, Model model) {
+	
+		int num = Integer.parseInt(request.getParameter("num"));
+		//한 페이지에 몇개씩 표시할 것인지
+				final int PAGE_ROW_COUNT=8;
+				//하단 페이지를 몇개씩 표시할 것인지
+				final int PAGE_DISPLAY_COUNT=5;
+			      
+				//보여줄 페이지의 번호를 일단 1이라고 초기값 지정
+				int pageNum=1;
+				//페이지 번호가 파라미터로 전달되는지 읽어와 본다.
+				String strPageNum = request.getParameter("pageNum");
+				//만일 페이지 번호가 파라미터로 넘어 온다면
+				if(strPageNum != null){
+					//숫자로 바꿔서 보여줄 페이지 번호로 지정한다.
+					pageNum=Integer.parseInt(strPageNum);
+				}
+			      
+				//보여줄 페이지의 시작 ROWNUM
+				int startRowNum = 1 + (pageNum-1) * PAGE_ROW_COUNT;
+				//보여줄 페이지의 끝 ROWNUM
+				int endRowNum = pageNum * PAGE_ROW_COUNT;
 		
-		/* 댓글에 관련한 처리 */
-		final int PAGE_ROW_COUNT=10;
-		int pageNum = 1;
-		int startRowNum=1+(pageNum-1)*PAGE_ROW_COUNT;
-		int endRowNum = pageNum*PAGE_ROW_COUNT;
-		
-		GroupReviewDto reviewDto = new GroupReviewDto();
-		reviewDto.setRef_group(num);
-		reviewDto.setStartRowNum(startRowNum);
-		reviewDto.setEndRowNum(endRowNum);
-		
-		
-		List<GroupReviewDto> reviewList= reviewdao.getList(reviewDto);
-		
-		int totalRow = reviewdao.getCount(num);
-		int totalPageCount=(int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
-		
-		if(totalRow>0) {
-			// dto의 title을 매개로 평균 평점을 구한다.
-			Double avgRate = reviewdao.getAvg(dto.getName());
-			if (avgRate != null) {
-			    // 평균 평점을 담는다.
-			    mView.addObject("avgRate", avgRate);
-			}
+		//검색 키워드 처리 
+		String keyword=request.getParameter("keyword");
+		String condition=request.getParameter("condition");
+		if(keyword==null) {
+			keyword="";
+		   	condition="";
 		}
-		
-		mView.addObject("dto", dto);
-		mView.addObject("totalRow", totalRow);
-		mView.addObject("reviewList", reviewList);
-		mView.addObject("totalPageCount", totalPageCount);
+		String encodedK=URLEncoder.encode(keyword);
+	    GroupDto dto = new GroupDto();
+	    dto.setStartRowNum(startRowNum);
+	    dto.setEndRowNum(endRowNum);
+	      
+	      
+
+		if(!keyword.equals("")) {
+			if(condition.equals("name_caption")) {//제목+내용 검색인 경우
+		    	dto.setName(keyword);
+		    	dto.setCaption(keyword);
+		    	}else if(condition.equals("name")) {
+		    		dto.setName(keyword);
+		    	}else if(condition.equals("writer")) {
+		    		dto.setManager_id(keyword);
+		    	}
+		    }
+	      
+
+	      List<GroupDto> list = dao.getList(dto);
+	    //전체글의 갯수
+			int totalRow=dao.getCount(dto);
+			
+			//하단 시작 페이지 번호 
+			int startPageNum = 1 + ((pageNum-1)/PAGE_DISPLAY_COUNT)*PAGE_DISPLAY_COUNT;
+			//하단 끝 페이지 번호
+			int endPageNum=startPageNum+PAGE_DISPLAY_COUNT-1;
+			
+
+			//전체 페이지의 갯수
+			int totalPageCount=(int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
+			//끝 페이지 번호가 전체 페이지 갯수보다 크다면 잘못된 값이다.
+			if(endPageNum > totalPageCount){
+				endPageNum=totalPageCount; //보정해 준다.
+			} 
+
+	      	      
+	      //request 영역에 담아주기
+	      model.addAttribute("list", list);   //소모임 list
+	      model.addAttribute("keyword", keyword);
+	      model.addAttribute("encodedK", encodedK);
+	      model.addAttribute("condition", condition);
+	      model.addAttribute("pageNum", pageNum);
+	      model.addAttribute("startPageNum", startPageNum);
+	      model.addAttribute("endPageNum", endPageNum);
+	      model.addAttribute("totalPageCount", totalPageCount);
+	      model.addAttribute("totalRow", totalRow);
 		
 	}
 	
@@ -425,7 +462,7 @@ public class GroupServiceImpl implements GroupService{
 	}
 
 	@Override
-	public void getRanking(HttpServletRequest request) {
+	public void getRanking(HttpServletRequest request , Model model) {
 
 	      GroupDto dto = new GroupDto();
 	      
@@ -526,5 +563,47 @@ public class GroupServiceImpl implements GroupService{
         //request 영역에 담아주기
         request.setAttribute("list", list);
 	
+	}
+
+	@Override
+	public void knowJoin(HttpServletRequest request) {
+		//num을 통해 groupNum을 알아낸다.
+		int num = Integer.parseInt(request.getParameter("num"));
+		//session 영역에 있는 id를 알아낸다.
+		String id =(String)request.getSession().getAttribute("id");
+		//새로운 dto를 만들어서 방금 알아낸 데이터를 담는다.
+		GroupJoinDto dto = new GroupJoinDto();
+		dto.setGroup_Num(num);
+		dto.setUser_Id(id);
+		//만들어낸 dto를 가지고 getData작업을 시행하고 resultDto에 담는다.
+		//int joinNum의 초기값 설정
+		int joinNum = joindao.getIsJoin(dto);
+		if(joinNum == 1 || joinNum == 2 || joinNum == 3) {
+			//request영역에 jjim이라는 이름으로 resultDto를 담는다.
+			request.setAttribute("knowJoin", joinNum);
+		}else if(joinNum == -1) {
+			request.setAttribute("knowJoin", -1);
+		}
+		
+	}
+
+	@Override
+	public boolean cancleJoin(HttpServletRequest request) {
+		//num을 통해 groupNum을 알아낸다.
+		int num = Integer.parseInt(request.getParameter("num"));
+		//session 영역에 있는 id를 알아낸다.
+		String id =(String)request.getSession().getAttribute("id");
+		//새로운 dto를 만들어서 방금 알아낸 데이터를 담는다.
+		GroupJoinDto dto = new GroupJoinDto();
+		dto.setGroup_Num(num);
+		dto.setUser_Id(id);
+		joindao.cancleJoin(dto);		
+		return true;
+	}
+// 	public void getData(HttpServletRequest request) {
+// 		int num =Integer.parseInt(request.getParameter("num"));
+// 		GroupDto dto=dao.getData(num);
+// 		request.setAttribute("dto", dto);
+		
 	}
 }

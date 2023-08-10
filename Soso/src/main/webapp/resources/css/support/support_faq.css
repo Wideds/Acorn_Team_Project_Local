@@ -1,0 +1,127 @@
+@charset "UTF-8";
+
+/* 메인 페이지 전체 레이아웃 */
+	.main_content{
+		margin: 100px auto 90px;
+		box-sizing: border-box;
+		width: 100%;
+		min-height: 260px;
+		max-width:1300px;
+	}
+	/* 상단 배너 */
+	.head{
+		background-image:url("https://static.onoffmix.com/images/pc/default/faq_bg.png");
+		height:360px;
+		background-size:cover;
+		overflow:hidden;
+	}
+	.head h2{
+		text-align:center;
+		margin:116px auto 20px;
+	}
+	.head p{
+		text-align:center;
+		font-size:20px;
+	}
+	/* 검색창 */
+	.search{
+		margin-top:20px;
+	}
+	.search .search_form{
+		height: 60px;
+		display: flex;
+		padding: 3px 0;
+		box-sizing: border-box;
+		background-color: white;
+		flex-wrap: wrap;
+		justify-content:center;
+	}
+	.search_main{
+		width: 500px;
+		height:100%;
+		padding:0 20px;
+		font-size: 18px;
+		border: 1px solid gray;
+		border-right: none;
+		background-color: white;
+	}
+	.search_cs{
+		background:url("https://static.onoffmix.com/images/pc/svg/search_2.svg") no-repeat center center;
+		width:72px;
+		height:100%;
+		border: 1px solid gray;
+		border-left: none;
+		text: none;
+	}
+	/* faq 메뉴바 */
+	.tab_section .tab_menu{
+		margin: 60px 0 80px;
+		padding:0;
+		border-right:1px solid gray;
+		border-bottom: 1px solid gray;
+		box-sizing: border-box;
+		display: flex;
+		justify-content:center;
+		flex-wrap: wrap;
+	}
+	.tab_menu li{
+		width:20%;
+		height:50px;
+		box-sizing: border-box;
+		border-top:1px solid gray;
+		border-left: 1px solid gray;
+		display: inline-block;
+		font-size: 16px;
+		line-height: 50px;
+		text-align: center;
+	}
+	/* FAQ 메인 컨첸츠 레이아웃 */
+	.faq{
+		display: inline-block;
+	}
+	#tab_menu{
+		margin: 60px 0 80px;
+	}
+	.tab_content{
+		margin-top:14px;
+		margin-bottom:20px;
+		font-size:16px;
+		border-top: 2px solid black;
+	}
+	.tab_content ul{
+		margin-top: 20px;
+	}
+	.tab_content ul li{
+		border-bottom: 1px solid gray;
+	}
+	.dropbox{
+		box-sizing: border-box;
+		width: 100%;
+		position: relative;
+		display: inline-block;
+	}
+	.dropbox .title_area{
+		box-sizing: border-box;
+		width: 100%;
+		line-height: 61px;
+		position: relative;
+		
+	}
+	.dropbox .title_area .category{
+		width: 150px;
+		height: auto;
+		box-sizing: border-box;
+		display: inline-block;
+		text-align: center;
+		vertical-align: middle;
+		font-size:20px;
+	}
+	.dropbox .title_area .detail{
+		width: 800px;
+		font-weight: normal;
+		vertical-align: middle;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		overflow: hidden;
+		display: inline-block;
+	}

@@ -5,24 +5,25 @@
 	<!-- 검색 기능을 위한 -->
 	<sql id="searchCondition">
 		<choose>
-			<when test="title != null and caption != null">
-				WHERE title LIKE '%'||#{title}||'%' OR caption LIKE '%'||#{caption}||'%'
+			<when test="name != null and caption != null">
+				WHERE name LIKE '%'||#{name}||'%' OR caption LIKE '%'||#{caption}||'%'
 			</when>
-			<when test="title != null">
-				WHERE title LIKE '%'||#{title}||'%'
+			<when test="name != null">
+				WHERE name LIKE '%'||#{name}||'%'
 			</when>
-			<when test="writer != null">
-				WHERE writer LIKE '%'||#{writer}||'%'
+			<when test="manager_id != null">
+				WHERE manager_id LIKE '%'||#{manager_id}||'%'
 			</when>
 		</choose>
 	</sql>
 
 	<!-- 리스트  -->
 	<select id="getList" parameterType="groupDto" resultType="groupDto">
-		SELECT num, name, caption, img_path, regdate, ended_dt, deadline_dt, start_dt,
+      	SELECT num, name, caption, img_path, regdate, ended_dt, deadline_dt, start_dt,
 			manager_id, max_people, now_people, avrg_rate, meeting_loc, meeting_time,
 			genre, on_off, manager_comment, viewcount
       	FROM group_tb
+      	<include refid="searchCondition"/>
       	ORDER BY num DESC
    </select>
    
@@ -32,7 +33,7 @@
             SELECT result1.*, ROWNUM AS rnum
             FROM (
                 SELECT num, writer, title, caption, imagePath, regdate
-                FROM board_group
+                FROM group_tb
                 ORDER BY num DESC
             ) result1
         ) result
@@ -46,7 +47,7 @@
    
    <select id="getCount" parameterType="groupDto" resultType="int">
       SELECT NVL(MAX(ROWNUM), 0)
-      FROM board_group
+      FROM group_tb
       <include refid="searchCondition"/>
    </select>
    
@@ -61,13 +62,12 @@
    </insert>
    
    <select id="getData" parameterType="int" resultType="groupDto">
-		SELECT *
+		SELECT result1.*
 		FROM
 		   (SELECT num, writer, title, caption, imagePath, regdate,
 		      LAG(num, 1, 0) OVER (ORDER BY num DESC) AS prevNum,
 		      LEAD(num, 1, 0) OVER (ORDER BY num DESC) AS nextNum
-		   FROM board_group
-		   ORDER BY num DESC)
+		   FROM group_tb) result1
 		WHERE num = #{num}
    </select>
    
@@ -77,17 +77,18 @@
 		   (SELECT num, writer, title, caption, imagePath, regdate,
 		      LAG(num, 1, 0) OVER (ORDER BY num DESC) AS prevNum,
 		      LEAD(num, 1, 0) OVER (ORDER BY num DESC) AS nextNum
-		   FROM board_group
+		   FROM group_tb
+		   <include refid="searchCondition"/>
 		   ORDER BY num DESC)
 		WHERE title = #{title}
    </select>
    <update id="update" parameterType="groupDto">
-   		UPDATE board_group
+   		UPDATE group_tb
    		SET title = #{title}, caption=#{caption}, imagePath=#{imagePath}
    		WHERE num = #{num}
    </update>
    <delete id="delete" parameterType="int">
-   		DELETE FROM board_group
+   		DELETE FROM group_tb
    		WHERE num=#{num}
    </delete>
    

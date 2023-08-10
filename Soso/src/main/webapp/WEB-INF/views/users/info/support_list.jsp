@@ -16,26 +16,16 @@
 			</tr>
 		</thead>
 		<tbody>
-			<!-- 임시 데이터 -->
-			<tr>
-				<td>1</td>
-				<td>
-					<a href="">클릭시 해당 질문으로 이동</a>
-				</td>
-				<td>2023.08.02 16:15:30</td>
-			</tr>
 			
-			<%-- <c:forEach var="tmp" items="${list }">
+			<c:forEach var="tmp" items="${list }">
 				<tr>
 					<td>${tmp.num }</td>
-					<td>${tmp.writer }</td>
 					<td>
-						<a href="detail?num=${tmp.num }&condition=${condition}&keyword=${encodedK}">${tmp.title }</a>
+						<a href="">${tmp.title }</a>
 					</td>
-					<td>${tmp.viewCount }</td>
 					<td>${tmp.regdate }</td>
 				</tr>
-			</c:forEach> --%>
+			</c:forEach>
 		</tbody>
 	</table>
 	<nav>

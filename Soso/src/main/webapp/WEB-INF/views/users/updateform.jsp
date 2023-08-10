@@ -7,35 +7,20 @@
 <meta charset="UTF-8">
 <title>/views/users/updateform.jsp</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
-<style>
-	/* 이미지 업로드 폼을 숨긴다 */
-	#imageForm{
-		display: none;
-	}
-	#profileImage{
-		width: 100px;
-		height: 100px;
-		border: 1px solid #cecece;
-		border-radius: 50%;
-	}
-	.container{
-		width: 768px;
-	}
-</style>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/user.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/reset.css" type="text/css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/include/navbar.jsp">
+	<jsp:include page="/WEB-INF/views/include/navbar_c.jsp">
 		<jsp:param value="update" name="current"/>
 	</jsp:include>
 	<div class="container">
-		<h3>가입 정보 수정</h3>
+		<p class="title">가입 정보 수정</p>
 		<a id="profileLink" href="javascript:">
 			<c:choose>
 				<c:when test="${ empty dto.profile }">
-					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-					  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-					  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-					</svg>
+					<i class="bi bi-person-circle" style="font-size:100px" id="profileImage"></i>
 				</c:when>
 				<c:otherwise>
 					<img id="profileImage" src="${pageContext.request.contextPath}${dto.profile}">
@@ -66,6 +51,8 @@
 		</form>
 					
 	</div>
+	
+    <jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
 	<!-- gura_util.js 로딩 -->
 	<script src="${pageContext.request.contextPath }/resources/js/gura_util.js"></script>
 	<script>

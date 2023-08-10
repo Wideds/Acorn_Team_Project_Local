@@ -10,13 +10,13 @@ public interface GroupManagingService {
 	public GroupDto getGroupData(int num, HttpServletRequest request);
 	public void updateGroupData(GroupDto dto, HttpServletRequest request);
 	public void deleteGroupData(int num);
-	public void getMemberList(GroupManagingDto dto, HttpServletRequest request);
-	public void getKickedMemberList(GroupManagingDto dto, HttpServletRequest request);
-	public void getApplicantList(GroupManagingDto dto, HttpServletRequest request);
-	public void getRejectedApplicantList(GroupManagingDto dto, HttpServletRequest request);
-	public void joinApprove(int num);
+	public void getMemberList(int group_num, HttpServletRequest request);
+	public void getKickedMemberList(int group_num, HttpServletRequest request);
+	public void getApplicantList(int group_num, HttpServletRequest request);
+	public void getRejectedApplicantList(int group_num, HttpServletRequest request);
+	public void joinApprove(int num, int group_num);
 	public void getMemberCount(int num, HttpServletRequest request);
-	public void kick(int num);
+	public void kick(int num, int group_num);
 	public void reject(int num);
 	public void dropOut(int num);
 }

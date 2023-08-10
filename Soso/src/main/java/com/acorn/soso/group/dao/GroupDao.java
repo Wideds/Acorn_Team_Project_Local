@@ -3,6 +3,7 @@ package com.acorn.soso.group.dao;
 import java.util.List;
 
 import com.acorn.soso.group.dto.GroupDto;
+import com.acorn.soso.group.dto.GroupJoinDto;
 
 public interface GroupDao {
 	//모 소모임의 리스트

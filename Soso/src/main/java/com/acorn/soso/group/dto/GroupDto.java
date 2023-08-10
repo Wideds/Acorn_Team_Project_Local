@@ -67,4 +67,7 @@ public class GroupDto {
 	private int nextNum;
 	 
 	private double rate;
+	
+	private String type;
+	private String keyword;
 }

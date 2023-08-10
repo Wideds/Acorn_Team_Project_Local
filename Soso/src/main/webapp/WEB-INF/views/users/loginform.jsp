@@ -6,7 +6,9 @@
 <head>
     <meta charset="UTF-8">
     <title>${pageContext.request.contextPath}</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/reset.css" type="text/css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/user.css" type="text/css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/floating-labels/">
     <link href="${pageContext.request.contextPath}/resources/css/floating-labels.css" rel="stylesheet">
@@ -17,9 +19,9 @@
         <jsp:param value="login" name="current"/>
     </jsp:include>
     
-    <div class="div-signin d-grid gap-2">
+    <div class="container">
         <form class="form-signin" action="${pageContext.request.contextPath}/users/login" method="post">
-            <h1 class="h3 mb-3 font-weight-normal" style="width: 30rem">로그인</h1>
+            <p class="title">로그인</p>
             
             <c:choose>
                 <%-- 홈 화면에서 로그인 할 경우 파라미터 값으로 url이 주어지지 않음 --%>
@@ -45,22 +47,26 @@
                 </div>
                 <button class="btn btn-outline-secondary bi-eye-slash" type="button" name="openpwd"></button>
             </div>
-            <small class="form-text text-muted">예) hello123@ / Hello123</small>
+            <small class="form-text text-muted">예) hello123@</small>
             
-            <div class="d-grid gap-2">
+            <div class="d-grid gap-2 mt-2">
                 <button class="btn btn-primary btn-block" type="submit">로그인</button>
             </div>
         </form>
         
-        <div class="checkbox mt-3 mb-2">
-            <label><input type="checkbox" id="rememberId"> 아이디 기억하기</label>
-            <label><input type="checkbox" id="autoLogin"> 자동 로그인</label>
+        <div class="row">
+	        <div class="checkbox mt-3 mb-2 col">
+	            <label><input type="checkbox" id="rememberId"> 아이디 기억하기</label>
+	            <label><input type="checkbox" id="autoLogin"> 자동 로그인</label>
+	        </div>
+	        <div class="col-3 float-right">
+		        <a class="btn float-right" href="${pageContext.request.contextPath}/users/id_findform">아이디 찾기</a>
+		        <a class="btn float-right" href="${pageContext.request.contextPath}/users/pwd_findform">비밀번호 찾기</a>
+	        </div>
         </div>
-        
-        <a href="${pageContext.request.contextPath}/users/id_findform">아이디 찾기</a>
-        <a href="${pageContext.request.contextPath}/users/pwd_findform">비밀번호 찾기</a>
     </div>
-     <jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
+    
+    <jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
     <script>

@@ -16,4 +16,18 @@ public class GroupJoinDaoImpl implements GroupJoinDao{
 		session.insert("join.insert", dto);
 	}
 
+	@Override
+	public int getIsJoin(GroupJoinDto dto) {
+	    try {
+	        return session.selectOne("join.getIsJoin", dto);
+	    } catch (Exception e) {
+	        // 예외 처리 로직
+	        return -1; // 예외 발생 시 -1 반환
+	    }
+	}
+
+	@Override
+	public void cancleJoin(GroupJoinDto dto) {
+		session.delete("join.cancleJoin", dto);
+	}
 }

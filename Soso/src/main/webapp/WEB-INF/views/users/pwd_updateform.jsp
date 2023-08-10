@@ -7,18 +7,15 @@
 <meta charset="UTF-8">
 <title>/views/users/pwd_updateform.jsp</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
-<style>
-	.container{
-		width: 768px;
-	}
-</style>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/user.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/reset.css" type="text/css">
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/include/navbar.jsp">
+	<jsp:include page="/WEB-INF/views/include/navbar_c.jsp">
 		<jsp:param value="pwd_update" name="current"/>
 	</jsp:include>
-	<h1 class="text-center">비밀번호 수정</h1>
 	<div class="container">
+		<p class="title">비밀번호 수정</p>
 		<form action="${pageContext.request.contextPath}/users/pwd_update" method="post" id="myForm">
 			<div>
 				<label class="form-label" for="newPwd">새 비밀번호</label>
@@ -32,6 +29,9 @@
 			<button class="btn btn-secondary" type="reset">리셋</button>
 		</form>
 	</div>
+	
+    <jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
+    
 	<script>
 		//폼에 submit 이벤트가 일어났을때 실행할 함수를 등록하고 
 		document.querySelector("#myForm").addEventListener("submit", function(e){

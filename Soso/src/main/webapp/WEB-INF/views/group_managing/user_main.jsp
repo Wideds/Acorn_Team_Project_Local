@@ -23,6 +23,7 @@
 			                   참여중인 북메이트를<br>
 			                   확인하는 게시판
                 </p>
+                <a href="${pageContext.request.contextPath}/cafe/list">게시판</a>
             </div>
             <div class="indicator">
                 <div class="home circle">
