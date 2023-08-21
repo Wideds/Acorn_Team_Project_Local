@@ -1,15 +1,23 @@
 package com.acorn.soso.users.service;
 
 import java.io.File;
+import java.security.spec.KeySpec;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
+import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.acorn.soso.users.dao.UsersDao;
 import com.acorn.soso.users.dto.UsersDto;
+import java.util.Base64;
 
 @Service
 public class UsersServiceImpl implements UsersService{
@@ -25,21 +34,50 @@ public class UsersServiceImpl implements UsersService{
 	@Autowired
 	private UsersDao dao;
 	
+	@Autowired
+    private Environment env;
+	
 	// application.properties 문서에 있는 파일의 저장위치 설정정보 읽어오기
 	@Value("${file.location}")
 	private String fileLocation;
 	
-	@Override
-	public void addUser(UsersDto dto) {
-		//비밀번호를 암호화해줄 객체를 생성
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		//암호화된 비밀번호 얻어내서
-		String encodedPwd = encoder.encode(dto.getPwd());
-		//UsersDto 객체에 담고
-		dto.setPwd(encodedPwd);
-		//UsersDao 객체를 이용해서 DB에 저장하기
-		dao.insert(dto);
+	// AES 암호화를 수행하는 메소드
+	private String encryptPassword(String password, String salt) {
+		try {
+            // AES 암호화 키 생성
+            SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+            KeySpec keySpec = new PBEKeySpec(salt.toCharArray(), salt.getBytes(), 65536, 128);
+            SecretKey tmp = keyFactory.generateSecret(keySpec);
+            SecretKey secretKey = new SecretKeySpec(tmp.getEncoded(), "AES");
+
+            // AES 암호화 진행
+            Cipher cipher = Cipher.getInstance("AES");
+            cipher.init(Cipher.ENCRYPT_MODE, secretKey);
+
+            byte[] encryptedBytes = cipher.doFinal(password.getBytes("UTF-8"));
+
+            // Base64로 인코딩하여 문자열로 반환
+            return Base64.getEncoder().encodeToString(encryptedBytes);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
 	}
+	
+	@Override
+    public void addUser(UsersDto dto) {
+        // 비밀번호를 AES 암호화해줄 객체를 생성
+        String salt = env.getProperty("aes.salt"); // application.properties에서 설정한 salt 값
+        String password = dto.getPwd();
+        
+        // AES 암호화 진행
+        String encryptedPwd = encryptPassword(password, salt);
+        
+        // 암호화된 비밀번호를 UsersDto 객체에 담고
+        dto.setPwd(encryptedPwd);
+        // UsersDao 객체를 이용해서 DB에 저장하기
+        dao.insert(dto);
+    }
 	
 	//아이디 중복체크
 	@Override
