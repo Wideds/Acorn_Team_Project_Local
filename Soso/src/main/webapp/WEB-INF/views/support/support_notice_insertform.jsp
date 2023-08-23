@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="path" value="${pageContext.request.contextPath}"/>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,19 +21,33 @@
     text-align: center;
 	}
 </style>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/reset.css" type="text/css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/support/support_inquire.css" />
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </head>
 <body>
-	
-	<main id="content" class="cs inquire">
-	<!-- 상단 배너 -->
-	<div class="head">
-		<h2 class="main_title">Notice 관리</h2>
-		<p class="sub_text">공지사항을 등록할 수 있습니다.</p>
-	</div>
+	<jsp:include page="/WEB-INF/views/include/navbar.jsp">
+		<jsp:param value="home" name="current"/>
+	</jsp:include>
+    <main id="main-banner" class="main-banner-06">
+        <div class="inner-wrap">
+            <div class="title">
+                <h2>고객센터</h2>
+                <p>
+			                    서비스 이용 중 불편 했던 점이나 궁금한 점을 <br />
+			                    빠르고 친절하게 안내해 드리겠습니다.
+                </p>
+            </div>
+            <div class="indicator">
+                <div class="home circle">
+                    <a href="#" title="메인페이지가기"><img src="${path }/resources/images/sub/icon_home.svg" alt="홈버튼이미지"></a>
+                </div>
+                <div class="main-menu circle">BOOKMATE</div>
+
+            </div>
+        </div>
+    </main>
 	<!-- 메인 메뉴바 시작 -->
 	<div class="main_area">
 	<ul class="menu_bar">
@@ -58,10 +73,10 @@
 							<h4 class="label">공지</h4>
 							<select name="category" id="category" class="title_select">
 								<option selected="selected" class="inquire_select">분류</option>
-								<option value="공지">공지</option>
-								<option value="업데이트">업데이트</option>
-								<option value="휴무">휴무</option>
-								<option value="기타">기타</option>
+								<option value="1">공지</option>
+								<option value="2">업데이트</option>
+								<option value="3">휴무</option>
+								<option value="0">기타</option>
 							</select>
 							<input type="text" class="inquire_title" name="title" id="title" placeholder="제목을 입력해주세요" />
 						</div>
@@ -83,6 +98,7 @@
 	</div>
 	
 </main>
+	<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
 </body>
 </html>
 

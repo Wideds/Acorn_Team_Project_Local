@@ -107,13 +107,11 @@ public class FaqServiceImpl implements FaqService {
 	}
 	// 질문 수정에 필요한 질문 정보
 	@Override
-	public void getData(HttpServletRequest request) {
-		//수정할 질문 번호
-		int num=Integer.parseInt(request.getParameter("num"));
+	public FaqDto getData(int faq_num, Model model) {
 		// 수정할 질문의 정보를 얻어와서
-		FaqDto dto=faqDao.getData(num);
-		//request에 담아준다.
-		request.setAttribute("dto", dto);
+		FaqDto dto=faqDao.getData(faq_num);
+		model.addAttribute("dto",dto);
+		return dto;
 	}
 	// 질문 등록
 	@Override
@@ -127,8 +125,8 @@ public class FaqServiceImpl implements FaqService {
 	}
 	// 질문 삭제
 	@Override
-	public void deleteFaq(int num, HttpServletRequest request) {
-		faqDao.delete(num);
+	public void deleteFaq(int faq_num, Model model) {
+		faqDao.delete(faq_num);
 	}
 	// 키워드를 이용한 질문의 정보 얻어오기
 	@Override

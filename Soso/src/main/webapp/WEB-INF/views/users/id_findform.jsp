@@ -16,17 +16,17 @@
     <div class="container">
         <p class="title">아이디 찾기</p>
         
-        <form action="${pageContext.request.contextPath}/users/id_find" class="card p-2 needs-validation" method="post">
+        <form action="${pageContext.request.contextPath}/users/id_find" method="post">
         	<div class="mb-2">
-                <label for="userName" class="control-label">이름</label>
-                <input type="text" class="form-control" name="userName" id="userName"/>
+                <label for="name" class="control-label">이름</label>
+                <input type="text" class="form-control" name="name" id="name"/>
             </div>
             <div class="mb-2">
                 <label for="email" class="control-label">이메일</label>
                 <input type="text" class="form-control" name="email" id="email"/>
             </div>
             
-            <button class="btn btn-primary" type="submit">찾기</button>
+            <button class="btn btn-join" type="submit">찾기</button>
         </form>
     </div>
     

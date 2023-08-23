@@ -49,7 +49,7 @@
     	<div class="inner-wrap">
             <div class="user_content_theme">
                 <ul>
-                	<li><a href="${pageContext.request.contextPath}/group_managing/admin_main_all">전체</a></li>
+                    <li><a href="${pageContext.request.contextPath}/group_managing/admin_main_all">전체</a></li>
                     <li><a href="${pageContext.request.contextPath}/group_managing/admin_main">진행중</a></li>
                     <li><a href="${pageContext.request.contextPath}/group_managing/admin_main_finished">종료</a></li>
                 </ul>

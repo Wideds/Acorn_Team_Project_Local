@@ -1,22 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+<c:set var="path" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>/support_main</title>
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/support/support_main.css" />
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/reset.css" type="text/css">
 </head>
 <body>
-	<div class="head">
-		<h2>고객센터</h2>
-		<p class="sub_text">서비스 이용 중 불편 했던 점이나 궁금한 점을 빠르고 친절하게 안내해 드리겠습니다.</p>
-	</div>
+	<jsp:include page="/WEB-INF/views/include/navbar.jsp">
+		<jsp:param value="home" name="current"/>
+	</jsp:include>
+    <main id="main-banner" class="main-banner-06">
+        <div class="inner-wrap">
+            <div class="title">
+                <h2>고객센터</h2>
+                <p>
+			                    서비스 이용 중 불편 했던 점이나 궁금한 점을 <br />
+			                    빠르고 친절하게 안내해 드리겠습니다.
+                </p>
+            </div>
+            <div class="indicator">
+                <div class="home circle">
+                    <a href="#" title="메인페이지가기"><img src="${path }/resources/images/sub/icon_home.svg" alt="홈버튼이미지"></a>
+                </div>
+                <div class="main-menu circle">BOOKMATE</div>
+
+            </div>
+        </div>
+    </main>
 
 	<!-- 메인 메뉴바 시작 -->
 	<ul class="menu_bar">
@@ -33,36 +49,41 @@
 			<a class="nav-link" href="${pageContext.request.contextPath }/support/support_inquire">문의하기</a>
 		</li>
 	</ul>
-	<!-- 메인 메뉴바 끝 -->
-	<div class="container">
-		<div class="main_content">
-			<section class="area_faq">
-			<h3 class="faq">자주하는 질문 10</h3>
+	
+	<section>
+		<div class="inner-wrap">
+		<div class="area_faq">
+		  <h2 class="title">자주하는 질문 10</h2>
 			<a class="faq_more" href="${pageContext.request.contextPath }/support/support_faq">주제별 FAQ 더보기</a>
 			<ul>
 				<c:forEach var="tmp" items="${list }">
 					<li class="dropbox">
 						<div class="title_area">
 							<span class="category">${tmp.category}</span>
-							<p class="detail">${tmp.question }</p>
+							<a href="${pageContext.request.contextPath }/support/support_faq">
+								<p class="detail">${tmp.question }</p>
+							</a>
 						</div>
 					</li>
 				</c:forEach>
 			</ul>
-			</section>
-			<section class="notice">
-				<h3 class="title">공지사항</h3>
+		</div>
+	</div>
+    <div class="inner-wrap">
+		<div class="notice">
+				<h2 class="title">공지사항</h2>
 				<a class="view_more" href="${pageContext.request.contextPath }/support/support_notice">더보기</a>
-				<ul class="list-group list-group-flush">
+				<ul>
 					<c:forEach var="tmp" items="${notice_list }">
-					<li class="list-group-item">
-						<a href="">${tmp.title}</a>
+					<li>
+						<p>${tmp.title}</p>
 					</li>
 					</c:forEach>
 				</ul>
-			</section>
-			<section class="area_contact">
-				<h3 class="title">소모임 운영시간 및 연락처</h3>
+		</div>
+		
+		<div class="area_contact">
+				<h2 class="title">소모임 운영시간 및 연락처</h2>
 				<dl>
 					<dt>상담시간</dt>
 					<dd>
@@ -79,9 +100,10 @@
 						"02-3500-3050"
 					</dd>
 				</dl>
-			</section>
-		</div>
+			</div>
 	</div>
+	</section>	
+	<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
 </body>
 </html>
 

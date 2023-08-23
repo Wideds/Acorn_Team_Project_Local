@@ -6,11 +6,12 @@
 <head>
 <meta charset="UTF-8">
 <title>/views/cafe/detail.jsp</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/community/community_detail.css" />
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/include/navbar_c.jsp">
+		<jsp:param value="home" name="current"/>
+	</jsp:include>
 	<div class="container">
 		<div style="float: right;">
 		<%-- 만일 이전글(더 옛날글)의 글번호가 0 가 아니라면(이전글이 존재 한다면) --%>
@@ -362,6 +363,7 @@
 			}
 		}
 	</script>
+	<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
 </body>
 </html>
 

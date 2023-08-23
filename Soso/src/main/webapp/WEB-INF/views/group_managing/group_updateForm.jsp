@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>내 소모임 정보 수정하기</title>
+<title>소모임 정보 수정</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/group_managing/group_managing_group_insert.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jquery.datetimepicker.min.css" />
 </head>
@@ -36,10 +36,10 @@
 				<div class="form_label">
 					<label for="groupName">TITLE</label>
 				</div>
-				<input class="form_input" type="text" name="name" id="groupName" placeholder="Add text..." value="${dto.name}"/>
+				<input class="form_input" type="text" name="name" id="groupName" placeholder="Add text..." autocomplete="off" value="${dto.name}"/>
 			</div>
 			<div class="form_header">
-				<input class="form_input" type="text" name="manager_comment" id="manager_comment" placeholder="이 소모임을 한마디로 표현해주세요!" value="${dto.manager_comment}" />		
+				<input class="form_input" type="text" name="manager_comment" id="manager_comment" autocomplete="off" placeholder="이 소모임을 한마디로 표현해주세요!" value="${dto.manager_comment}" />		
 			</div>
 			<div class="grid_wrapper">
 				<select name="genre" id="genre" class="select_box">
@@ -82,21 +82,21 @@
 			</script>
 			<div class="loc_time">
 				<div>
-					<input class="form_input" id="meeting_loc" type="text" name="meeting_loc" placeholer="모임 장소" value = "${dto.meeting_loc}"/>
+					<input class="form_input" id="meeting_loc" type="text" name="meeting_loc" autocomplete="off" placeholer="모임 장소" value = "${dto.meeting_loc}"/>
 				</div>
 				<div>
-					<input id="meeting_time" class="form_input" type="time" name="meeting_time" placeholer="모임 시간" value = ${dto.meeting_time} />
+					<input id="meeting_time" class="form_input" type="time" name="meeting_time" autocomplete="off" placeholer="모임 시간" value = ${dto.meeting_time} />
 				</div>
 			</div>
 			<div class="date_pickers">
 				<div>
-					<input id="start_dt" class="form_input" type="text" name="start_dt" placeholer="모임 시작일" value=${dto.start_dt}/>
+					<input id="start_dt" class="form_input" type="text" name="start_dt" placeholer="모임 시작일" autocomplete="off" value=${dto.start_dt}/>
 				</div>
 				<div>
-					<input id="ended_dt" class="form_input" type="text" name="ended_dt" placeholer="모임 종료일" value=${dto.ended_dt}/>
+					<input id="ended_dt" class="form_input" type="text" name="ended_dt" placeholer="모임 종료일" autocomplete="off" value=${dto.ended_dt}/>
 				</div>
 				<div>
-					<input id="deadline_dt" class="form_input" type="text" name="deadline_dt" placeholer="모임 모집 종료일" value=${dto.deadline_dt}/>
+					<input id="deadline_dt" class="form_input" type="text" name="deadline_dt" placeholer="모임 모집 종료일" autocomplete="off" value=${dto.deadline_dt}/>
 				</div>
 			</div>
 			<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
@@ -187,6 +187,7 @@
 					document.querySelector(".image_container").innerHTML=img;
 				});
 			});
+			
 		</script>
 	</div>
 	<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>

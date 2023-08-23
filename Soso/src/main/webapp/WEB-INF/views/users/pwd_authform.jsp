@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>${pageContext.request.contextPath}</title>
+<title>사용자 확인</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/user.css" type="text/css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/reset.css" type="text/css">
@@ -36,8 +36,8 @@
                 </div>
                 <button class="btn btn-outline-secondary bi-eye-slash" type="button" id="openpwd"></button>
             </div>
-            <button class="btn btn-primary" type="submit">확인</button>
-            <button class="btn btn-secondary" type="reset">리셋</button>
+            <button class="btn btn-join" type="submit">확인</button>
+            <button class="btn btn-cancle" type="reset">리셋</button>
         </form>
     </div>
     

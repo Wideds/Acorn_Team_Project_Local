@@ -64,7 +64,7 @@
             <nav class="gnb">
                 <ul>
                     <li>
-                        <a href="${pageContext.request.contextPath}/group/list" class="mainNav">북메이트 찾기</a>
+                        <a href="${pageContext.request.contextPath}/group/list?genre=-1" class="mainNav">북메이트 찾기</a>
                     </li>
                     <li>
                         <a href="${pageContext.request.contextPath}/group_managing/user_main" class="mainNav">나의 북메이트</a>

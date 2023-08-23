@@ -1,65 +1,65 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-			 <table class="table">
-		        <tbody>
-		            <c:forEach var="tmp" items="${list}">
-		                <tr class="faq-row">
-		                    <td>${tmp.q_writer}</td>
-		                    <td class="title-cell">
-		                        <a style="color: black;" class="text-decoration-none q-title" href="#" data-content-id="content-${tmp.num}">${tmp.q_title}</a>
-		                    </td>
-		                    <td style="text-align: center">${tmp.regdate}</td>
-		                </tr>
-		                <tr id="content-${tmp.num}" class="hidden-content">
-						    <td colspan="3">
-						        <div>${tmp.q_content}</div>
-						        <c:if test="${empty tmp.a_answer }">
-						        	<a href="${pageContext.request.contextPath}/group/faq/updateform?num=${tmp.num}"id="update">수정</a>
-
-						        	<a href="${pageContext.request.contextPath}/group/faq/delete?num=${tmp.num}&group_num=${tmp.group_num}">삭제</a>
-
-						        </c:if>
-						        <div class="answer" style="background-color: lightgrey;">${tmp.a_answer }</div> <!-- 이 부분을 추가 -->
-						        <!-- session id과 manger id를 검증해서 조건부 출력 -->
-						        <c:if test="${dto.manager_id == sessionScope.id }">
-						        	<a href="${pageContext.request.contextPath}/group/answer/insertform?num=${tmp.num}" id="answer">답변&수정</a>
-							        <a href="${pageContext.request.contextPath}/group/answer/updateform?num=${tmp.num}" id="updateAnswer" >답변 수정</a>
-
-						        <a href="${pageContext.request.contextPath}/group/answer/delete?num=${tmp.num}&group_num=${tmp.group_num}">답변 삭제(실제로는 update)</a>						        
-
-						        </c:if>
-						    </td>
-						</tr>
-		            </c:forEach>
-		        </tbody>
-		    </table>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/group_managing_list.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/groupfaq.css" />
+				 <table class="table__body">
+			        <tbody>
+			            <c:forEach var="tmp" items="${list}">
+			                <tr class="faq-row">
+			                    <td>${tmp.q_writer}</td>
+			                    <td class="title-cell">
+			                        <a class="q-title" href="#" data-content-id="content-${tmp.num}">${tmp.q_title}</a>
+			                    </td>
+			                    <td style="text-align: center">${tmp.regdate}</td>
+			                </tr>
+			                <tr id="content-${tmp.num}" class="hidden-content">
+							    <td colspan="3">
+							    	<pre name="content" id="content" readonly>${tmp.q_content}</pre>
+							        <c:if test="${empty tmp.a_answer }">
+							        	<a href="${pageContext.request.contextPath}/group/faq/updateform?num=${tmp.num}"id="update">수정</a>
+							        	<a href="${pageContext.request.contextPath}/group/faq/delete?num=${tmp.num}&group_num=${tmp.group_num}" id="delete">삭제</a>
+							        </c:if>
+							        <c:if test="${not empty tmp.a_answer }">
+							        	<pre name="answer" id="answer" readonly>${tmp.a_answer }</pre>
+							        </c:if>
+							        <!-- session id과 manger id를 검증해서 조건부 출력 -->
+							        <c:if test="${dto.manager_id == sessionScope.id }">
+							        	<a href="${pageContext.request.contextPath}/group/answer/insertform?num=${tmp.num}" id="insertAnswer">답변</a>
+								        <a href="${pageContext.request.contextPath}/group/answer/updateform?num=${tmp.num}" id="updateAnswer" >답변 수정</a>
+							        	<a href="${pageContext.request.contextPath}/group/answer/delete?num=${tmp.num}&group_num=${tmp.group_num}" id="deleteAnswer">답변 삭제(실제로는 update)</a>						        
+							        </c:if>
+							    </td>
+							</tr>
+			            </c:forEach>
+			        </tbody>
+			    </table>
+				<br />
+					<ul class="pagination">
+						<%--
+							startPageNum 이 1 이 아닌 경우에만 Prev 링크를 제공한다. 
+						 --%>
+						<c:if test="${startPageNum ne 1 }">
+							<li class="page-item">
+								<a class="page-link animate__animated" href=${pageContext.request.contextPath}/group/faq/list?num=${num }&pageNum=${startPageNum-1 }">Prev</a>
+							</li>
+						</c:if>
+						<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
+							<li class="page-item ${pageNum eq i ? 'active' : '' }">
+								<a id="nowPage" class="page-link animate__animated" href="${pageContext.request.contextPath}/group/faq/list?num=${num }&pageNum=${i }" data-page-num=${i }>${i }</a>
+							</li>
+						</c:forEach>
+						<%--
+							마지막 페이지 번호가 전체 페이지의 갯수보다 작으면 Next 링크를 제공한다. 
+						 --%>
+						<c:if test="${endPageNum lt totalPageCount }">
+							<li class="page-item">
+								<a class="page-link animate__animated" href="${pageContext.request.contextPath}/group/faq/list?num=${num }&pageNum=${endPageNum+1 }">Next</a>
+							</li>
+						</c:if>				
+					</ul>
 			<br />
-				<ul class="pagination" style="justify-content: center;">
-					<%--
-						startPageNum 이 1 이 아닌 경우에만 Prev 링크를 제공한다. 
-					 --%>
-					<c:if test="${startPageNum ne 1 }">
-						<li class="page-item">
-							<a class="page-link animate__animated" href=${pageContext.request.contextPath}/group/faq/list?num=${num }&pageNum=${startPageNum-1 }">Prev</a>
-						</li>
-					</c:if>
-					<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
-						<li class="page-item ${pageNum eq i ? 'active' : '' }">
-							<a id="nowPage" class="page-link animate__animated" href="${pageContext.request.contextPath}/group/faq/list?num=${num }&pageNum=${i }" data-page-num=${i }>${i }</a>
-						</li>
-					</c:forEach>
-					<%--
-						마지막 페이지 번호가 전체 페이지의 갯수보다 작으면 Next 링크를 제공한다. 
-					 --%>
-					<c:if test="${endPageNum lt totalPageCount }">
-						<li class="page-item">
-							<a class="page-link animate__animated" href="${pageContext.request.contextPath}/group/faq/list?num=${num }&pageNum=${endPageNum+1 }">Next</a>
-						</li>
-					</c:if>				
-				</ul>
-		<br />		
-				<script>
+		<script>
 			
 			//페이징 처리 시 링크 전송을 막는다.
 			$(document).ready(function() {

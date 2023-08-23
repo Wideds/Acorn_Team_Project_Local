@@ -95,6 +95,8 @@ header .inner-wrap { width:90%; height: 100%; display: flex; justify-content: sp
 #main-banner.main-banner-02 { background-image: url(../images/sub/002.jpg); }
 #main-banner.main-banner-03 { background-image: url(../images/sub/003.jpg); }
 #main-banner.main-banner-04 { background-image: url(../images/sub/004.jpg); }
+#main-banner.main-banner-06 { background-image: url(../images/sub/006.jpg); }
+
 
 
 #main-banner div > * { color: #fff; text-align: left; }

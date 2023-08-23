@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/views/users/pwd_updateform.jsp</title>
+<title>비밀 번호 수정</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/user.css" type="text/css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/reset.css" type="text/css">
@@ -29,8 +29,8 @@
                 <div class="invalid-feedback pwd2-feedback">비밀번호가 일치하지 않습니다.</div> 
             </div>
             
-            <button class="btn btn-primary" type="submit" disabled>수정하기</button>
-            <button class="btn btn-secondary" type="reset">리셋</button>
+            <button class="btn btn-join" type="submit" disabled>수정하기</button>
+            <button class="btn btn-cancle" type="reset">리셋</button>
         </form>
     </div>
     <jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>

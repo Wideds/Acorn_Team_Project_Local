@@ -1,14 +1,23 @@
 package com.acorn.soso.group_managing.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,16 +36,36 @@ import com.acorn.soso.group_managing.service.GroupManagingService;
 @Controller
 public class GroupManagingController {
 	
+	@Value("${file.location}")
+	private String fileLocation;
+	
 	@Autowired
 	GroupManagingService service;
 	
 	@Autowired
 	private CafeService cafeService;
 	
+	@Autowired
+	private GroupManagingService groupManagingService;
+	
 	@GetMapping("/group_managing/admin_main")
 	public String admin_main(HttpServletRequest request, HttpSession session) {
 		String manager_id = (String)session.getAttribute("id");
 		service.getGroupList(manager_id, request);
+		return "group_managing/admin_main";
+	}
+	
+	@GetMapping("/group_managing/admin_main_finished")
+	public String admin_main_finished(HttpServletRequest request, HttpSession session) {
+		String manager_id = (String)session.getAttribute("id");
+		service.getFinishedGroupList(manager_id, request);
+		return "group_managing/admin_main";
+	}
+	
+	@GetMapping("/group_managing/admin_main_all")
+	public String admin_main_all(HttpServletRequest request, HttpSession session) {
+		String manager_id = (String)session.getAttribute("id");
+		service.getAllGroupList(manager_id, request);
 		return "group_managing/admin_main";
 	}
 	
@@ -56,6 +85,20 @@ public class GroupManagingController {
 	public String user_main(HttpServletRequest request, HttpSession session) {
 		String user_id = (String)session.getAttribute("id");
 		service.getGroupList2(user_id, request);
+		return "group_managing/user_main";
+	}
+	
+	@GetMapping("/group_managing/user_main_finished")
+	public String user_main_finished(HttpServletRequest request, HttpSession session) {
+		String user_id = (String)session.getAttribute("id");
+		service.getFinishedGroupList2(user_id, request);
+		return "group_managing/user_main";
+	}
+	
+	@GetMapping("/group_managing/user_main_all")
+	public String user_main_all(HttpServletRequest request, HttpSession session) {
+		String user_id = (String)session.getAttribute("id");
+		service.getAllGroupList2(user_id, request);
 		return "group_managing/user_main";
 	}
 	
@@ -82,6 +125,19 @@ public class GroupManagingController {
 		return service.saveGroupImage(request, image);
 	};
 	
+	@GetMapping(
+			value = "/group/images/{imageName}",
+			produces = {MediaType.IMAGE_GIF_VALUE,  MediaType.IMAGE_PNG_VALUE, 
+					MediaType.IMAGE_JPEG_VALUE,}
+	)
+	@ResponseBody
+	public byte[] groupImage(@PathVariable("imageName") String imageName) throws IOException {
+		String absolutePath = fileLocation + File.separator + imageName;
+		// 파일에서 읽어들일 InputStream
+		InputStream is = new FileInputStream(absolutePath);
+		// 이미지 데이터 (byte)를 읽어서 배열에 담아서 클라이언트에게 응답한다.
+		return IOUtils.toByteArray(is);
+	}	
 	
 	@PostMapping("/group_managing/group_update")
 	public String group_update(GroupDto dto, HttpServletRequest request, HttpSession session) {
@@ -103,14 +159,25 @@ public class GroupManagingController {
 		} 
 		service.deleteGroupData(num);
 		return "redirect:/group_managing/admin_main";
-		
 	}
 	
+	// 소모임 관리 detail 페이지( 로그인된 user가 가입된 리스트에 관한 )
+	// 해당 소모임에 가입된 user 리스트 불러오기
 	@GetMapping("/group_managing/group_userdetail")
-	public ModelAndView detail(ModelAndView mView, int num, HttpServletRequest request, Model model) {
+	public ModelAndView detail(ModelAndView mView, int num, GroupDto dto, HttpSession session, HttpServletRequest request, Model model) {
 	    service.getDetail(mView, num);
+	    String user_id = (String)session.getAttribute("id");
+		dto.setUser_id(user_id);
 	    mView.setViewName("group_managing/group_userdetail");
 	    cafeService.getList(request, model, num);
+        // 가입된 유저 리스트 가져와서 모델에 추가
+	    int group_num = num;
+        List<GroupManagingDto> mateList = groupManagingService.getMateList(group_num);
+        // 각 사용자의 프로필 이미지 경로를 profile 속성으로 설정
+        for (GroupManagingDto user : mateList) {
+            user.setProfile("users/info");
+        }
+        request.setAttribute("mateList", mateList);
 	    request.setAttribute("num", num);
 	    return mView;
 	}

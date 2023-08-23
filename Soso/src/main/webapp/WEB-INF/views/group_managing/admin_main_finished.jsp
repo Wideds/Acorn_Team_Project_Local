@@ -78,7 +78,7 @@
                        		<div class="user_content_text">
                        			<ul class="">
 		                            	<li class="title">${tmp.name}</li>
-			                            <li><span class="info-label">모임 종료일 :</span> ${tmp.ended_dt}</li>
+			                            <li><span class="info-label">활동 종료 날짜 :</span> ${tmp.ended_dt}</li>
 			                            <li><span class="info-label">모임 평점 :</span> ${tmp.avrg_rate }</li>
 			                            <li><span class="info-label">가입 인원 :</span> ${tmp.now_people}</li>
 		                        </ul>

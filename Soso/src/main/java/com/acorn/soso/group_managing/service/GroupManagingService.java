@@ -1,5 +1,6 @@
 package com.acorn.soso.group_managing.service;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +14,11 @@ import com.acorn.soso.group_managing.dto.GroupManagingDto;
 
 public interface GroupManagingService {
 	public void getGroupList(String manager_id, HttpServletRequest request);
+	public void getFinishedGroupList(String manager_id, HttpServletRequest request);
+	public void getAllGroupList(String manager_id, HttpServletRequest request);
 	public void getGroupList2(String user_id, HttpServletRequest request);
+	public void getFinishedGroupList2(String user_id, HttpServletRequest request);
+	public void getAllGroupList2(String user_id, HttpServletRequest request);
 	public GroupDto getGroupData(int num, HttpServletRequest request);
 	public Map<String, Object> saveGroupImage(HttpServletRequest request, MultipartFile image);
 	public void updateGroupData(GroupDto dto, HttpServletRequest request);
@@ -28,4 +33,5 @@ public interface GroupManagingService {
 	public void reject(int num);
 	public void getDetail(ModelAndView mView, int num);
 	public void dropOut(GroupManagingDto dto);
+	public List<GroupManagingDto> getMateList(int num);
 }

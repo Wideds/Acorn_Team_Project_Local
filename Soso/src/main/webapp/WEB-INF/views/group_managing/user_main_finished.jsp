@@ -1,20 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<c:set var="path" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>나의 북메이트</title>
-	<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/group_managing_user_main.css" />
-	<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="${path }/resources/js/jquery-1.12.0.min.js"></script>
-    <script src="${path }/resources/js/jquery.easing.1.3.js"></script>
-    <script src="${path }/resources/js/common.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/include/navbar.jsp">
@@ -58,6 +49,9 @@
     		<c:forEach var="tmp" items="${list }">
                 <div class="user_content_list">
                     <div class="user_contents">
+                    	<div id="likedNumber">
+							<div>❤ ${tmp.like_num }</div>
+						</div>
                         <a href="${pageContext.request.contextPath}/group_managing/group_userdetail?num=${tmp.num}">
                             <div class="user_content_img">
                                 <img src="${pageContext.request.contextPath }${tmp.img_path}"/>

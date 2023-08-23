@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>가입 거절 리스트</title>
+<title>북메이트 관리</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/group_managing/group_managing_admin_header.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/group_managing/group_managing_admin_applicant_card.css" />
 <style>
@@ -15,8 +15,9 @@
 	<jsp:include page="/WEB-INF/views/include/navbar_c.jsp">
         <jsp:param value="login" name="current"/>
     </jsp:include>
-	<div class="container">
-		<div id="header">
+	<section>
+		<div class="admin_container">
+		<div id="admin_header">
 			<div class="title">Rejected Applicant</div>
 		</div>
 		<div id="menus">
@@ -35,7 +36,7 @@
 						<div id="card-date">${tmp.request_dt}</div>
 						<div id="card-link"><a href="${pageContext.request.contextPath}/cafe/list">회원 정보 보기</a></div>
 						<div id="card-buttons" style="margin-left:130px">
-							<div><a href="${pageContext.request.contextPath}/group_managing/joinApprove?num=${tmp.num}">가입 승인</a></div>
+							<div><a href="${pageContext.request.contextPath}/group_managing/joinApprove?num=${tmp.num}&group_num=${group_num}">가입 승인</a></div>
 						</div>
 					</div>
 				</div>
@@ -43,5 +44,7 @@
 			</c:forEach>
 		</div>
 	</div>
+	</section>
+	<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
 </body>
 </html>

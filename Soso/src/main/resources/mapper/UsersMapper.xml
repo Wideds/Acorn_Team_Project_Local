@@ -47,6 +47,6 @@
 	<select id="getId" parameterType="string" resultType="usersDto">
 		SELECT id, email
 		FROM users
-		WHERE Name=#{Name}
+		WHERE name = #{name}
 	</select>
 </mapper>

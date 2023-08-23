@@ -5,7 +5,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>${pageContext.request.contextPath}</title>
+    <title>로그인</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/reset.css" type="text/css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/user.css" type="text/css">
@@ -45,12 +45,12 @@
                    <input type="password" name="pwd" id="pwd" class="form-control" placeholder="비밀번호" required>
                    <label for="pwd">비밀번호</label>
                 </div>
-                <button class="btn btn-outline-secondary bi-eye-slash" type="button" id="openpwd"></button>
+                <button class="btn btn-outline-gray bi-eye-slash" type="button" id="openpwd"></button>
             </div>
             <small class="form-text text-muted">예) hello123@</small>
             
             <div class="d-grid gap-2 mt-2">
-                <button class="btn btn-primary btn-block" type="submit">로그인</button>
+                <button class="btn btn-join" type="submit">로그인</button>
             </div>
         </form>
         

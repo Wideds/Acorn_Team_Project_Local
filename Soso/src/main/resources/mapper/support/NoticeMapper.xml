@@ -31,21 +31,21 @@
 	<select id="getData" parameterType="int" resultType="noticeDto">
 		SELECT result1.*
 		FROM
-			(SELECT notice_num,writer,title,content,TO_CHAR(regdate, 'YY.MM.DD') AS regdate,
+			(SELECT notice_num,title,content,TO_CHAR(regdate, 'YY.MM.DD') AS regdate,
 			   LAG(notice_num, 1, 0) OVER (ORDER BY notice_num DESC) nextNum,
 	   		   LEAD(notice_num, 1, 0) OVER (ORDER BY notice_num DESC) prevNum
 			 FROM NOTICE_TB) result1
-		WHERE notice_num=#{num}
+		WHERE notice_num=#{notice_num}
 	</select>
 	
 	<delete id="delete" parameterType="int">
 		DELETE FROM NOTICE_TB
-		WHERE notice_num=#{num}
+		WHERE notice_num=#{notice_num}
 	</delete>
 	
 	<update id="update" parameterType="noticeDto">
 		UPDATE NOTICE_TB
-		SET title=#{title}, content=#{content}
-		WHERE notice_num=#{num}
+		SET  category = #{category}, title=#{title}, content=#{content}
+		WHERE notice_num=#{notice_num}
 	</update>	
 </mapper>

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,6 +31,9 @@ import com.acorn.soso.group_managing.dao.GroupManagingDao;
 
 @Service
 public class GroupServiceImpl implements GroupService{
+	
+	@Value("${file.location}")
+	private String fileLocation;
 	
 	@Autowired
 	private GroupDao dao;
@@ -190,27 +194,27 @@ public class GroupServiceImpl implements GroupService{
 	@Override
 	public void saveImage(GroupDto dto, HttpServletRequest request) {
 		
-	     //title이 같으면 exception발생시키기
+		//title이 같으면 exception발생시키기
 		//getNum이 아직 부여되지 않아서 없음ㅇㅇ
 		//getData를 하나 더 만들어야겠다
 		//resultDto가 null이면 500발생한다(신규추가가 안됨)
-		 GroupDto resultDto = dao.getData(dto.getName());
-		 if(resultDto != null) {
-			 String title = resultDto.getName();
-			 if(title.equals(dto.getName())) {
-			 throw new DontEqualException("같은 소모임이 이미 존재합니다.");
-		 }
-		 }
+		GroupDto resultDto = dao.getData(dto.getName());
+		if(resultDto != null) {
+			String title = resultDto.getName();
+			if(title.equals(dto.getName())) {
+				throw new DontEqualException("같은 소모임이 이미 존재합니다.");
+			}
+		}
 		
-		 //업로드된 파일의 정보를 가지고 있는 MultipartFile 객체의 참조값을 얻어오기
-	      MultipartFile image = dto.getImage();
-	      //원본 파일명 -> 저장할 파일 이름 만들기위해서 사용됨
-	      String orgFileName = image.getOriginalFilename();
-	      //파일 크기 -> 다운로드가 없으므로, 여기서는 필요 없다.
-	      long fileSize = image.getSize();
+		//업로드된 파일의 정보를 가지고 있는 MultipartFile 객체의 참조값을 얻어오기
+		MultipartFile image = dto.getImage();
+		//원본 파일명 -> 저장할 파일 이름 만들기위해서 사용됨
+		String orgFileName = image.getOriginalFilename();
+		//파일 크기 -> 다운로드가 없으므로, 여기서는 필요 없다.
+  		long fileSize = image.getSize();
 	      
 	      // webapp/upload 폴더 까지의 실제 경로(서버의 파일 시스템 상에서의 경로)
-	      String realPath = request.getServletContext().getRealPath("/resources/upload");
+	      String realPath = fileLocation;
 	      //db 에 저장할 저장할 파일의 상세 경로
 	      String filePath = realPath + File.separator;
 	      //디렉토리를 만들 파일 객체 생성
@@ -236,9 +240,7 @@ public class GroupServiceImpl implements GroupService{
 	      //-> num, regdate : db 에 추가하면서 자동으로 들어감
 	      String id = (String)request.getSession().getAttribute("id");
 	      dto.setManager_id(id);
-	      //Movie 는 사진 다운 기능이 없다. -> orgFileName, saveFileName, fileSize 저장할 필요X
-	      //imagePath 만 저장해주면 됨
-	      dto.setImg_path("/resources/upload/" + saveFileName);
+	      dto.setImg_path("/group/images/" + saveFileName);
 	      
 	      //MovieDao 를 이용해서 DB 에 저장하기
 	      dao.insert(dto);	
@@ -260,7 +262,7 @@ public class GroupServiceImpl implements GroupService{
 		//원본 파일명 -> 저장할 파일 이름 만들기위해서 사용됨
 		String orgFileName = image.getOriginalFilename();
 		// webapp/upload 폴더 까지의 실제 경로(서버의 파일 시스템 상에서의 경로)
-		String realPath = request.getServletContext().getRealPath("/resources/upload");
+		String realPath = fileLocation;
 		//db 에 저장할 저장할 파일의 상세 경로
 		String filePath = realPath + File.separator;
 		//디렉토리를 만들 파일 객체 생성
@@ -284,7 +286,7 @@ public class GroupServiceImpl implements GroupService{
 		}catch(Exception e) {
 	         e.printStackTrace();
 		}
-		dto.setImg_path("/resources/upload/" + saveFileName);
+		dto.setImg_path("/group/images/" + saveFileName);
 		String manager_id = (String)session.getAttribute("id");
 		
 		dto.setManager_id(manager_id);

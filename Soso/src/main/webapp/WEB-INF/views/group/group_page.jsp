@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/groupfaq.css" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -83,7 +84,7 @@
 		<div class="group_review" >
 			<div class="inner-wrap">
 				<h2 class="title black">참여 후기</h2>
-				<div class="d-flex flex-column mb-3">
+				<div class="reviewList" style="width:100%;">
 				<!-- forEach를 사용해서 댓글 출력(나중에는 분기 써서 댓글이 없을 때는 다른 페이지 표시) -->
 					<c:choose>
 						<c:when test="${empty commentList}">
@@ -106,32 +107,22 @@
 						</c:otherwise>
 					</c:choose>
 					<c:forEach var="item" items="${list}">
-					  <c:choose>
-					    <c:when test="${item.user_id eq sessionScope.id}">
-					    	<c:if test="${dto.deadline_dt lt nowDate}">
+							<!-- 일단 누구나 후기 쓸 수 있도록 수정 -->
+							<%-- <c:when test="${item.user_id eq sessionScope.id}"> --%>
+							<%--<c:if test="${dto.deadline_dt lt nowDate}"> --%>
 								<a href="${pageContext.request.contextPath}/group/comment/comment_insert_form?num=${dto.num}" id="reviewInsert">후기 작성하기</a>
 								<div id="commentArea"></div>
-							</c:if>
-					    </c:when>
-					  </c:choose>
 					</c:forEach>
 				</div>
 			</div>
 		</div>
-		
-		<div class="inner-wrap">		
+		<div class="inner-wrap">
 			<div id="faq">
-			<h2 class="title black">문의하기</h2>
-				<ul class="nav justify-content-end nav-tabs">
-					<li class="nav-item">
-						<a class="nav-link" id="faqList" href="#">문의 게시판</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" id="commentList" href="#">후기 게시판</a>
-					</li>
-				</ul>
-				<div id="Parse_Area"gt;lt;></div>
+				<h2 class="title black">문의하기</h2>
 			</div>
+			<div style="width : 100%;">
+			<div id="Parse_Area"gt;lt;></div>
+		</div>		
 		</div>
 		<!-- 플로팅 하단 고정 -->
 		<div class="banner-inner-wrap">
@@ -202,26 +193,25 @@
 	<script>
 		AOS.init();
 		// heart 이모티콘을 클릭하면 button id="jjim"를 강제로 클릭하는 코드
-		  $(".heart").on("click", function() {
-		    $("#jjim").click();
-		  });
+		$(".heart").on("click", function() {
+		  $("#jjim").click();
+		});
 		  
-		  //id가 jjim인 버튼을 눌렀을 때 ajax 요청하기
-		  $("#jjim").on("click", function(){
-			  var jjimNum = $("#jjimNum").val();
-			  //ajax로 요청한다.
-			  $.ajax({
-			    // 요청 경로
-			    url: "${pageContext.request.contextPath}/group/jjim",
-			    // 요청 방식
-			    method: "get",
-			    // num이라는 파라미터를 request 영역에 담아둔다. 1은 테스트용 값
-			    data: { "num": jjimNum },
-			    success: function(data){
-			    // 서버에서 반환된 응답 데이터를 이용하여 원하는 처리를 한다.
-			    // data 여부에 따라 클라이언트에게 표시해준다.
-			    if (data.isSuccess == true) {
-			    	
+		//id가 jjim인 버튼을 눌렀을 때 ajax 요청하기
+		$("#jjim").on("click", function(){
+			var jjimNum = $("#jjimNum").val();
+			//ajax로 요청한다.
+			$.ajax({
+			  // 요청 경로
+			  url: "${pageContext.request.contextPath}/group/jjim",
+			  // 요청 방식
+			  method: "get",
+			  // num이라는 파라미터를 request 영역에 담아둔다. 1은 테스트용 값
+			  data: { "num": jjimNum },
+			  success: function(data){
+			  // 서버에서 반환된 응답 데이터를 이용하여 원하는 처리를 한다.
+			  // data 여부에 따라 클라이언트에게 표시해준다.
+			  if (data.isSuccess == true) {	
 			    	// 찜 추가되었습니다.
 					alert(jjimNum+"찜 추가되었습니다.");
 					

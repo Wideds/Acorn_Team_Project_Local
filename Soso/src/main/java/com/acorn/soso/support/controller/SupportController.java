@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.acorn.soso.exception.DontEqualException;
+import com.acorn.soso.support.dao.NoticeDao;
 import com.acorn.soso.support.dto.FaqDto;
 import com.acorn.soso.support.dto.InquireDto;
 import com.acorn.soso.support.dto.NoticeDto;
@@ -34,6 +35,7 @@ public class SupportController {
 	
 	@GetMapping("/support/support_main")
 	public String support_main(HttpServletRequest request, Model model) {
+		noticeService.getList(request, model);
 		service.getList(request, model);
 		return "support/support_main";
 	}
@@ -69,7 +71,30 @@ public class SupportController {
 		
 		return "support/support_faq_insertform";
 	}
-	//공지사항
+	//FAQ 수정폼
+	@GetMapping("/support/support_faq_updateform")
+	public String support_faq_updateform(int faq_num, Model model) {
+		service.getData(faq_num, model);
+		return "support/support_faq_updateform";
+	}
+	//FAQ 수정
+	@PostMapping("/support/support_faq_update")
+	public String support_faq_update(FaqDto dto) {
+		service.updateFaq(dto);
+		
+		return "redirect:/support/support_faq";
+	}
+	//FAQ 삭제
+	@GetMapping("/support/support_faq_delete")
+	public String support_faq_delete(int faq_num, Model model) {
+		
+		FaqDto dto = service.getData(faq_num, model);
+		
+		service.deleteFaq(faq_num, model);
+	
+		return "redirect:/support/support_faq";
+	}
+	//공지사항 메인 화면
 	@GetMapping("/support/support_notice")
 	public String support_notice(HttpServletRequest request, Model model) {
 		
@@ -77,16 +102,46 @@ public class SupportController {
 		
 		return "support/support_notice";
 	}
+	//공지사항 등록폼
 	@GetMapping("/support/support_notice_insertform")
 	public String support_notice_insertform() {
-		
 		return "support/support_notice_insertform";
 	}
+	//공지사항 등록
 	@PostMapping("/support/support_notice_insert")
 	public String insert(NoticeDto dto) {
 		//서비스를 이용해서 질문을 저장
 		noticeService.saveNotice(dto);
 		return "support/support_notice_insert";
+	}
+	//공지사항 수정폼
+	@GetMapping("/support/support_notice_updateform")
+	public String support_notice_updateform(int notice_num, Model model) {
+		noticeService.getData(notice_num, model);
+		return "support/support_notice_updateform";
+	}
+	//공지사항 수정
+	@PostMapping("/support/support_notice_update")
+	public String support_notice_update(NoticeDto dto) {
+		noticeService.updateNotice(dto);
+		
+		return "redirect:/support/support_notice";
+	}
+	//공지사항 삭제
+	@GetMapping("/support/support_notice_delete")
+	public String support_notice_delete(int notice_num, Model model) {
+		
+		NoticeDto dto = noticeService.getData(notice_num,model);
+		
+		noticeService.deleteNotice(notice_num,model);
+	
+		return "redirect:/support/support_notice";
+	}
+	//공지사항 디테일
+	@GetMapping("/support/support_notice_detail")
+	public String support_notice_detail(int notice_num, Model model) {
+		noticeService.getData(notice_num, model);
+		return "support/support_notice_detail";
 	}
 	
 	@GetMapping("/support/support_inquire")
@@ -99,12 +154,6 @@ public class SupportController {
 	public String support_inquire_submit(InquireDto dto) {
 		inquireService.insert(dto);
 		return "support/support_inquire_MyInquire";
-	}
-	
-	@GetMapping("/support/support_inquire_register")
-	public String support_inquire_register() {
-		
-		return "support/support_inquire_register";
 	}
 	@GetMapping("/support/support_inquire_MyInquire")
 	public String support_inquire_MyInquire(HttpSession session, Model model) {

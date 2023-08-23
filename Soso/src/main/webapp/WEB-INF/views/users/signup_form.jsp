@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/users/signup_form.jsp</title>
+<title>회원가입</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/user.css" type="text/css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/reset.css" type="text/css">
@@ -51,7 +51,7 @@
 				<label class="control-label" for="pwd">비밀번호</label>
 				<div class="input-group">
 					<input class="form-control" type="password" name="pwd" id="pwd" /> 
-					<button class="btn btn-outline-secondary bi-eye-slash" type="button" id="openpwd"></button>
+					<button class="btn btn-outline-gray bi-eye-slash" type="button" id="openpwd"></button>
 				</div> 
 				<div class="invalid-feedback" id="pwd-feedback">최소 8자 이상으로 문자와 숫자, 특수 문자를 각각 하나 이상 조합하세요.</div>
 			</div>
@@ -59,7 +59,7 @@
 				<label class="control-label" for="pwd2">비밀번호 확인</label>
 				<div class="input-group">
 					<input class="form-control" type="password" name="pwd2" id="pwd2"/>
-					<button class="btn btn-outline-secondary bi-eye-slash" type="button" id="openpwd2"></button>
+					<button class="btn btn-outline-gray bi-eye-slash" type="button" id="openpwd2"></button>
 				</div>
 				<div class="invalid-feedback" id="pwd2-feedback">비밀번호가 일치하지 않습니다.</div> 
 			</div>
@@ -95,7 +95,7 @@
 					</p>
 				</fieldset>
 			</div>
-			<button class="btn btn-primary mt-3" type="submit" disabled>가입</button>
+			<button class="btn btn-join mt-3" type="submit" disabled>가입</button>
 		</form>
 	</div>
 

@@ -1,31 +1,47 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>소모임 문의사항</title>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <style>
-	textarea{
-		width: 768px;
-		height: 300px;
+
+	/* 확인, 취소 버튼 */
+	#submitBtn, #resetBtn{
+		border : 2px solid black;
+		border-radius : 10px;
+		display : inline-block; /* 필요한 만큼만 감싸기 */
+		justify-content : flex-end;
+	    padding: 5px 10px; /* 원하는 패딩 값 설정 */
 	}
+	/* 제목 */
+	#q_title{
+		margin : 1rem;
+		font-size : larger;
+	}
+	/* 문의내용 */
+	#q_content{
+		resize : none;
+		border : 1px solid black;
+		border-radius : 10px;
+		outling : none;
+		background-color : #0000000b;
+		width : 80%;
+		margin-left: 2rem;
+		margin-top : 1rem;
+		margin-bottom: 1rem;
+		padding : 1rem;
+	
+	}
+
 </style>
-</head>
-<body>
 	<div class="container">
-		<h2>소모임 게시판 글 쓰기</h2>
-		
 		<form action="${pageContext.request.contextPath}/group/faq/insert" method="post">
 			<div class="col-12">
 				  <input type="text" id="group_num" name="group_num" value="${num }" hidden />
-			      <input type="text" class="form-control" id="q_title" name="q_title" placeholder="제 목" >
+			      <input type="text" class="form-control" id="q_title" name="q_title" placeholder="문의글 제목을 입력해주세요" >
 			<div>
 				<label for="q_content"></label>
 				<textarea name="q_content" id="q_content" rows="10"></textarea>
 			</div>	
-			<button type="submit" onclick="submitContents(this)" style="margin-left: 106.2ex;">등록</button>
+			<button type="submit" onclick="submitContents(this)" id="submitBtn">등록</button>
 			<button type="reset" id="resetBtn">리셋</button>
 		</form>
 	</div>
@@ -47,5 +63,3 @@
 	    });
 	});
 	</script>
-</body>
-</html>

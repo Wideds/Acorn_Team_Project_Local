@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/views/group_managing/group_userdetail.jsp</title>
+<title>소모임 커뮤니티</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/group_managing_user_detail.css" />
 <script src="${path }/resources/js/common.js"></script>
 </head>
@@ -18,34 +18,22 @@
 		<div class="inner-wrap">
 			<h2 class="title black">함께하는 북메이트 멤버들</h2>
 		</div>
-		<div class="inner-wrapper">
-			<div class="user_mate_list">
-				<div class="user_mate">
-					<div class="user_mate_img">
-					<img src="${pageContext.request.contextPath}${dto.img_path}" alt="" />
-					</div>
-					<div class="user_mate_name">
-						<p>가나다라</p>
-					</div>
-				</div>
-				<div class="user_mate">
-					<div class="user_mate_img">
-					<img src="${pageContext.request.contextPath}${dto.img_path}" alt="" />
-					</div>
-					<div class="user_mate_name">
-						<p>가나다</p>
-					</div>
-				</div>
-				<div class="user_mate">
-					<div class="user_mate_img">
-					<img src="${pageContext.request.contextPath}${dto.img_path}" alt="" />
-					</div>
-					<div class="user_mate_name">
-						<p>가나다</p>
-					</div>
-				</div>
-			</div>
-		</div>
+	    <div class="inner-wrapper">
+	        <div class="user_mate_list">
+	            <c:forEach items="${mateList}" var="user">
+	                <c:if test="${user.isJoin == 0}"> <!-- 가입된 유저만 출력 -->
+	                    <div class="user_mate">
+	                        <div class="user_mate_img">
+	                            <img src="${pageContext.request.contextPath}${user.profile}" alt="" />
+	                        </div>
+	                        <div class="user_mate_name">
+	                            <p class="text">${user.user_id }</p>
+	                        </div>
+	                    </div>
+	                </c:if>
+	            </c:forEach>
+	        </div>
+	    </div>
 	 	 <!-- <a href="javascript:deleteConfirm()">모임 탈퇴</a> -->
 	 	<div class="group_content_bg">
 		 	<div class="inner-wrap">

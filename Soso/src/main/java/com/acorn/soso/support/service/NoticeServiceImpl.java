@@ -71,14 +71,10 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public void getData(HttpServletRequest request) {
-		//수정할 공지 번호
-		int num=Integer.parseInt(request.getParameter("notice_num"));
-		//수정할 공지의 정보를 얻어와서
-		NoticeDto dto=noticeDao.getData(num);
-		//request에 담아준다.
-		request.setAttribute("dto", dto);
-		
+	public NoticeDto getData(int notice_num, Model model) {
+		NoticeDto dto = noticeDao.getData(notice_num);
+		model.addAttribute("dto", dto);
+		return dto;
 	}
 
 	@Override
@@ -94,7 +90,7 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public void deleteNotice(int notice_num, HttpServletRequest request) {
+	public void deleteNotice(int notice_num, Model model) {
 		noticeDao.delete(notice_num);
 	}
 

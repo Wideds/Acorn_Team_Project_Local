@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/views/users/updateform.jsp</title>
+<title>회원정보 수정</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/user.css" type="text/css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/reset.css" type="text/css">
@@ -16,7 +16,7 @@
 		<jsp:param value="update" name="current"/>
 	</jsp:include>
 	<div class="container">
-		<p class="title">가입 정보 수정</p>
+		<p class="title">회원정보 수정</p>
 		<a id="profileLink" href="javascript:">
 			<c:choose>
 				<c:when test="${ empty dto.profile }">
@@ -39,8 +39,8 @@
 				<input class="form-control" type="text" id="email" name="email" value="${dto.email }"/>
 			</div>
 			<div class="mt-2">
-				<button class="btn btn-primary" type="submit">수정확인</button>
-				<button class="btn btn-secondary" type="reset">취소</button>
+				<button class="btn btn-join" type="submit">수정확인</button>
+				<button class="btn btn-cancle" type="reset">리셋</button>
 			</div>
 		</form>	
 		

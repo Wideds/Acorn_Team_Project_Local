@@ -45,15 +45,15 @@ public class FaqDaoImpl implements FaqDao{
 	}
 
 	@Override
-	public void delete(int num) {
+	public void delete(int faq_num) {
 	
-		session.delete("faq.delete",num);
+		session.delete("faq.delete",faq_num);
 	}
 
 	@Override
-	public FaqDto getData(int num) {
+	public FaqDto getData(int faq_num) {
 		
-		return session.selectOne("faq.getData",num);
+		return session.selectOne("faq.getData",faq_num);
 	}
 
 }

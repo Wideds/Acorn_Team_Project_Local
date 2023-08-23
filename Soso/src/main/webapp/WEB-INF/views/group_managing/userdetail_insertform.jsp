@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/views/group_managing/userdetail_insertform.jsp</title>
+<title>소모임 후기 작성</title>
 <style>
 	textarea{
 		width: 768px;

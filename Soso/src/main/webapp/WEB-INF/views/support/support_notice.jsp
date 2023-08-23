@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
+<c:set var="path" value="${pageContext.request.contextPath}"/> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,20 +21,33 @@
     text-align: center;
 	}
 </style>
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/support/support_notice.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/reset.css" type="text/css">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/include/navbar_c.jsp">
-        <jsp:param value="login" name="current"/>
-    </jsp:include>
-	<div class="head">
-		<h2>공지사항</h2>
-		<p class="sub_text">BookMate에서 알려드립니다.</p>
-	</div>
+	<jsp:include page="/WEB-INF/views/include/navbar.jsp">
+		<jsp:param value="home" name="current"/>
+	</jsp:include>
+    <main id="main-banner" class="main-banner-06">
+        <div class="inner-wrap">
+            <div class="title">
+                <h2>고객센터</h2>
+                <p>
+			                    서비스 이용 중 불편 했던 점이나 궁금한 점을 <br />
+			                    빠르고 친절하게 안내해 드리겠습니다.
+                </p>
+            </div>
+            <div class="indicator">
+                <div class="home circle">
+                    <a href="#" title="메인페이지가기"><img src="${path }/resources/images/sub/icon_home.svg" alt="홈버튼이미지"></a>
+                </div>
+                <div class="main-menu circle">BOOKMATE</div>
+
+            </div>
+        </div>
+    </main>
 	<!-- 메인 메뉴바 시작 -->
 	<ul class="menu_bar">
 		<li class="menu_home">
@@ -66,14 +80,25 @@
 					<c:forEach var="tmp" items="${notice_list }">
 					<tr>
 						<td>${tmp.notice_num }</td>
-						<td>${tmp.category }</td>
-						<td>${tmp.title }</td>
+						
+						<td>
+							<c:choose>
+								<c:when test="${tmp.category == 1}">공지</c:when>
+								<c:when test="${tmp.category == 2}">업데이트</c:when>
+								<c:when test="${tmp.category == 3}">휴무</c:when>
+								<c:when test="${tmp.category == 0}">기타</c:when>
+							</c:choose>
+						</td>
+						
+						<td>
+						<a href="${pageContext.request.contextPath }/support/support_notice_detail?notice_num=${tmp.notice_num}">${tmp.title }</a>
+						</td>
 						<td>${tmp.regdate }</td>
 						<td>
-							<button type="button">수정</button>
+							<a data-num="${tmp.notice_num }" href="${pageContext.request.contextPath }/support/support_notice_updateform?notice_num=${tmp.notice_num}">수정</a>
 						</td>
 						<td>
-							<button type="button">삭제</button>
+							<button data-num="${tmp.notice_num }"type="submit" id="deleteBtn">삭제</button>
 						</td>
 					</tr>
 					</c:forEach>
@@ -114,16 +139,25 @@
 				//item 은 a 의 참조값이다 모든 a 요소에 mouseover 이벤트가 발생했을때 실행할 함수 등록
 				item.addEventListener("mouseover", function(e){
 					//애니메이션 클래스를 추가해서 애니메이션이 동작하도록한다.
-					e.target.classList.add("animate__swing");
+					e.target.classList.add();
 				});
 				//item 은 a 의 참조값이다 모든 a 요소에 animationend 이벤트가 발생했을때 실행할 함수 등록
 				item.addEventListener("animationend", function(e){
 					//애니메이션 클래스를 제거해서 다음번에 추가 되면 다시 애니매이션이 동작 되도록한다.
-					e.target.classList.remove("animate__swing");
+					e.target.classList.remove();
 				});
+			});
+			document.querySelector("#deleteBtn").addEventListener("click", (e)=>{
+				e.preventDefault();
+				const isTrue = confirm("공지사항을 삭제하시겠습니까?")
+				if(isTrue){
+					const noticeNum=document.querySelector("#deleteBtn").getAttribute("data-num");
+					location.href="${pageContext.request.contextPath}/support/support_notice_delete?notice_num=" + noticeNum;
+				}
 			});
 		</script>
 	</div>
+	<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
 </body>
 </html>
 

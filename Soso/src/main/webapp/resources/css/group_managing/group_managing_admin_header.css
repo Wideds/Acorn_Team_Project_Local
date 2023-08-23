@@ -1,9 +1,10 @@
 @charset "UTF-8";
 
 /* navbar 아래의 container  */
-.container{
+.admin_container{
     margin: 0 auto;
     width: 992px;
+    padding-bottom: 430px;
 }
 
 /* 페이지 내 모든 링크 */
@@ -19,7 +20,6 @@ a{
 
 #admin_header .title{
     font-size: 30px;
-    margin-top: 160px;
     margin-left: 15px;
     margin-bottom: 20px;
     font-weight: 700;

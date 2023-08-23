@@ -101,7 +101,7 @@ body{
 	color:black;
 }
 
-#caption{
+#caption, #content{
      width: 100%;
      border: 2px solid rgb(222, 226, 230);
      border-radius: 5px;

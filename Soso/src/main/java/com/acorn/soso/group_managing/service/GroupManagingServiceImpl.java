@@ -27,10 +27,24 @@ public class GroupManagingServiceImpl implements GroupManagingService{
 	
 	@Autowired
 	GroupManagingDao dao;
+	@Autowired
+	GroupManagingDao groupManagingdao;
 	
 	@Override
 	public void getGroupList(String manager_id, HttpServletRequest request) {
 		List<GroupDto> list = dao.getGroupList(manager_id);
+		request.setAttribute("list", list);
+	}
+	
+	@Override
+	public void getFinishedGroupList(String manager_id, HttpServletRequest request) {
+		List<GroupDto> list = dao.getFinishedGroupList(manager_id);
+		request.setAttribute("list", list);
+	}
+	
+	@Override
+	public void getAllGroupList(String manager_id, HttpServletRequest request) {
+		List<GroupDto> list = dao.getAllGroupList(manager_id);
 		request.setAttribute("list", list);
 	}
 	
@@ -49,7 +63,7 @@ public class GroupManagingServiceImpl implements GroupManagingService{
 	      //절대로 중복되지 않는 유일한 파일명을 구성한다.
 	      String saveFileName=UUID.randomUUID().toString()+orgFileName;
 	      // 파일을 저장할 폴더까지의 실제경로
-	      String realPath=request.getServletContext().getRealPath("/resources/upload");
+	      String realPath=fileLocation;
 	      // upload 폴더가 존재하지 않을경우 만들기 위한 File 객체 생성
 	      File upload=new File(realPath);
 	      if(!upload.exists()) {//만일 존재 하지 않으면
@@ -66,7 +80,7 @@ public class GroupManagingServiceImpl implements GroupManagingService{
 	      
 	      // json 문자열을 출력하기 위한 Map 객체 생성하고 정보 담기 
 	      Map<String, Object> map=new HashMap<String, Object>();
-	      map.put("imagePath", "/resources/upload/"+saveFileName);
+	      map.put("imagePath", "/group/images/"+saveFileName);
 	      
 	      return map;
 	}
@@ -97,7 +111,11 @@ public class GroupManagingServiceImpl implements GroupManagingService{
 	@Override
 	public void joinApprove(int num, int group_num) {
 		dao.joinApprove(num);
-		dao.addMemberCount(group_num);
+		int memberCount = dao.getMemberCount(group_num);
+		GroupDto dto = new GroupDto();
+		dto.setNum(group_num);
+		dto.setNow_people(memberCount);
+		dao.updateNowPeople(dto);
 	}
 
 	@Override
@@ -122,7 +140,11 @@ public class GroupManagingServiceImpl implements GroupManagingService{
 	@Override
 	public void kick(int num, int group_num) {
 		dao.kick(num);
-		dao.minusMemberCount(group_num);
+		int memberCount = dao.getMemberCount(group_num);
+		GroupDto dto = new GroupDto();
+		dto.setNum(group_num);
+		dto.setNow_people(memberCount);
+		dao.updateNowPeople(dto);
 	}
 
 	@Override
@@ -133,7 +155,12 @@ public class GroupManagingServiceImpl implements GroupManagingService{
 	@Override
 	public void dropOut(GroupManagingDto dto) {
 		dao.dropOut(dto);
-		
+		int group_num = dto.getGroup_num();
+		int memberCount = dao.getMemberCount(group_num);
+		GroupDto groupDto = new GroupDto();
+		groupDto.setNum(group_num);
+		groupDto.setNow_people(memberCount);
+		dao.updateNowPeople(groupDto);
 	}
 
 	@Override
@@ -144,9 +171,25 @@ public class GroupManagingServiceImpl implements GroupManagingService{
 	}
 
 	@Override
+	public void getFinishedGroupList2(String user_id, HttpServletRequest request) {
+		List<GroupDto> list = dao.getFinishedGroupList2(user_id);
+		request.setAttribute("list", list);
+	}
+
+	@Override
+	public void getAllGroupList2(String user_id, HttpServletRequest request) {
+		List<GroupDto> list = dao.getAllGroupList2(user_id);
+		request.setAttribute("list", list);
+	}
+	
+	@Override
 	public void getDetail(ModelAndView mView, int num) {
 		GroupDto dto = dao.getGroupData(num);
 		mView.addObject("dto", dto);
 	}
 
+	@Override
+	public List<GroupManagingDto> getMateList(int num) {
+		return groupManagingdao.getMateList(num);
+	}
 }

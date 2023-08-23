@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/views/group_managing/group_userdropOut.jsp</title>
+<title>소모임 탈퇴하기</title>
 </head>
 <body>
 	<div class="container">

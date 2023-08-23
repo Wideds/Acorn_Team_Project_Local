@@ -36,32 +36,46 @@
 	overflow-y: auto;
 	}
 </style>
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/reset.css" type="text/css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/support/support_faq.css" />
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/include/navbar_c.jsp">
-        <jsp:param value="login" name="current"/>
-    </jsp:include>
-	<div class="head">
-		<h2>자주하는 질문</h2>
-		<p class="sub_text">서비스 이용 중 불편 했던 점이나 궁금한 점을 빠르고 친절하게 안내해 드리겠습니다.</p>
-	</div>
+	<jsp:include page="/WEB-INF/views/include/navbar.jsp">
+		<jsp:param value="home" name="current"/>
+	</jsp:include>
+    <main id="main-banner" class="main-banner-06">
+        <div class="inner-wrap">
+            <div class="title">
+                <h2>고객센터</h2>
+                <p>
+			                    서비스 이용 중 불편 했던 점이나 궁금한 점을 <br />
+			                    빠르고 친절하게 안내해 드리겠습니다.
+                </p>
+            </div>
+            <div class="indicator">
+                <div class="home circle">
+                    <a href="#" title="메인페이지가기"><img src="${path }/resources/images/sub/icon_home.svg" alt="홈버튼이미지"></a>
+                </div>
+                <div class="main-menu circle">BOOKMATE</div>
+
+            </div>
+        </div>
+    </main>
+
 	<!-- 메인 메뉴바 시작 -->
-	<ul class="nav justify-content-center">
-		<li class="nav-item">
+	<ul class="menu_bar">
+		<li class="menu_home">
 			<a class="nav-link active" href="${pageContext.request.contextPath }/support/support_main">고객센터</a>
 		</li>
-		<li class="nav-item">
+		<li class="menu_faq">
 			<a class="nav-link" href="${pageContext.request.contextPath }/support/support_faq">자주하는 질문</a>
 		</li>
-		<li class="nav-item">
+		<li class="menu_notice">
 			<a class="nav-link" href="${pageContext.request.contextPath }/support/support_notice">공지사항</a>
 		</li>
-		<li class="nav-item">
+		<li class="menu_inquire">
 			<a class="nav-link" href="${pageContext.request.contextPath }/support/support_inquire">문의하기</a>
 		</li>
 	</ul>
@@ -75,7 +89,7 @@
 	</div>
 	<!-- 검색 창 끝 -->
 		<div class="main_content">
-			<section class="tab_section">
+			<div class="tab_section">
 			<ul class="tab_menu">
 				<li class="active">
 					<a href="${pageContext.request.contextPath }/support/support_faq">자주하는 질문 전체(10)</a>
@@ -93,21 +107,26 @@
 					<a href="${pageContext.request.contextPath }/support/support_faq_etc">기타(3)</a>
 				</li>
 			</ul>
-			</section>
+			</div>
 			<h3 class="faq">회원(3)</h3>
 			<div class="tab_content">
 			<ul>
 				<c:forEach var="tmp" items="${list }">
-					<c:if test="${tmp.category eq '회원'}">
+					<c:if test="${tmp.category eq 1}">
 					<li class="dropbox">
 						<button type="button" class="btn_more">답변</button>
 						<div class="title_area">
-							<span class="category">${tmp.category}</span>
+						<c:choose>
+								<c:when test="${tmp.category == 1}">회원</c:when>
+								<c:when test="${tmp.category == 2}">모임신청</c:when>
+								<c:when test="${tmp.category == 3}">모임개설</c:when>
+								<c:when test="${tmp.category == 0}">기타</c:when>
+						</c:choose>
 							<h5 class="detail">${tmp.question }</h5>
 						</div>
 						<div class="detail_content" style="display: block;">
 							<span style="line-height: 24px;">
-								<div>${tmp.answer }</div>
+								<pre>${tmp.answer }</pre>
 							</span>
 						</div>
 					</li>
@@ -168,6 +187,7 @@
 			});
 		</script>
 	</div>
+		<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
 </body>
 </html>
 
