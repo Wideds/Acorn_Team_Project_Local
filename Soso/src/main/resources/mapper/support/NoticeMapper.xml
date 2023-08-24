@@ -24,7 +24,7 @@
 	<insert id="insert" parameterType="noticeDto">
 		INSERT INTO NOTICE_TB
 		(notice_num,category,title,content,regdate)
-		VALUES(NOTICE_SEQ.NEXTVAL, #{category}, #{title},#{content},
+		VALUES(NOTICE_SEQ.NEXTVAL,#{category}, #{title},#{content},
 			SYSDATE)
 	</insert>
 	

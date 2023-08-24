@@ -76,4 +76,10 @@ public class GroupDaoImpl implements GroupDao{
         params.put("dto", dto);
         return session.selectList("group.getGroupsByGenreAndSearch", params);
     }
+	
+	//group_num의 시퀀스 얻어내
+	@Override
+	public int groupNumSeq() {
+		return session.selectOne("group.getSequence");
+	}
 }

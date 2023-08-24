@@ -1,64 +1,69 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/group_managing_list.css" />
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/groupfaq.css" />
-				 <table class="table__body">
-			        <tbody>
-			            <c:forEach var="tmp" items="${list}">
-			                <tr class="faq-row">
-			                    <td>${tmp.q_writer}</td>
-			                    <td class="title-cell">
-			                        <a class="q-title" href="#" data-content-id="content-${tmp.num}">${tmp.q_title}</a>
-			                    </td>
-			                    <td style="text-align: center">${tmp.regdate}</td>
-			                </tr>
-			                <tr id="content-${tmp.num}" class="hidden-content">
-							    <td colspan="3">
-							    	<pre name="content" id="content" readonly>${tmp.q_content}</pre>
-							        <c:if test="${empty tmp.a_answer }">
-							        	<a href="${pageContext.request.contextPath}/group/faq/updateform?num=${tmp.num}"id="update">수정</a>
-							        	<a href="${pageContext.request.contextPath}/group/faq/delete?num=${tmp.num}&group_num=${tmp.group_num}" id="delete">삭제</a>
-							        </c:if>
-							        <c:if test="${not empty tmp.a_answer }">
-							        	<pre name="answer" id="answer" readonly>${tmp.a_answer }</pre>
-							        </c:if>
-							        <!-- session id과 manger id를 검증해서 조건부 출력 -->
-							        <c:if test="${dto.manager_id == sessionScope.id }">
-							        	<a href="${pageContext.request.contextPath}/group/answer/insertform?num=${tmp.num}" id="insertAnswer">답변</a>
-								        <a href="${pageContext.request.contextPath}/group/answer/updateform?num=${tmp.num}" id="updateAnswer" >답변 수정</a>
-							        	<a href="${pageContext.request.contextPath}/group/answer/delete?num=${tmp.num}&group_num=${tmp.group_num}" id="deleteAnswer">답변 삭제(실제로는 update)</a>						        
-							        </c:if>
-							    </td>
-							</tr>
-			            </c:forEach>
-			        </tbody>
-			    </table>
-				<br />
-					<ul class="pagination">
-						<%--
-							startPageNum 이 1 이 아닌 경우에만 Prev 링크를 제공한다. 
-						 --%>
-						<c:if test="${startPageNum ne 1 }">
-							<li class="page-item">
-								<a class="page-link animate__animated" href=${pageContext.request.contextPath}/group/faq/list?num=${num }&pageNum=${startPageNum-1 }">Prev</a>
-							</li>
-						</c:if>
-						<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
-							<li class="page-item ${pageNum eq i ? 'active' : '' }">
-								<a id="nowPage" class="page-link animate__animated" href="${pageContext.request.contextPath}/group/faq/list?num=${num }&pageNum=${i }" data-page-num=${i }>${i }</a>
-							</li>
-						</c:forEach>
-						<%--
-							마지막 페이지 번호가 전체 페이지의 갯수보다 작으면 Next 링크를 제공한다. 
-						 --%>
-						<c:if test="${endPageNum lt totalPageCount }">
-							<li class="page-item">
-								<a class="page-link animate__animated" href="${pageContext.request.contextPath}/group/faq/list?num=${num }&pageNum=${endPageNum+1 }">Next</a>
-							</li>
-						</c:if>				
-					</ul>
-			<br />
+</head>
+<body>
+	 <table class="altertable">
+        <tbody>
+            <c:forEach var="tmp" items="${list}">
+                <tr>
+                	<td class="q-answer">
+                		<c:if test="${not empty tmp.a_answer }">
+				        	<div class="answer_end">답변 완료</div>
+				        </c:if>
+				        <c:if test="${empty tmp.a_answer }">
+				        	<div class="answer_wait">답변 대기</div>
+				        </c:if>
+                	</td>
+                    <td>
+                        <a class="q-title" href="#" data-content-id="content-${tmp.num}">${tmp.q_title}</a>
+                    </td>
+                    <td>${tmp.q_writer}</td>
+                    <td style="text-align:center">${tmp.regdate}</td>
+                    <td class="q-delete">
+                       <c:if test="${dto.manager_id == sessionScope.id }">
+				        	<a href="${pageContext.request.contextPath}/group/faq/delete?num=${tmp.num}&group_num=${tmp.group_num}" id="delete">x</a>					        
+				        </c:if>
+                    </td>
+                </tr>
+                <tr id="content-${tmp.num}" class="hidden-content">
+				    <td colspan="5">
+						<div class="qna_question">
+							<span class="qna_q">Q</span>
+					    	<pre name="content" id="content" readonly>${tmp.q_content}</pre>
+					        <c:if test="${empty tmp.a_answer }">
+					        	<a href="${pageContext.request.contextPath}/group/faq/updateform?num=${tmp.num}" id="update">수정</a>
+					        	<a href="${pageContext.request.contextPath}/group/faq/delete?num=${tmp.num}&group_num=${tmp.group_num}" id="delete">삭제</a>
+					        </c:if>
+						</div>
+						<div class="qna_answer">
+							<span class="qna_a">A</span>
+							<c:if test="${not empty tmp.a_answer }">
+				        	<pre name="answer" id="answer" readonly>${tmp.a_answer }</pre>
+				        	</c:if>
+				        	<c:if test="${empty tmp.a_answer && dto.manager_id == sessionScope.id}">
+				        	<a href="${pageContext.request.contextPath}/group/answer/insertform?num=${tmp.num}" id="insertAnswer">답변 하기</a>
+				        	</c:if>
+				        <!-- session id과 manager id를 검증해서 조건부 출력 -->
+				        <c:if test="${not empty tmp.a_answer && dto.manager_id == sessionScope.id }">
+				        	<a href="${pageContext.request.contextPath}/group/answer/updateform?num=${tmp.num}" id="updateAnswer" >수정</a>
+				        	<a href="${pageContext.request.contextPath}/group/answer/delete?num=${tmp.num}&group_num=${tmp.group_num}" id="deleteAnswer">삭제</a>						        
+				        </c:if>
+				       </div>
+				    </td>
+				</tr>
+            </c:forEach>
+        </tbody>
+    </table>
+
+
+		<!-- cafe-table의 end -->
+	    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 		<script>
 			
 			//페이징 처리 시 링크 전송을 막는다.
@@ -85,13 +90,12 @@
 		    });
 		});
 
-			
 			$(document).ready(function () {
 			    $(".q-title").on("click", function (e) {
 			        e.preventDefault();
 
-			        var contentId = $(this).data("content-id");
-			        var contentRow = $("#" + contentId);
+			        const contentId = $(this).data("content-id");
+			        const contentRow = $("#" + contentId);
 
 			        contentRow.slideToggle(0);
 			    });
@@ -186,3 +190,5 @@
 			        });
 			    });
 		</script>
+</body>
+</html>

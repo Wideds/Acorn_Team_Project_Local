@@ -34,38 +34,39 @@ public class SupportController {
 	private NoticeService noticeService;
 	
 	@GetMapping("/support/support_main")
-	public String support_main(HttpServletRequest request, Model model) {
+	public String support_main(FaqDto dto, HttpServletRequest request, Model model) {
 		noticeService.getList(request, model);
-		service.getList(request, model);
+		service.getList(dto, request, model);
 		return "support/support_main";
 	}
 	
 	@GetMapping("/support/support_faq")
-	public String support_faq(HttpServletRequest request, Model model) {
+	public String support_faq(FaqDto dto, HttpServletRequest request, Model model) {
 		//서비스에 HttpServletRequest 객체를 전달해서 응답에 필요한 데이타가 담기도록 하고 
-		service.getList(request, model);
+		service.getList(dto, request, model);
 		return "support/support_faq";
 	}
 	@GetMapping("/support/support_faq_user")
-	public String support_faq_user(HttpServletRequest request, Model model) {
-		service.getList(request, model);
+	public String support_faq_user(FaqDto dto, HttpServletRequest request, Model model) {
+		service.getListCategory(dto, request, model);
 		return "support/support_faq_user";
 	}
 	@GetMapping("/support/support_faq_request")
-	public String support_faq_request(HttpServletRequest request, Model model) {
-		service.getList(request, model);
+	public String support_faq_request(FaqDto dto, HttpServletRequest request, Model model) {
+		service.getListCategory(dto, request, model);
 		return "support/support_faq_request";
 	}
 	@GetMapping("/support/support_faq_open")
-	public String support_faq_open(HttpServletRequest request, Model model) {
-		service.getList(request, model);
+	public String support_faq_open(FaqDto dto, HttpServletRequest request, Model model) {
+		service.getListCategory(dto, request, model);
 		return "support/support_faq_open";
 	}
 	@GetMapping("/support/support_faq_etc")
-	public String support_faq_etc(HttpServletRequest request, Model model) {
-		service.getList(request, model);
+	public String support_faq_etc(FaqDto dto, HttpServletRequest request, Model model) {
+		service.getListCategory(dto, request, model);
 		return "support/support_faq_etc";
 	}
+	
 	@GetMapping("/support/support_faq_insertform")
 	public String support_faq_insertform() {
 		

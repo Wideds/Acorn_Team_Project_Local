@@ -20,6 +20,7 @@ public class GroupReviewDto {
 	private String writer;
 	private String content;
 	private String profile;
+	private String regdate;
 	private int rate;
 	private int startRowNum;
 	private int endRowNum;

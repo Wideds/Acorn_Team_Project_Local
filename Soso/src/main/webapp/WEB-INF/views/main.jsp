@@ -5,7 +5,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>북메이트</title>
+<title>/views/home.jsp</title>
+ 	<link rel="shortcut icon" type="image/x-icon" href="https://genfavicon.com/tmp/icon_7cacead7cd8483ca41a810db418dc8ab.ico">
 	<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="${path }/resources/css/swiper-bundle.min.css" type="text/css">
     <link rel="stylesheet" href="${path }/resources/css/main.css" type="text/css">
@@ -53,13 +54,13 @@
                 <div class="swiper-button-prev prev"></div>
                 <div class="swiper-button-next next"></div>
             </div>
-            <ul class="popular_content_list">
-                <li>
-                    <div class="popular_content">
-                        <a href="#">
-                            <div class="popular_content_img">
-                                <a href="#">
-                                    <!-- 찜누르기전 -->
+	        <div class="inner-wrap">
+	        	<c:forEach var="tmp" items="${viewList}" end="7">
+	        		<div class="popular_content_list">
+						<div class="popular_content">
+		                   <a href="${pageContext.request.contextPath}/group/group_page?num=${tmp.num }">
+		                       <div class="popular_content_img">
+		                        	<!-- 찜누르기전 -->
                                     <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="none" class="bi bi-bookmark-heart" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd" d="M8 4.41c1.387-1.425 4.854 1.07 0 4.277C3.146 5.48 6.613 2.986 8 4.412z"></path>
                                     <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"></path>
@@ -68,148 +69,18 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" class="bi bi-bookmark-heart-fill" viewBox="0 0 16 16">
                                         <path d="M2 15.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v13.5zM8 4.41c1.387-1.425 4.854 1.07 0 4.277C3.146 5.48 6.613 2.986 8 4.412z"/>
                                     </svg>
-                                </a>
-                                <img src="${path }/resources/images/main/001.jpg" alt="테스트이미지">
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="popular_content_text">
-                                <p class="popular_content_title">마음 살롱 - 심리학자와 함께하는 독서 모임</p>
-                                <p>모임장 농담곰</p>
-                                <p class="popular_content_date">8월 11일ㆍ금요일ㆍ강남</p>
-                            </div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="popular_content">
-                        <a href="#">
-                            <div class="popular_content_img">
-                                <img src="${path }/resources/images/main/002.jpg" alt="테스트이미지2">
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="popular_content_text">
-                                <p class="popular_content_title">마음 살롱 - 심리학자와 함께하는 독서 모임</p>
-                                <p>모임장 농담곰</p>
-                                <p class="popular_content_date">8월 11일ㆍ금요일ㆍ강남</p>
-                            </div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="popular_content">
-                        <a href="#">
-                            <div class="popular_content_img">
-                                <img src="${path }/resources/images/main/003.jpg" alt="테스트이미지3">
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="popular_content_text">
-                                <p class="popular_content_title">마음 살롱 - 심리학자와 함께하는 독서 모임</p>
-                                <p>모임장 농담곰</p>
-                                <p class="popular_content_date">8월 11일ㆍ금요일ㆍ강남</p>
-                            </div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="popular_content">
-                        <a href="#">
-                            <div class="popular_content_img">
-                                <img src="${path }/resources/images/main/004.jpg" alt="테스트이미지4">
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="popular_content_text">
-                                <p class="popular_content_title">마음 살롱 - 심리학자와 함께하는 독서 모임</p>
-                                <p>모임장 농담곰</p>
-                                <p class="popular_content_date">8월 11일ㆍ금요일ㆍ강남</p>
-                            </div>
-                        </a>
-                    </div>
-                </li> 
-                <li>
-                    <div class="popular_content">
-                        <a href="#">
-                            <div class="popular_content_img">
-                                <img src="${path }/resources/images/main/005.jpg" alt="테스트이미지5">
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="popular_content_text">
-                                <p class="popular_content_title">마음 살롱 - 심리학자와 함께하는 독서 모임</p>
-                                <p>모임장 농담곰</p>
-                                <p class="popular_content_date">8월 11일ㆍ금요일ㆍ강남</p>
-                            </div>
-                        </a>
-                    </div>
-                </li> 
-                <li>
-                    <div class="popular_content">
-                        <a href="#">
-                            <div class="popular_content_img">
-                                <img src="${path }/resources/images/main/006.jpg" alt="테스트이미지">
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="popular_content_text">
-                                <p class="popular_content_title">마음 살롱 - 심리학자와 함께하는 독서 모임</p>
-                                <p>모임장 농담곰</p>
-                                <p class="popular_content_date">8월 11일ㆍ금요일ㆍ강남</p>
-                            </div>
-                        </a>
-                    </div>
-                </li> 
-                <li>
-                    <div class="popular_content">
-                        <a href="#">
-                            <div class="popular_content_img">
-                                <img src="${path }/resources/images/main/007.jpg" alt="테스트이미지7">
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="popular_content_text">
-                                <p class="popular_content_title">마음 살롱 - 심리학자와 함께하는 독서 모임</p>
-                                <p>모임장 농담곰</p>
-                                <p class="popular_content_date">8월 11일ㆍ금요일ㆍ강남</p>
-                            </div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="popular_content">
-                        <a href="#">
-                            <div class="popular_content_img">
-                                <img src="${path }/resources/images/main/008.jpg" alt="테스트이미지8">
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="popular_content_text">
-                                <p class="popular_content_title">마음 살롱 - 심리학자와 함께하는 독서 모임</p>
-                                <p>모임장 농담곰</p>
-                                <p class="popular_content_date">8월 11일ㆍ금요일ㆍ강남</p>
-                            </div>
-                        </a>
-                    </div>
-                </li> 
-                <li>
-                    <div class="popular_content">
-                        <a href="#">
-                            <div class="popular_content_img">
-                                <img src="${path }/resources/images/main/009.jpg" alt="테스트이미지9">
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="popular_content_text">
-                                <p class="popular_content_title">마음 살롱 - 심리학자와 함께하는 독서 모임</p>
-                                <p>모임장 농담곰</p>
-                                <p class="popular_content_date">8월 11일ㆍ금요일ㆍ강남</p>
-                            </div>
-                        </a>
-                    </div>
-                </li>
-            </ul>
+		                           <img src="${pageContext.request.contextPath}${tmp.img_path}">
+		                       </div>
+		                       <div class="popular_content_text">
+		                           <p class="mate_content_title">${tmp.name}</p>
+		                           <p>모임장 ${tmp.manager_id}</p>
+		                           <p class="mate_content_date">${tmp.meeting_time}ㆍ금요일ㆍ${tmp.meeting_loc }</p>
+		                       </div>
+		                   </a>
+		               </div>
+		           </div>
+	        	</c:forEach>
+	        </div>     
         </div>
     </section>
 

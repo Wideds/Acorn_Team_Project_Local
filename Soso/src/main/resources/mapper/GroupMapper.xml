@@ -96,15 +96,22 @@
       <include refid="searchCondition"/>
    </select>
    
+   <!-- 그룹넘을 따로 넣어서 바인딩 -->
    <insert id="insert" parameterType="groupDto">
       INSERT INTO group_tb
       (num, name, caption, img_path, avrg_rate, regdate, ended_dt, deadline_dt, start_dt, 
       manager_id, max_people, meeting_loc, meeting_time, genre, on_off, manager_comment)
-      VALUES(group_seq.NEXTVAL, 
+      VALUES(#{num}, 
       #{name}, #{caption}, #{img_path}, 0, SYSDATE, #{ended_dt}, #{deadline_dt}, #{start_dt},
       #{manager_id}, #{max_people}, #{meeting_loc}, #{meeting_time}, #{genre}, #{on_off},
       #{manager_comment})
    </insert>
+   
+   <!-- 저장 예정인 그룹의 글번호를 미리 얻어내기  -->
+	<select id="getSequence" resultType="int">
+		SELECT group_seq.NEXTVAL
+		FROM DUAL
+	</select>
    
    <select id="getData" parameterType="int" resultType="groupDto">
 		SELECT result1.*

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,6 +23,8 @@ import com.acorn.soso.group.dto.GroupFAQDto;
 import com.acorn.soso.group.dto.GroupReviewDto;
 import com.acorn.soso.group.service.GroupService;
 import com.acorn.soso.group_managing.service.GroupManagingService;
+import com.acorn.soso.test.dto.BookDto;
+import com.acorn.soso.test.service.BookService;
 
 @Controller
 public class GroupController {
@@ -34,6 +37,9 @@ public class GroupController {
 	
 	@Autowired
 	private GroupManagingService managingService;
+	
+	@Autowired
+	private BookService BookService;
 	
 	
 	//소모임의 문의 답변 delete(실제로는 update)
@@ -272,6 +278,7 @@ public class GroupController {
 	@PostMapping("/group/insert")
 	public String insert(GroupDto dto, HttpServletRequest request, HttpSession session) {
 		service.insert(dto, request, session);
+		
 		return "redirect:/group_managing/admin_main";
 	}
 	
@@ -322,11 +329,12 @@ public class GroupController {
 	@GetMapping("/group/list")
 	public String list(HttpServletRequest request, Model model) {
 		String genreParam = request.getParameter("genre");
-        if (genreParam != null) {
-            int genre = Integer.parseInt(genreParam);
-            service.getGroupsByGenre(request, model);
-        } else {
+		int genre = Integer.parseInt(genreParam);
+
+        if (genre == -1) {//가져온 값이 -1이면 전체 배열을 출력
             service.getList(request, model);
+        } else {//아니면 가져온 숫자만큼의 배열을 출
+        	service.getGroupsByGenre(request, model);
         }
         return "group/list";
 	}
@@ -336,7 +344,6 @@ public class GroupController {
 	public String listajax(HttpServletRequest request, Model model) {
 		String genreParam = request.getParameter("genre");
 		int genre = Integer.parseInt(genreParam);
-		System.out.println(genre);
 
         if (genre == -1) {//가져온 값이 -1이면 전체 배열을 출력
             service.getList(request, model);
@@ -346,16 +353,21 @@ public class GroupController {
         return "group/ajax_list";
 	}
 	
+	//ajax로 리스트 페이지 불러오기
+	@GetMapping("/group/ajax_viewList")
+	public String viewlistajax(HttpServletRequest request, Model model) {
+
+            service.getViewList(request, model);
+
+        return "group/ajax_viewList";
+	}
+	
 	//소모임 조회수 리스트 이동
 	@GetMapping("/group/viewList")
 	public String viewList(HttpServletRequest request, Model model) {
-		String genreParam = request.getParameter("genre");
-        if (genreParam != null) {
-            int genre = Integer.parseInt(genreParam);
-            service.getGroupsByGenre(request, model);
-        } else {
+
         	service.getViewList(request, model);
-        }	
+	
 		return "group/viewList";
 	}
 	

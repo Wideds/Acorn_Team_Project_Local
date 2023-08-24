@@ -64,10 +64,13 @@ button {
     vertical-align: baseline;
 }
 
+
+
 /* 문서 전체 CSS 적용 */
 body {
     line-height: 1;
 }
+
 
 /* 새로운 HTML5 태그 IE9이하에서 정상적으로 작동하도록 설정 */
 article,

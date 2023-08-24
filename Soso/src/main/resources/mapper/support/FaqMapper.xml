@@ -10,9 +10,6 @@
 			<when test="category != null">
 				WHERE category LIKE '%'||#{category}||'%'
 			</when>
-			<when test="question != null">
-				WHERE question LIKE '%'||#{question}||'%'
-			</when>
 		</choose>
 	</sql>
 	
@@ -30,11 +27,32 @@
 		]]>
 	</select>
 	
+	<select id="getListCategory" parameterType="faqDto" resultType="faqDto">
+		SELECT *
+		FROM
+			(SELECT result1.*, ROWNUM AS rnum
+			FROM
+				(SELECT faq_num,category,question,answer
+				FROM FAQ_TB
+				WHERE category = #{category}
+				ORDER BY faq_num DESC) result1)
+		<![CDATA[ 
+		WHERE rnum >= #{startRowNum} AND rnum <= #{endRowNum}
+		]]>
+	</select>
+	
+	<!-- FAQ 전체 갯수 불러오기 -->
 	<select id="getCount" parameterType="faqDto" resultType="int">
 		SELECT NVL(MAX(ROWNUM), 0)
 		FROM FAQ_TB
-		<include refid="searchCondition"/>
-	</select>		
+		
+	</select>
+	<!-- FAQ 카테고리별로 갯수 불러오기 -->
+	<select id="getFAQCount" parameterType="int" resultType="int">
+		SELECT NVL(MAX(ROWNUM), 0)
+		FROM FAQ_TB
+		WHERE category = #{category}
+	</select>	
 
 	<insert id="insert" parameterType="faqDto">
 		INSERT INTO FAQ_TB
@@ -56,13 +74,13 @@
 	<select id="getData2" parameterType="faqDto" resultType="faqDto">
 		SELECT result1.*
 		FROM
-			(SELECT num,writer,title,content,viewCount,TO_CHAR(regdate, 'YY.MM.DD HH24:MI') AS regdate,
-			   LAG(num, 1, 0) OVER (ORDER BY num DESC) nextNum,
-	   		   LEAD(num, 1, 0) OVER (ORDER BY num DESC) prevNum
-			 FROM board_cafe
-			 <include refid="searchCondition"/>
+			(SELECT faq_num,category,question,answer,
+			   LAG(faq_num, 1, 0) OVER (ORDER BY faq_num DESC) nextNum,
+	   		   LEAD(faq_num, 1, 0) OVER (ORDER BY faq_num DESC) prevNum
+			 FROM faq_tb
+
 			 ) result1
-		WHERE num=#{num}
+		WHERE faq_num=#{faq_num}
 	</select>	
 	<delete id="delete" parameterType="int">
 		DELETE FROM FAQ_TB

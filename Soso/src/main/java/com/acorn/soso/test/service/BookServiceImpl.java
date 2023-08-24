@@ -12,6 +12,7 @@ import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -89,7 +90,13 @@ public class BookServiceImpl implements BookService{
 
 	//책을 저장해보
 	@Override
-	public void saveBook(BookDto dto) {
-		bookDao.saveBook(dto);		
+	public void saveBook(@RequestBody List<BookDto> bookList) {
+		try {
+			for (BookDto dto : bookList) {
+				bookDao.saveBook(dto);
+        }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

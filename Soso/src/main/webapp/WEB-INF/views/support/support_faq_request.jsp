@@ -63,14 +63,13 @@
             </div>
         </div>
     </main>
-
 	<!-- 메인 메뉴바 시작 -->
 	<ul class="menu_bar">
 		<li class="menu_home">
-			<a class="nav-link active" href="${pageContext.request.contextPath }/support/support_main">고객센터</a>
+			<a class="nav-link" href="${pageContext.request.contextPath }/support/support_main">고객센터</a>
 		</li>
 		<li class="menu_faq">
-			<a class="nav-link" href="${pageContext.request.contextPath }/support/support_faq">자주하는 질문</a>
+			<a class="nav-link active" href="${pageContext.request.contextPath }/support/support_faq">자주하는 질문</a>
 		</li>
 		<li class="menu_notice">
 			<a class="nav-link" href="${pageContext.request.contextPath }/support/support_notice">공지사항</a>
@@ -92,23 +91,23 @@
 			<div class="tab_section">
 			<ul class="tab_menu">
 				<li class="active">
-					<a href="${pageContext.request.contextPath }/support/support_faq">자주하는 질문 전체(10)</a>
+					<a href="${pageContext.request.contextPath }/support/support_faq?">전체(${categoryAllRow })</a>
 				</li>
 				<li class="">
-					<a href="${pageContext.request.contextPath }/support/support_faq_user">회원(3)</a>
+					<a href="${pageContext.request.contextPath }/support/support_faq_user?category=1">회원(${categoryOneRow })</a>
 				</li>
 				<li class="">
-					<a href="${pageContext.request.contextPath }/support/support_faq_request">모임신청(4)</a>
+					<a href="${pageContext.request.contextPath }/support/support_faq_request?category=2">모임신청(${categoryTwoRow })</a>
 				</li>
 				<li class="">
-					<a href="${pageContext.request.contextPath }/support/support_faq_open">모임개설(5)</a>
+					<a href="${pageContext.request.contextPath }/support/support_faq_open?category=3">모임개설(${categoryThreeRow })</a>
 				</li>
 				<li class="">
-					<a href="${pageContext.request.contextPath }/support/support_faq_etc">기타(3)</a>
+					<a href="${pageContext.request.contextPath }/support/support_faq_etc?category=0">기타(${categoryZeroRow })</a>
 				</li>
 			</ul>
 			</div>
-			<h3 class="faq">모임신청(4)</h3>
+			<h3 class="faq">모임신청(${categoryTwoRow})</h3>
 			<div class="tab_content">
 			<ul>
 				<c:forEach var="tmp" items="${list }">
@@ -136,31 +135,25 @@
 			</div>
 		</div>
 	<div>
-		<nav>
-			<ul class="pagination">
-				<%--
-					startPageNum 이 1 이 아닌 경우에만 Prev 링크를 제공한다. 
-					&condition=${condition}&keyword=${encodedK}
-				 --%>
+		<nav style="display:flex; justify-content:center; margin-bottom:30px;">
+			<ul class="pagination" style="display:flex; justify-content:space-around; width:30%">
 				<c:if test="${startPageNum ne 1 }">
 					<li class="page-item">
-						<a class="page-link animate__animated" href="list?pageNum=${startPageNum-1 }&condition=${condition}&keyword=${encodedK}">Prev</a>
+						<a class="page-link animate__animated" href="support_faq?pageNum=${startPageNum-1 }&condition=${condition}&keyword=${encodedK}">Prev</a>
 					</li>
 				</c:if>
 				<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
 					<li class="page-item ${pageNum eq i ? 'active' : '' }">
-						<a class="page-link animate__animated" href="list?pageNum=${i }&condition=${condition}&keyword=${encodedK}">${i }</a>
+						<a class="page-link animate__animated" href="support_faq?pageNum=${i }&condition=${condition}&keyword=${encodedK}">${i }</a>
 					</li>
 				</c:forEach>
-				<%--
-					마지막 페이지 번호가 전체 페이지의 갯수보다 작으면 Next 링크를 제공한다. 
-				 --%>
 				<c:if test="${endPageNum lt totalPageCount }">
 					<li class="page-item">
-						<a class="page-link animate__animated" href="list?pageNum=${endPageNum+1 }&condition=${condition}&keyword=${encodedK}">Next</a>
+						<a class="page-link animate__animated" href="support_faq?pageNum=${endPageNum+1 }&condition=${condition}&keyword=${encodedK}">Next</a>
 					</li>
 				</c:if>				
 			</ul>
+		</nav>
 		</nav>
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 		<script>

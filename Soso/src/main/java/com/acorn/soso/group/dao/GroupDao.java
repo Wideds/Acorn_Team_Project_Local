@@ -28,5 +28,7 @@ public interface GroupDao {
 	public void addViewCount(int num);
 	//장르별 소모임
 	public List<GroupDto> getGroupsByGenreAndSearch(int genre, GroupDto dto);
+	//group_num의 시퀀스
+	public int groupNumSeq();
 	
 }

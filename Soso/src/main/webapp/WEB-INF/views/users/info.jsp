@@ -16,56 +16,68 @@
 	</jsp:include>
 	<div class="container">
 		<p class="title">가입 정보</p>
-		<div class="row border mb-5">
-			<div class="col-2">
-				<c:choose>
-					<c:when test="${empty dto.profile }">
-						<i class="bi bi-person-circle" style="font-size:100px" id="profileImage"></i>
-					</c:when>
-					<c:otherwise>
-						<img id="profileImage" src="${pageContext.request.contextPath}${dto.profile}" />
-					</c:otherwise>
-				</c:choose>
-			</div>
-			<div class="col-5">
-				<table class="table table-borderless">
-					<tr>
-						<th>이름</th>
-						<td>${dto.name }</td>
-					</tr>
-					<tr>
-						<th>아이디</th>
-						<td>${id }</td>
-					</tr>
-					<tr>
-						<th>이메일</th>
-						<td>${dto.email }</td>
-					</tr>
-					<tr>
-						<th>가입일</th>
-						<td>${dto.regdate }</td>
-					</tr>
-				</table>
-			</div>
-			<div class="col-5">
-				<table class="table table-borderless">
-					<tr>
-						<th>비밀번호</th>
-						<td><a class="btn btn-gray btn-sm" href="${pageContext.request.contextPath}/users/pwd_updateform">수정하기</a></td>
-					</tr>
-					<tr>
-						<th>생일</th>
-						<td>${dto.birth }</td>
-					</tr>
-					<tr>
-						<th>성별</th>
-						<td>${dto.gender }</td>
-					</tr>
-				</table>
-				<a class="btn btn-join" href="${pageContext.request.contextPath}/users/updateform">개인정보 수정</a>
-				<a class="btn btn-cancle" href="javascript:deleteConfirm()">탈퇴</a>
+
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-2">
+					<c:choose>
+						<c:when test="${empty dto.profile }">
+							<i class="bi bi-person-circle" style="font-size:100px" id="profileImage"></i>
+						</c:when>
+						<c:otherwise>
+							<img id="profileImage" src="${pageContext.request.contextPath}${dto.profile}" />
+						</c:otherwise>
+					</c:choose>
+				</div>
+				<div class="col-md-5">
+					<div class="row">
+						<div class="col-md-4"> 이름</div>
+						<div class="col-md-8"> ${dto.name }</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4">아이디</div>
+						<div class="col-md-8">${id }</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4">이메일</div>
+						<div class="col-md-8">${dto.email }</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4">가입일</div>
+						<div class="col-md-8">${dto.regdate }</div>
+					</div>
+				</div>
+
+				<tr>
+					<th></th>
+					<td></td>
+				</tr>
+				<tr>
+					<th></th>
+					<td></td>
+				</tr>
+				<tr>
+					<th></th>
+					<td></td>
+				</tr>
+
+				<div class="col-md-5">
+					<div class="row">
+						<div class="col-md-4">비밀번호 수정</div>
+						<div class="col-md-8"><a class="btn btn-gray btn-sm" href="${pageContext.request.contextPath}/users/pwd_updateform">수정하기</a></div>
+					</div>
+					<div class="row">
+						<div class="col-md-4">개인정보 수정</div>
+						<div class="col-md-8"><a class="btn btn-join" href="${pageContext.request.contextPath}/users/updateform">개인정보 수정</a></div>
+					</div>
+					<div class="row">
+						<div class="col-md-4">탈퇴</div>
+						<div class="col-md-8"><a class="btn btn-cancle" href="javascript:deleteConfirm()">탈퇴</a></div>
+					</div>
+				</div>
 			</div>
 		</div>
+
 		
 		<div class="mb-5">
 			<p class="title">활동 내역</p>

@@ -2,10 +2,9 @@
 
 /* 메인 페이지 전체 레이아웃 */
 	.main_content{
-		margin: 100px auto 90px;
+		margin: 100px auto 40px;
 		box-sizing: border-box;
 		width: 100%;
-		min-height: 260px;
 		max-width:1300px;
 	}
 	/* 상단 배너 */
@@ -23,29 +22,39 @@
 		text-align:center;
 		font-size:20px;
 	}
-	/*메인 메뉴바 */
+/*메인 메뉴바 */
 	.menu_bar{
 		width:100%;
 		height:80px;
 		box-sizing: border-box;
-		background-color: #333;
 		text-align: center;
 	}
-	.menu_bar li[class^="menu_"]{
+	.menu_bar li{
 		margin: 0 40px;
 		display: inline-block;
 		cursor: pointer;
 	}
-	.menu_bar li[class^="menu_"]>a{
+	.menu_bar li >a{
 		display: block;
-		color: white;
+		color: #8a8a8a;
 		font-size: 20px;
 		height: 80px;
 		line-height: 78px;
 	}
+	.menu_bar li .active{
+		color: rgb(157 128 63);
+		font-weight: 600;
+		border-bottom: 3px solid rgb(157 128 63);
+	}
+	.menu_bar li>a:hover{
+		color: rgb(157 128 63);
+		font-weight: 600;
+		border-bottom: 3px solid rgb(157 128 63);
+	}
+
 	/* 검색창 */
 	.search{
-		margin-top:20px;
+		margin-top:100px;
 	}
 	.search .search_form{
 		height: 60px;
@@ -71,11 +80,11 @@
 		height:100%;
 		border: 1px solid gray;
 		border-left: none;
-		text: none;
+		text-indent: 10000px;
 	}
 	/* faq 메뉴바 */
 	.tab_section .tab_menu{
-		margin: 60px 0 80px;
+		margin: 60px 0 0;
 		padding:0;
 		border-right:1px solid gray;
 		border-bottom: 1px solid gray;
@@ -90,10 +99,10 @@
 		box-sizing: border-box;
 		border-top:1px solid gray;
 		border-left: 1px solid gray;
-		display: inline-block;
 		font-size: 16px;
-		line-height: 50px;
-		text-align: center;
+		display: flex;
+	    justify-content: center;
+	    align-items: center;
 	}
 	/* FAQ 메인 컨첸츠 레이아웃 */
 	.faq{
@@ -109,7 +118,7 @@
 		border-top: 2px solid black;
 	}
 	.tab_content ul{
-		margin-top: 20px;
+		margin: 20px 0 20px;
 	}
 	.tab_content ul li{
 		border-bottom: 1px solid gray;

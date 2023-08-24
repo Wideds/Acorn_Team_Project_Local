@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.acorn.soso.exception.DontEqualException;
@@ -27,6 +28,8 @@ import com.acorn.soso.group.dto.GroupJoinDto;
 import com.acorn.soso.group.dto.GroupReviewDto;
 import com.acorn.soso.group.dto.JjimDto;
 import com.acorn.soso.group_managing.dao.GroupManagingDao;
+import com.acorn.soso.test.dao.BookDao;
+import com.acorn.soso.test.dto.BookDto;
 
 
 @Service
@@ -53,6 +56,9 @@ public class GroupServiceImpl implements GroupService{
 	//그룹의 데이터를 얻어오기 위한 Autowired
 	@Autowired
 	private GroupManagingDao managingdao;
+	
+	@Autowired
+	private BookDao bookdao;
 	
 	@Override
 	public void getList(HttpServletRequest request, Model model) {
@@ -255,6 +261,7 @@ public class GroupServiceImpl implements GroupService{
 		LocalDateTime now = LocalDateTime.now();
 	}
 	
+	//소모임 개설	
 	@Override
 	public void insert(GroupDto dto, HttpServletRequest request, HttpSession session) {
 		//업로드된 파일의 정보를 가지고 있는 MultipartFile 객체의 참조값을 얻어오기
@@ -290,7 +297,14 @@ public class GroupServiceImpl implements GroupService{
 		String manager_id = (String)session.getAttribute("id");
 		
 		dto.setManager_id(manager_id);
+		
+		//group_num의 시퀀스 값을 얻어낸다.
+		int num = dao.groupNumSeq();
+		//dto에 넣어줌
+		dto.setNum(num);
+		
 		dao.insert(dto);
+
 	}
 
 	@Override
@@ -378,9 +392,11 @@ public class GroupServiceImpl implements GroupService{
 		int num = Integer.parseInt(strNum);
 		GroupReviewDto dto = reviewdao.getData(num);
 		String id = (String)request.getSession().getAttribute("id");
-		if(!dto.getWriter().equals(id)) {
-			throw new NotDeleteException("타인의 리뷰는 삭제할 수 없습니다.");
-		}
+		
+		//관리자 삭제를 위해 일단 주석처리
+//		if(!dto.getWriter().equals(id)) {
+//			throw new NotDeleteException("타인의 리뷰는 삭제할 수 없습니다.");
+//		}
 		reviewdao.delete(num);
 	}
 
@@ -690,12 +706,11 @@ public class GroupServiceImpl implements GroupService{
 		GroupFAQDto dto = groupfaqdao.getData(num);
 		//id를 가져온다.
 		String id =(String)request.getSession().getAttribute("id");
-		//가져온 값을 토대로 id검증을 한다.
-		if(dto.getQ_writer().equals(id)) {
-			groupfaqdao.delete(num);
-		}else {
-			throw new DontEqualException("다른 사람의 글은 삭제할 수 없습니다.");
-		}
+		//가져온 값을 토대로 id검증을 한다.(일단 관리자 삭제 위해 주석처리)
+//		if(dto.getQ_writer().equals(id)) {
+//			throw new DontEqualException("다른 사람의 글은 삭제할 수 없습니다.");
+//		}
+		groupfaqdao.delete(num);
 	}
 	
 	//소모임 문의 답변하기

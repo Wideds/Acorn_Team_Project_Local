@@ -24,25 +24,6 @@
 				<div><span id="result_checkUserName" style="font-size: 12px;"></span></div>
 			</div>
 			<div>
-			    <label class="control-label" for="birth">생년월일</label>
-    			<input class="form-control" type="text" name="birth" id="birth" placeholder="YY-MM-DD" autocomplete='off'/>
-			</div>
-			<fieldset>
-				<legend>성별 체크</legend>
-				<div class="form-check">
-					<input class="form-check-input" type="radio" id="one" name="gender" value="남" checked>
-					<label class="form-check-label" for="one">남</label>
-				</div>
-				<div class="form-check">
-					<input class="form-check-input" type="radio" id="two" name="gender" value="여">
-					<label class="form-check-label" for="two">여</label>
-				</div>
-				<div class="form-check">
-					<input class="form-check-input" type="radio" id="three" name="gender" value="비공개"> 
-					<label class="form-check-label" for="three">비공개</label>
-				</div>
-			</fieldset>
-			<div>
 				<label class="control-label" for="id">아이디</label>
 				<input class="form-control" type="text" name="id" id="id" autocomplete='off'/>
 				<div><span id="result_checkId" style="font-size: 12px;"></span></div>

@@ -6,23 +6,55 @@
 <head>
 <meta charset="UTF-8">
 <title>소모임 문의사항 답변 수정하기</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/groupfaq.css" />
 <style>
-	textarea{
-		width: 768px;
-		height: 300px;
+	/* 확인, 취소 버튼 */
+	#submitBtn, #resetBtn{
+		border : 2px solid black;
+		border-radius : 10px;
+		display : inline-block; /* 필요한 만큼만 감싸기 */
+		justify-content : flex-end;
+	    padding: 5px 10px; /* 원하는 패딩 값 설정 */
 	}
+	/* 제목 */
+	#q_title{
+		margin : 1rem;
+		font-size : larger;
+	}
+	/* 문의내용 */
+	#q_content, #a_answer{
+		resize : none;
+		border : 1px solid black;
+		border-radius : 10px;
+		outling : none;
+		background-color : #0000000b;
+		width : 80%;
+		margin-left: 2rem;
+		margin-top : 1rem;
+		margin-bottom: 1rem;
+		padding : 1rem;
+	
+	}
+
+
 </style>
 </head>
 <body>
 	<div class="container">
-		<h2>소모임 게시판 수정 게시판</h2>
-		<form action="${pageContext.request.contextPath}/group/answer/update?num=${dto.num }" method="post">
-			<input type="text" id="group_num" name="group_num" value="${dto.group_num }" hidden/>
+		<h2>수정하기</h2>
+		<form action="${pageContext.request.contextPath}/group/answer/insert" method="post">
+			<div class="col-12">
+				<!-- faq의 글 번호를 알아온다. -->
+				<pre name="q_content" id="q_content">${dto.q_content }</pre>
+				<!-- 문의글 번호와 소모임 번호를 동시에 넘겨준다. -->
+				<input type="text" id="num" name="num" value="${dto.num }" hidden/>
+				<input type="text" id="group_num" name="group_num" value="${dto.group_num }" hidden/>
 			<div>
-				<label for="a_answer"></label>
+				<!-- 답변 내용 -->
+				<label for="a_content"></label>
 				<textarea name="a_answer" id="a_answer" rows="10">${dto.a_answer }</textarea>
 			</div>	
-			<button type="submit" onclick="submitContents(this)" style="margin-left: 106.2ex;">등록</button>
+			<button type="submit" onclick="submitContents(this)" style="margin-left: 106.2ex;" id="submitBtn">등록</button>
 			<button type="reset" id="resetBtn">리셋</button>
 		</form>
 	</div>

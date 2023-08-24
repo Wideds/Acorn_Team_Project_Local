@@ -1,6 +1,8 @@
 package com.acorn.soso.support.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +18,11 @@ public class FaqDaoImpl implements FaqDao{
 	
 	@Override
 	public List<FaqDto> getList(FaqDto dto) {
-		
 		return session.selectList("faq.getList", dto);
+	}
+	@Override
+	public List<FaqDto> getListCategory(FaqDto dto) {
+		return session.selectList("faq.getListCategory", dto);
 	}
 
 	@Override
@@ -33,8 +38,12 @@ public class FaqDaoImpl implements FaqDao{
 
 	@Override
 	public int getCount(FaqDto dto) {
-		
 		return session.selectOne("faq.getCount",dto);
+	}
+	
+	@Override
+	public int getFAQCount(int category) {
+		return session.selectOne("faq.getFAQCount", category);
 	}
 
 	@Override

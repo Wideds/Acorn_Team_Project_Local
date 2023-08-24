@@ -46,7 +46,7 @@
 				<label for="q_content"></label>
 				<textarea name="q_content" id="q_content" rows="10">${dto.q_content }</textarea>
 			</div>	
-			<button type="submit" onclick="submitContents(this)" style="margin-left: 106.2ex;">등록</button>
+			<button type="submit" onclick="submitContents(this)" style="margin-left: 106.2ex;" id="submitBtn">등록</button>
 			<button type="reset" id="resetBtn">리셋</button>
 		</form>
 	</div>

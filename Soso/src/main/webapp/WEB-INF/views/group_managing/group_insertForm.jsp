@@ -151,6 +151,28 @@
 					}
 				});
 			</script>
+			
+			<!-- 책 검색 공간(임시) -->
+			
+			<div class="Book_Area"></div>
+			<script>
+			    const booklist = [];
+			    $(document).ready(function() {
+			        $.ajax({
+			            type: "GET",
+			            url: "${pageContext.request.contextPath}/test/booksearch", // 페이지 경로를 적절하게 수정해야 함
+			            dataType: "html", // 수정: 데이터 타입을 "html"로 지정
+			            error: function() {
+			                console.log("실패");
+			            },
+			            success: function(Parse_data) {
+			                $(".Book_Area").html(Parse_data);
+			            }
+			        }); // 수정: $.ajax 함수 호출 부분이 닫히지 않음
+			    });
+			</script>
+			
+			
 			<div id="form_button">
 				<button type="submit">개설</button>
 			</div>

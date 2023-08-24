@@ -38,7 +38,6 @@
             },
             success: function (Parse_data) {
                 $("#Parse_Area").html(Parse_data);
-                console.log("통신 데이터 값: " + Parse_data);
             }
         });
     }

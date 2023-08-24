@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>/support_main</title>
+<link rel="shortcut icon" type="image/x-icon" href="https://genfavicon.com/tmp/icon_7cacead7cd8483ca41a810db418dc8ab.ico">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/support/support_main.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/reset.css" type="text/css">
@@ -32,25 +33,23 @@
 
             </div>
         </div>
-    </main>
+    </main>	
 
-	<!-- 메인 메뉴바 시작 -->
-	<ul class="menu_bar">
-		<li class="menu_home">
-			<a class="nav-link active" href="${pageContext.request.contextPath }/support/support_main">고객센터</a>
-		</li>
-		<li class="menu_faq">
-			<a class="nav-link" href="${pageContext.request.contextPath }/support/support_faq">자주하는 질문</a>
-		</li>
-		<li class="menu_notice">
-			<a class="nav-link" href="${pageContext.request.contextPath }/support/support_notice">공지사항</a>
-		</li>
-		<li class="menu_inquire">
-			<a class="nav-link" href="${pageContext.request.contextPath }/support/support_inquire">문의하기</a>
-		</li>
-	</ul>
-	
-	<section>
+			<!-- 메인 메뉴바 시작 -->
+		<ul class="menu_bar">
+			<li class="menu_home">
+				<a class="nav-link active" href="${pageContext.request.contextPath }/support/support_main">고객센터</a>
+			</li>
+			<li class="menu_faq">
+				<a class="nav-link" href="${pageContext.request.contextPath }/support/support_faq">자주하는 질문</a>
+			</li>
+			<li class="menu_notice">
+				<a class="nav-link" href="${pageContext.request.contextPath }/support/support_notice">공지사항</a>
+			</li>
+			<li class="menu_inquire">
+				<a class="nav-link" href="${pageContext.request.contextPath }/support/support_inquire">문의하기</a>
+			</li>
+		</ul>
 		<div class="inner-wrap">
 		<div class="area_faq">
 		  <h2 class="title">자주하는 질문 10</h2>
@@ -76,7 +75,7 @@
 				<ul>
 					<c:forEach var="tmp" items="${notice_list }">
 					<li>
-						<p>${tmp.title}</p>
+						<a href="${pageContext.request.contextPath }/support/support_notice_detail?notice_num=${tmp.notice_num}">${tmp.title}</a>
 					</li>
 					</c:forEach>
 				</ul>
@@ -102,7 +101,7 @@
 				</dl>
 			</div>
 	</div>
-	</section>	
+
 	<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
 </body>
 </html>

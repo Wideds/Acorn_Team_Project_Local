@@ -59,7 +59,6 @@
 	        success : function(Parse_data){
 	            $("#Parse_Area").html(Parse_data); //div에 받아온 값을 넣는다.
 	            console.log("통신 데이터 값 : " + Parse_data);
-	        }
 	    });
 	});
 	</script>

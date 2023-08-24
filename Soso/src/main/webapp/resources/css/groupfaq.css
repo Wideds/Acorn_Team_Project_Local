@@ -1,35 +1,31 @@
 @charset "UTF-8";
-#faqInsert, #update, #delete, #insertAnswer, #deleteAnswer, #updateAnswer{
-	border : 2px solid black;
-	border-radius : 10px;
-	display : inline-block; /* 필요한 만큼만 감싸기 */
-	justify-content : flex-end;
-    padding: 5px 10px; /* 원하는 패딩 값 설정 */
-}
-.faq-row{
-	border-bottom : 1.5px solid black;
-}
-.pagination{
-	display : flex;
-	justify-content : center;
-}
-.page-item{
-	margin : 1rem;
-}
-
-pre{
-	margin : 0.5rem;
-}
+.cafe_table #faqInsert{display: flex; justify-content: flex-end; cursor:pointer;}
+.cafe_table #faqInsert:hover, .cafe_table .qna_question a:hover, .cafe_table .qna_answer a:hover { font-weight:500; text-decoration: underline;}
 
 
-#answer{
-	background-color: #0000000b;
-	margin : 20px;
-	border : 1.5px dotted black;
-	border-radius : 10px;
-    padding: 5px 10px; /* 원하는 패딩 값 설정 */
-}
+.cafe_table .table__body { max-height: calc(89% - 1.6rem); margin: .8rem auto; border-radius: .6rem; overflow: auto; overflow: overlay;}
+.cafe_table table { width: 100%;}
+.cafe_table table, th, td { border-collapse: collapse; padding: 1rem; text-align: left;}
+.cafe_table tbody tr { border-bottom: 1px solid #e5e5e5;}
+.cafe_table tbody tr:nth-child(even) { background-color: #0000000b;}
+.cafe_table tbody .q-title:hover {font-weight:600;}
+.cafe_table tbody .q-delete{color: #c9c9c9;}
+.cafe_table tbody .q-delete:hover {color: rgb(226 148 148 / 92%); text-decoration: underline;}
+.cafe_table .answer_end {background-color: rgb(166 223 170 / 89%); display: inline; color: #fff; padding: 2% 10%; border-radius: 15px; text-align: center;}
+.cafe_table .answer_wait {background-color: #e1e1e1; display: inline; color: #fff; padding: 2% 10%; border-radius: 15px; text-align: center;}
+.cafe_table .qna_question, .cafe_table .qna_answer{display:flex; padding: 3% 7%;}
+.cafe_table .qna_q{font-size:3rem; font-weight:100; color: #c1c4c3;}
+.cafe_table #content, .cafe_table #answer, .cafe_table #insertAnswer { border-bottom: 1px solid #ccc; padding-bottom: 3%; line-height: 2rem; margin-left: 6%; width:0%; min-width:75%;}
+.cafe_table .qna_a {font-size:3rem; font-weight:100; color: rgb(166 223 170 / 89%);}
+.cafe_table #answer, .cafe_table #insertAnswer{ border-bottom: none;}
+.cafe_table .qna_question a, .cafe_table .qna_answer a {padding:1%; height: 100%;}
 
-#emptyBox{
-	margin-left : 1rem;
-}
+
+
+
+
+
+
+
+
+

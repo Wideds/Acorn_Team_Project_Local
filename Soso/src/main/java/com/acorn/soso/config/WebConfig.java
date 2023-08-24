@@ -16,6 +16,7 @@ import com.acorn.soso.interceptor.LoginInterceptor;
  * 3. 설정에 관련된 클래스에는 @Configuration 어노테이션을 붙여야 한다.
  */
 import com.acorn.soso.interceptor.PwdAuthInterceptor;
+import com.acorn.soso.interceptor.SupportInterceptor;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer{
@@ -24,6 +25,8 @@ public class WebConfig implements WebMvcConfigurer{
 	LoginInterceptor loginInter;
 	@Autowired
 	PwdAuthInterceptor pwdAuthInter;
+	@Autowired
+	SupportInterceptor supportInter;
 	
 	//Interceptor를 추가할 때 오버라이드 하는 메소드
 	@Override
@@ -42,6 +45,8 @@ public class WebConfig implements WebMvcConfigurer{
 				.addPathPatterns("/users/updateform", "/users/pwd_updateform");
 		registry.addInterceptor(loginInter)
 				.addPathPatterns("/group_managing/*");
+		registry.addInterceptor(supportInter)
+        		.addPathPatterns("/support/*");
 	}
 	
 	@Override

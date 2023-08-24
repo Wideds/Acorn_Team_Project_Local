@@ -3,7 +3,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/group_managing_list.css" />
 <!-- 커뮤니티 글 목록 -->
-
 <div class="cafe_table">           
     <div class="cafe_search">
 		<form class="d-flex" action="list" method="get">

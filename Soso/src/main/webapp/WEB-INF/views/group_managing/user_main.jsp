@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>나의 북메이트</title>
 	<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+	<link rel="shortcut icon" type="image/x-icon" href="https://genfavicon.com/tmp/icon_7cacead7cd8483ca41a810db418dc8ab.ico">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/group_managing_user_main.css" />
 	<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="${path }/resources/js/jquery-1.12.0.min.js"></script>

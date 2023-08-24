@@ -52,10 +52,10 @@
 	<div class="main_area">
 	<ul class="menu_bar">
 		<li class="menu_home">
-			<a class="nav-link active" href="${pageContext.request.contextPath }/support/support_main">고객센터</a>
+			<a class="nav-link" href="${pageContext.request.contextPath }/support/support_main">고객센터</a>
 		</li>
 		<li class="menu_faq">
-			<a class="nav-link" href="${pageContext.request.contextPath }/support/support_faq">자주하는 질문</a>
+			<a class="nav-link active" href="${pageContext.request.contextPath }/support/support_faq">자주하는 질문</a>
 		</li>
 		<li class="menu_notice">
 			<a class="nav-link" href="${pageContext.request.contextPath }/support/support_notice">공지사항</a>

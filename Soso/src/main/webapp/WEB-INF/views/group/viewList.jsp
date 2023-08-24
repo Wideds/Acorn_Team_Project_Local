@@ -8,14 +8,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+	<link rel="shortcut icon" type="image/x-icon" href="https://genfavicon.com/tmp/icon_7cacead7cd8483ca41a810db418dc8ab.ico">
 	<link rel="stylesheet" href="${path }/resources/css/common.css" type="text/css">
     <link rel="stylesheet" href="${path }/resources/css/group_list.css" type="text/css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="${path }/resources/js/jquery-1.12.0.min.js"></script>
     <script src="${path }/resources/js/jquery.easing.1.3.js"></script>
     <script src="${path }/resources/js/common.js"></script>
-	
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/include/navbar.jsp">
@@ -61,7 +61,7 @@
         <div class="inner-wrap">
             <div class="mate_content_theme">
                <ul>
-                    <li><a href="${pageContext.request.contextPath}/group/list">전체보기</a></li>
+                    <li><a href="${pageContext.request.contextPath}/group/list?genre=-1">전체보기</a></li>
 			        <li><a href="${pageContext.request.contextPath}/group/list?genre=1">자기계발</a></li>
 			        <li><a href="${pageContext.request.contextPath}/group/list?genre=2">인문</a></li>
 			        <li><a href="${pageContext.request.contextPath}/group/list?genre=3">경제</a></li>
@@ -72,7 +72,7 @@
             <div class="mate_content_theme">
                 <ul>
                     <li><a href="${pageContext.request.contextPath}/group/viewList">인기순</a></li>
-                    <li><a href="${pageContext.request.contextPath}/group/list">최신순</a></li>
+                    <li><a href="${pageContext.request.contextPath}/group/list?genre=-1">최신순</a></li>
                 </ul>
             </div>
         </div>
@@ -82,7 +82,7 @@
 	               <div class="mate_contents">
 	                   <a href="${pageContext.request.contextPath}/group/group_page?num=${tmp.num }">
 	                       <div class="mate_content_img">
-	                           <img src="${path }/resources/images/main/001.jpg" alt="테스트이미지1">
+	                           <img src="${pageContext.request.contextPath}${tmp.img_path}">
 	                           	<!-- 신청 마감일시 마감버튼 보이게 -->
 								<c:set var="now" value="<%= new java.util.Date() %>" />
 								<c:set var="nowDate"><fmt:formatDate value="${now}" pattern="yyyy-MM-dd" /></c:set> 
@@ -105,53 +105,55 @@
 	           </div>
         	</c:forEach>
         </div>
-        <div class="inner-wrap">
-			<ul class="pagination">
-				<c:choose>
-					<c:when test="${startPageNum ne 1 }">
-						<li class="page-item">
-		               		<a class="page-link" href="${pageContext.request.contextPath}/group/viewList?pageNum=${startPageNum - 1}">Prev</a>
-		            	</li>
-					</c:when>
-					<c:otherwise>
-						<li class="page-item disabled">
-		               		<a class="page-link" href="javascript:">Prev</a>
-		            	</li>
-					</c:otherwise>
-				</c:choose>
-				<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
-					<c:choose>
-						<c:when test="${i eq pageNum }">
-							<li class="page-item active">
-		                  		<a class="page-link" href="${pageContext.request.contextPath}/group/viewList?pageNum=${i}">${i }</a>
-		               		</li>
-						</c:when>
-						<c:otherwise>
-							<li class="page-item">
-		                  		<a class="page-link" href="${pageContext.request.contextPath}/group/viewList?pageNum=${i}">${i}</a>
-		               		</li>
-						</c:otherwise>
-					</c:choose>
-				</c:forEach>
-				<c:choose>
-					<c:when test="${endPageNum lt totalPageCount }">
-						<li class="page-item">
-		               		<a class="page-link" href="${pageContext.request.contextPath}/group/viweList?pageNum=${endPageNum + 1}">Next</a>
-		            	</li>
-					</c:when>
-					<c:otherwise>
-						<li class="page-item disabled">
-		               		<a class="page-link" href="javascript:">Next</a>
-		            	</li>
-					</c:otherwise>
-				</c:choose>
-		      </ul>
-        </div>
-      <script>
-
-      </script>
+        <div id="Parse_Area"gt;lt;></div>
     </section>
 	<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
-	
+	<script>
+      	AOS.init();
+        //페이지 번호를 관리할 변수를 만들고 초기값 1 대입하기
+        let currentPage=1;
+        //마지막 페이지는 totalPageCount 이다.  
+        let lastPage=${totalPageCount};
+        
+        /*
+           window.scrollY => 위쪽으로 스크롤된 길이
+           window.innerHeight => 웹브라우저의 창의 높이
+           document.body.offsetHeight => body 의 높이 (문서객체가 차지하는 높이)
+        */
+        
+        $(window).on("scroll", function() {
+            // 바닥 까지 스크롤 했는지 여부
+            const isBottom =
+                window.innerHeight + window.scrollY >= document.body.offsetHeight;
+
+            // 현재 페이지가 마지막 페이지인지 여부 알아내기
+            let isLast = currentPage == lastPage;
+
+            // 현재 바닥까지 스크롤 했고 현재 페이지가 마지막이 아니라면
+            if (isBottom && !isLast) {
+                // 현재 페이지를 1 증가 시키고
+                currentPage++;
+
+                /*
+                   해당 페이지의 내용을 ajax 요청을 통해서 받아온다.
+                   "pageNum=xxx&num=xxx" 형식으로 GET 방식 파라미터를 전달한다.
+                */
+                $.ajax({
+                    url: "${pageContext.request.contextPath}/group/ajax_viewList",
+                    type: "get",
+                    data: {
+                        pageNum: currentPage
+                    }
+                })
+                .done(function(data) {
+                    // data는 html 형식의 문자열이다.
+                    console.log(data);
+                    // beforebegin | afterbegin | beforeend | afterend
+                    $("#Parse_Area").append(data);
+                });
+            }
+        });
+    	
+     </script>
 </body>
 </html>

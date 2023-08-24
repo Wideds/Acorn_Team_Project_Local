@@ -68,6 +68,7 @@ public class NoticeServiceImpl implements NoticeService {
 		model.addAttribute("notice_list", notice_list);
 		model.addAttribute("totalRow", totalRow);
 		
+		
 	}
 
 	@Override
