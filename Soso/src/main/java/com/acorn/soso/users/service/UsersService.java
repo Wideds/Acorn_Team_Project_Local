@@ -24,6 +24,6 @@ public interface UsersService {
 	public void findUserPwd(UsersDto dto, Model model);
 	public void findUserId(UsersDto dto, Model model); // id찾기
 	public void pwdAuth(UsersDto dto, HttpSession session, Model model);
-	public void kakaoJoin(UsersDto dto); //카카오 회원가입
-	UsersDto kakaoLogin(String snsId);//카카오 로그인
+//	public void kakaoJoin(UsersDto dto); //카카오 회원가입
+//	UsersDto kakaoLogin(String snsId);//카카오 로그인
 }

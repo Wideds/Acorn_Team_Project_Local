@@ -273,19 +273,19 @@ public class UsersServiceImpl implements UsersService{
 		model.addAttribute("id", id);
 	}
 	
-	/* 카카오 로그인 */
-	@Override
-	public void kakaoJoin(UsersDto dto) {
-		mapper.kakaoInsert(memberVO);
-		String userid = memberVO.getUserid();
-		log.info("userid:: " + userid);
-		mapper.authorize(memberVO);
-	}
-
-	@Override
-	public MemberVO kakaoLogin(String snsId) {
-		log.info("snsId:: " + snsId);
-		return mapper.kakaoSelect(snsId);
-	}
+//	/* 카카오 로그인 */
+//	@Override
+//	public void kakaoJoin(UsersDto dto) {
+//		mapper.kakaoInsert(memberVO);
+//		String userid = memberVO.getUserid();
+//		log.info("userid:: " + userid);
+//		mapper.authorize(memberVO);
+//	}
+//
+//	@Override
+//	public MemberVO kakaoLogin(String snsId) {
+//		log.info("snsId:: " + snsId);
+//		return mapper.kakaoSelect(snsId);
+//	}
 	
 }
